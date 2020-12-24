@@ -189,14 +189,14 @@
                       恢复默认
                     </q-tooltip>
                     <q-popup-proxy>
-                      <q-card class="my-card">
-                        <q-card-section class="bg-primary text-white">
+                      <q-card class="my-card" style="width:240px; ">
+                        <q-card-section class="bg-secondary text-white">
                           <div class="text-subtitle1 text-no-wrap">恢复默认？</div>
                         </q-card-section>
                         <q-separator />
-                        <q-card-actions align="right">
-                          <q-btn dense v-close-popup @click="restoreSetting('colorHeader')">好的</q-btn>
-                          <q-btn dense v-close-popup flat>取消</q-btn>
+                        <q-card-actions align="right" class="q-pa-lg">
+                          <q-btn v-close-popup flat>取消</q-btn>
+                          <q-btn v-close-popup color="secondary" icon="check" @click="restoreSetting('colorHeader')">是的</q-btn>
                         </q-card-actions>
                       </q-card>
                     </q-popup-proxy>
@@ -229,14 +229,14 @@
                       恢复默认
                     </q-tooltip>
                     <q-popup-proxy>
-                      <q-card class="my-card">
-                        <q-card-section class="bg-primary text-white">
+                      <q-card class="my-card" style="width:240px; ">
+                        <q-card-section class="bg-secondary text-white">
                           <div class="text-subtitle1 text-no-wrap">恢复默认？</div>
                         </q-card-section>
                         <q-separator />
-                        <q-card-actions align="right">
-                          <q-btn dense v-close-popup @click="restoreSetting('colorMenu')">好的</q-btn>
-                          <q-btn dense v-close-popup flat>取消</q-btn>
+                        <q-card-actions align="right" class="q-pa-lg">
+                          <q-btn v-close-popup flat>取消</q-btn>
+                          <q-btn v-close-popup color="secondary" icon="check" @click="restoreSetting('colorMenu')">是的</q-btn>
                         </q-card-actions>
                       </q-card>
                     </q-popup-proxy>
@@ -269,14 +269,14 @@
                       恢复默认
                     </q-tooltip>
                     <q-popup-proxy>
-                      <q-card class="my-card">
-                        <q-card-section class="bg-primary text-white">
+                      <q-card class="my-card" style="width:240px; ">
+                        <q-card-section class="bg-secondary text-white">
                           <div class="text-subtitle1 text-no-wrap">恢复默认？</div>
                         </q-card-section>
                         <q-separator />
-                        <q-card-actions align="right">
-                          <q-btn dense v-close-popup @click="restoreSetting('colorPage')">好的</q-btn>
-                          <q-btn dense v-close-popup flat>取消</q-btn>
+                        <q-card-actions align="right" class="q-pa-lg">
+                          <q-btn v-close-popup flat>取消</q-btn>
+                          <q-btn v-close-popup color="secondary" icon="check" @click="restoreSetting('colorPage')">是的</q-btn>
                         </q-card-actions>
                       </q-card>
                     </q-popup-proxy>
