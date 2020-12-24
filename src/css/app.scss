@@ -166,10 +166,10 @@ body {
   }
 }
 
-.coadmin-dialog {
+.q-dialog {
   &.q-dark,
   .q-dark {
-    background: $grey-9;
+    background-color: #2d2d2d;  // $grey-10
   }
 
   /* 使用v-drag，会导致对话框在小屏幕占满左右两边，这里增加一点空隙 */

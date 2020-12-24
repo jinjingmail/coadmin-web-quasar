@@ -8,25 +8,27 @@
     参考 props 定义
     loading
     loading-spinner
-    no-toolbar
+    no-header
     no-drag
     no-max
     no-close
     close-method
     icon
+    content-style
+    content-class
     ...
 -->
 <template>
   <q-dialog
-      ref="dialog"
-      class="coadmin-dialog"
-      :maximized="maxscreen"
-      v-bind="$attrs"
-      v-on="$listeners"
-      @before-show="_beforeShow"
+    ref="dialog"
+    :maximized="maxscreen"
+    v-bind="$attrs"
+    v-on="$listeners"
+    class="coadmin-dialog"
+    @before-show="_beforeShow"
   >
     <q-card ref="card" :style="contentStyle" :class="contentClass" :id="uuid">
-      <q-card-section v-if="!noToolbar" class="no-padding">
+      <q-card-section v-if="!noHeader" class="no-padding">
         <q-toolbar>
           <q-toolbar v-if="!noDrag" v-drag="{moveElId: uuid, dragOutY:40}" class="q-pl-none">
             <slot name="header_left">
@@ -68,20 +70,18 @@
 </template>
 
 <script>
-import { random } from '../utils/index'
-// import { QDialog } from 'quasar'
+import { random } from '@/utils/index'
 
 export default {
   name: 'CoadminDialog',
   inheritAttrs: false,
-  // mixins: [QDialog],
   props: {
     title: {
       type: String,
       default: ''
     },
     loading: Boolean,
-    noToolbar: Boolean,
+    noHeader: Boolean,
     noClose: Boolean,
     noDrag: Boolean,
     noMax: Boolean,
@@ -140,6 +140,9 @@ export default {
   },
   methods: {
     _beforeShow (evt) {
+      if (this.$listeners['before-show']) {
+        this.$emit('before-show')
+      }
       this.$nextTick(function () {
         if (this.maxscreen) {
           this._toMaxScreen()
