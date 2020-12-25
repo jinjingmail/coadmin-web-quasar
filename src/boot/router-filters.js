@@ -1,9 +1,8 @@
 import { LoadingBar } from 'quasar'
-// import store from '@/store'
-import Setting from '@/default-setting'
 import { getToken } from '@/utils/auth' // getToken from cookie
 import { buildMenus } from '@/api/system/menu'
 import { filterAsyncRouter } from '@/store/module-permission'
+import Setting from '@/default-setting'
 
 // "async" is optional;
 // more info on params: https://quasar.dev/quasar-cli/cli-documentation/boot-files#Anatomy-of-a-boot-file
@@ -48,28 +47,13 @@ export default ({ app, router, store, Vue }) => {
         LoadingBar.stop()
       }
     }
-    /*
-    const protectedRoute = to.matched.some(route => route.meta.auth)
-    // Allow guest routes
-    if (!protectedRoute) return next()
-
-    // If auth is required and the user is logged in, verify the token...
-    if (store.getters['user/isAuthed']) {
-      return store.dispatch('user/validate').then(user => {
-        user ? next() : next({ name: 'user-login', query: { redirect: to.fullPath } })
-        LoadingBar.stop()
-      })
-    }
-    next({ name: 'user-login', query: { redirect: to.fullPath } })
-    LoadingBar.stop()
-    */
   })
 
   const loadMenus = (next, to) => {
     buildMenus().then(res => {
+      store.dispatch('permission/LoadDictAll')
       const asyncRouter = filterAsyncRouter(res)
       asyncRouter.push({ path: '*', redirect: '/404', hidden: true })
-      store.dispatch('permission/LoadDictAll')
       store.dispatch('permission/GenerateRoutes', asyncRouter).then(() => { // 存储路由
         router.addRoutes(asyncRouter) // 动态添加可访问路由表
         next({ ...to, replace: true })

@@ -4,10 +4,10 @@ import { getDictMapAll } from '@/api/system/dictDetail'
 import Vue from 'vue'
 
 /*
- state.dict 用法示例：
-      dict.label.user_status = {'true': '激活', 'false': '禁用'} // value映射到标签
+ state.dict 结构示例：
+      dict.label.user_status = {'true': '激活', 'false': '禁用'}      // value映射到标签
       dict.dict.user_status  = {'true': {'激活':true, id:1}, 'false':  {'禁用':false, id:2}} // 值
-      dict.user_status = [{'激活':true, id:1}, {'禁用':false, id:2}]       // 原始数据
+      dict.user_status = [{'激活':true, id:1}, {'禁用':false, id:2}]  // 字典数组
  */
 const state = {
   routers: constantRouterMap,
@@ -46,7 +46,6 @@ const actions = {
   LoadDictAll({ commit }) {
     return new Promise((resolve, reject) => {
       getDictMapAll().then(res => {
-        console.log('loadDict.all=', res)
         commit('SET_DICT_ALL', res)
         resolve(res)
       }).catch(error => {
