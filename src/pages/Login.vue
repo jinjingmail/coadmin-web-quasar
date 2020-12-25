@@ -12,7 +12,7 @@
           v-if="$q.screen.gt.xs"
         >
           <div class="absolute-bottom-left text-subtitle2 text-center">
-            {{$q.version}}
+            Based on Quasar {{$q.version}}
           </div>
         </q-img>
 
@@ -33,7 +33,7 @@
               dense
               no-error-icon
               v-model.trim="loginForm.username"
-              placeholder="账号 admin"
+              placeholder="账号 demo"
               :rules="[ val => val && val.length > 0 || '请输入用户账号']"
             />
             <coadmin-input
@@ -55,7 +55,7 @@
               placeholder="验证码"
               :rules="[ val => val && val.length > 0 || '请输入验证码']"
             >
-              <template v-slot:after>
+              <template v-slot:append>
                 <img :src="codeUrl" @click="getCode"/>
               </template>
             </coadmin-input>
@@ -74,11 +74,13 @@
                 class="full-width"
                 @click.native.prevent="handleLogin"
               />
+              <!--
               <div class="q-mt-md">如果还没有账号？<router-link
                   to="/register"
                   class="text-primary"
                 >点击注册</router-link>
               </div>
+              -->
             </div>
           </coadmin-form>
 

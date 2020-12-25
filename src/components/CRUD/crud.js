@@ -172,8 +172,8 @@ function CRUD(options) {
     /**
      * 启动添加
      */
-    toAdd() {
-      crud.resetForm()
+    toAdd(data = {}) {
+      crud.resetForm(JSON.parse(JSON.stringify(data)))
       if (!(callVmHook(crud, CRUD.HOOK.beforeToAdd, crud.form) && callVmHook(crud, CRUD.HOOK.beforeToCU, crud.form))) {
         return
       }

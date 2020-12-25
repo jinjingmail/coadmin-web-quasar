@@ -105,7 +105,7 @@
           </q-btn>
           <q-btn flat dense v-if="$q.screen.gt.xs" :icon="$q.fullscreen.isActive ? 'fullscreen_exit' : 'fullscreen'" @click="$q.fullscreen.toggle()"/>
           <q-btn flat dense v-if="$q.screen.gt.xs" :icon="$q.dark.isActive ? 'wb_sunny' : 'brightness_3'" @click="changeSetting({key:'darkMode', value: !$q.dark.isActive})"/>
-          <q-btn flat dense :label="$q.screen.gt.xs?username:''" @click="$refs.drawerRight.toggle()" class="no-wrap">
+          <q-btn flat dense :label="$q.screen.gt.xs?user.username:''" @click="$refs.drawerRight.toggle()" class="no-wrap">
             <q-avatar size="md" class="q-pl-xs">
               <img src="~assets/boy-avatar.jpg">
             </q-avatar>
@@ -137,7 +137,7 @@
 
           <div class="no-wrap">
             <div class="column items-center">
-              <div class="text-body1 q-mb-xs">{{username}}</div>
+              <div class="text-body1 q-mb-xs">{{user.username}}</div>
               <q-avatar size="80px">
                 <img src="~assets/boy-avatar.jpg">
               </q-avatar>
@@ -148,7 +148,7 @@
                   label="个人设置"
                   flat
                   borderless
-                  size="sm"
+                  @click="$router.push('/user/center')"
                 />
                 <q-space/>
                 <q-btn
@@ -156,7 +156,6 @@
                   label="退出登录"
                   flat
                   borderless
-                  size="sm"
                   @click="$store.dispatch('user/LogOut').then(()=>{$router.push('/login')})"
                 />
               </q-toolbar>
@@ -400,7 +399,6 @@ export default {
   },
   data () {
     return {
-      username: 'usernaee_ ',
       miniState: false,
       leftDrawerMini: false,
       leftDrawerOpen: false,
@@ -481,6 +479,9 @@ export default {
     ]),
     ...mapGetters('permission', [
       'permission_routers'
+    ]),
+    ...mapGetters('user', [
+      'user'
     ]),
     /* cachedViews () {
       return this.$store.state.tagviews.cachedViews
