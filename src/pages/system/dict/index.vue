@@ -21,11 +21,11 @@
             </q-field>
           </coadmin-form-item>
           <coadmin-input class="col-12" form-label="名称" v-model="form.name" :disable="!!crud.status.view" :rules="[
-              val => (val && val.length >= 1) || '请输入1个以上字符'
+              val => (!!val) || '必填'
               ]">
           </coadmin-input>
           <coadmin-input class="col-12" form-label="描述" v-model="form.description" :disable="!!crud.status.view" :rules="[
-              val => (val && val.length >= 1) || '请输入1个以上字符'
+              val => (!!val) || '必填'
               ]">
           </coadmin-input>
         </div>
