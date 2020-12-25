@@ -15,6 +15,7 @@
     :style="computedStyle"
     v-bind="$attrs"
     v-on="listeners"
+    :loading="showLoading"
     :fullscreen="isFullscreen"
     :virtual-scroll="computedVirtualScroll"
     :rows-per-page-options="rowsPerPageOptions"
@@ -89,6 +90,7 @@ export default {
       type: Boolean,
       default: false
     },
+    loading: Boolean,
     loadingSpinner: {
       type: String,
       default: 'gears',
@@ -106,19 +108,20 @@ export default {
     }
   },
   created () {
+    this.showLoading = this.loading
     this.isFullscreen = this.fullscreen
   },
   mounted () {
   },
   watch: {
-    '$attrs.loading' (valNew) {
+    loading (valNew) {
       this.showLoading = false
       if (valNew) {
         if (this.loadingDelay <= 0) {
-          this.showLoading = true
+          this.showLoading = this.loading
         } else {
           setTimeout(() => {
-            this.showLoading = true
+            this.showLoading = this.loading
           }, this.loadingDelay)
         }
       }

@@ -57,7 +57,7 @@
             <q-btn dense padding="xs sm" color="primary" icon="search" @click="crud.toQuery" />
           </div>
           <q-space/>
-          <crud-operation :permission="permission" :no-add="!dictId" no-view no-edit no-label/>
+          <crud-operation :permission="permission" v-if="dictId" no-view no-edit no-label/>
           <div class="col-auto">
             <q-btn-dropdown dense color="primary" class="btn-dropdown-hide-droparrow" icon="apps" auto-close>
               <crud-more :tableSlotTopProps="props" />
@@ -88,6 +88,8 @@ import crudRow from '@crud/CRUD.row'
 import crudMore from '@crud/CRUD.more'
 import crudDictDetail from '@/api/system/dictDetail'
 
+const defaultForm = { id: null, label: null, value: null, dictSort: 10 }
+const visibleColumns = ['label', 'value', 'dictSort', 'action']
 const columns = [
   { name: 'id', field: 'id', label: 'ID' },
   {
@@ -96,15 +98,12 @@ const columns = [
     label: '标签',
     required: true,
     align: 'left',
-    format: val => `${val}`,
     sortable: true
   },
   { name: 'value', label: '值', field: 'value', align: 'left' },
   { name: 'dictSort', label: '排序', field: 'dictSort', align: 'left' },
   { name: 'action', label: '操作', align: 'center' }
 ]
-const visibleColumns = ['label', 'value', 'dictSort', 'action']
-const defaultForm = { id: null, label: null, value: null, dictSort: 10 }
 
 export default {
   name: 'DictDetail',
@@ -132,9 +131,9 @@ export default {
   data () {
     return {
       permission: {
-        add: ['dict:add'],
-        edit: ['dict:edit'],
-        del: ['dict:del']
+        add: ['admin', 'dict:add'],
+        edit: ['admin', 'dict:edit'],
+        del: ['admin', 'dict:del']
       },
       dictId: null
     }

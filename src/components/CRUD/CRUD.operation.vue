@@ -17,6 +17,7 @@
     color-edit / color-view / color-del / color-add
     label-view / label-edit / label-del / label-add
     icon-edit / icon-view / icon-del / icon-add
+    no-edit / no-view / no-del / no-add
     no-icon
     no-label
 -->
@@ -26,14 +27,14 @@
     <slot name="start" />
     <q-btn :dense="dense" :padding="(dense && computedLabelView)?'xs sm':''" :flat="flat" :rounded="rounded" :round="round" :outline="outline" :push="push" :unelevated="unelevated" :glossy="glossy"
       :color="colorView" :icon="computedIconView" :label="computedLabelView" v-if="!noView && !(crud.selections.length!==1)" @click="crud.toView(crud.selections[0])"/>
-    <q-btn :dense="dense" :padding="(dense && computedLabelEdit)?'xs sm':''" :flat="flat" :rounded="rounded" :round="round" :outline="outline" :push="push" :unelevated="unelevated" :glossy="glossy"
+    <q-btn :dense="dense" v-permission="permission.edit" :padding="(dense && computedLabelEdit)?'xs sm':''" :flat="flat" :rounded="rounded" :round="round" :outline="outline" :push="push" :unelevated="unelevated" :glossy="glossy"
       :color="colorEdit" :icon="computedIconEdit" :label="computedLabelEdit" v-if="!noEdit && !(crud.selections.length!==1)" @click="crud.toEdit(crud.selections[0])"/>
-    <q-btn :dense="dense" :padding="(dense && computedLabelDel)?'xs sm':''" :flat="flat" :rounded="rounded" :round="round" :outline="outline" :push="push" :unelevated="unelevated" :glossy="glossy"
+    <q-btn :dense="dense" v-permission="permission.del" :padding="(dense && computedLabelDel)?'xs sm':''" :flat="flat" :rounded="rounded" :round="round" :outline="outline" :push="push" :unelevated="unelevated" :glossy="glossy"
       :color="colorDel" :icon="computedIconDel" :label="computedLabelDel" v-if="!noDel && !(crud.selections.length===0)"
       @click="$refs.dialogDelete.show()"
       :loading="crud.delAllLoading"
       />
-    <q-btn :dense="dense" :padding="(dense && computedLabelAdd)?'xs sm':''" :flat="flat" :rounded="rounded" :round="round" :outline="outline" :push="push" :unelevated="unelevated" :glossy="glossy"
+    <q-btn :dense="dense" v-permission="permission.add" :padding="(dense && computedLabelAdd)?'xs sm':''" :flat="flat" :rounded="rounded" :round="round" :outline="outline" :push="push" :unelevated="unelevated" :glossy="glossy"
       :color="colorAdd" :icon="computedIconAdd" :label="computedLabelAdd" v-if="!noAdd" @click="crud.toAdd"/>
     <!--右侧插槽-->
     <slot name="end" />

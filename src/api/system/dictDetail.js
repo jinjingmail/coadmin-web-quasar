@@ -26,6 +26,13 @@ export function getDictMap(dictName) {
   })
 }
 
+export function getDictMapAll() {
+  return request({
+    url: 'api/dictDetail/map/all',
+    method: 'get'
+  })
+}
+
 export function add(data) {
   return request({
     url: 'api/dictDetail',

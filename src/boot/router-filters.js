@@ -69,6 +69,7 @@ export default ({ app, router, store, Vue }) => {
     buildMenus().then(res => {
       const asyncRouter = filterAsyncRouter(res)
       asyncRouter.push({ path: '*', redirect: '/404', hidden: true })
+      store.dispatch('permission/LoadDictAll')
       store.dispatch('permission/GenerateRoutes', asyncRouter).then(() => { // 存储路由
         router.addRoutes(asyncRouter) // 动态添加可访问路由表
         next({ ...to, replace: true })

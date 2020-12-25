@@ -1,23 +1,21 @@
-//import Vue from 'vue'
 import axios from 'axios'
 import Cookies from 'js-cookie'
-//import router from '@/router'
-//import store from '@/store'
 import { getToken } from '@/utils/auth'
 import { Notify } from 'quasar'
 
-import setting from '@/default-setting'
+import Setting from '@/default-setting'
 
+console.log('process.env.VUE_APP_BASE_API=', process.env.VUE_APP_BASE_API)
 console.log('create axiosInstance')
 // 创建axios实例
 const axiosInstance = axios.create({
   // baseURL: process.env.NODE_ENV === 'production' ? process.env.VUE_APP_BASE_API : '/', // api 的 base_url
   baseURL: process.env.VUE_APP_BASE_API,
-  timeout: setting.timeout // 请求超时时间
+  timeout: Setting.timeout // 请求超时时间
 })
 
 export default ({ app, router, store, Vue }) => {
-  console.log('init axiosInstance process.env.VUE_APP_BASE_API=', process.env.VUE_APP_BASE_API)
+  console.log('init axiosInstance')
 
   // request拦截器
   axiosInstance.interceptors.request.use(
@@ -64,7 +62,7 @@ export default ({ app, router, store, Vue }) => {
             return Promise.reject(error)
           }
         }
-        console.log(code)
+        console.log('axios.code=', code)
         if (code) {
           if (code === 401) {
             store.dispatch('user/LogOut').then(() => {
