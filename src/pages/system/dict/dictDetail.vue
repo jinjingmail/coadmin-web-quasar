@@ -20,7 +20,7 @@
               </template>
             </q-field>
           </coadmin-form-item>
-          <coadmin-input class="col-12" form-label="label" v-model="form.label" :disable="!!crud.status.view" :rules="[
+          <coadmin-input class="col-12" form-label="标签" v-model="form.label" :disable="!!crud.status.view" :rules="[
               val => (val && val.length >= 1) || '请输入1个以上字符'
               ]"/>
           <coadmin-input class="col-12" form-label="值" v-model="form.value" :disable="!!crud.status.view" :rules="[
@@ -52,7 +52,7 @@
     >
       <template v-slot:top-right="props">
         <div class='row q-col-gutter-x-sm q-col-gutter-y-xs q-px-sm q-py-sm full-width'>
-          <coadmin-input class='col-auto' placeholder="名称、值" v-model="query.blurry" content-style="width:140px" clearable @keyup.enter.native="crud.toQuery"/>
+          <coadmin-input class='col-auto' placeholder="ID、标签、值" v-model="query.blurry" content-style="width:140px" clearable @keyup.enter.native="crud.toQuery"/>
           <div class='col-auto'>
             <q-btn dense padding="xs sm" color="primary" icon="search" @click="crud.toQuery" />
           </div>
@@ -81,7 +81,7 @@
 </template>
 
 <script>
-import CRUD, { presenter, header, form, crud } from '@crud/crud'
+import CRUD, { presenter, header, form } from '@crud/crud'
 import crudOperation from '@crud/CRUD.operation'
 import crudPagination from '@crud/CRUD.pagination'
 import crudRow from '@crud/CRUD.row'
@@ -93,7 +93,7 @@ const columns = [
   {
     name: 'label',
     field: 'label',
-    label: '名称',
+    label: '标签',
     required: true,
     align: 'left',
     format: val => `${val}`,
@@ -104,7 +104,7 @@ const columns = [
   { name: 'action', label: '操作', align: 'center' }
 ]
 const visibleColumns = ['label', 'value', 'dictSort', 'action']
-const defaultForm = { id: null, label: null, value: null, dictSort: null }
+const defaultForm = { id: null, label: null, value: null, dictSort: 10 }
 
 export default {
   name: 'DictDetail',
@@ -127,15 +127,14 @@ export default {
     header(),
     form(function () {
       return Object.assign({ dict: { id: this.dictId } }, defaultForm)
-    }),
-    crud()
+    })
   ],
   data () {
     return {
       permission: {
-        add: ['admin', 'dict:add'],
-        edit: ['admin', 'dict:edit'],
-        del: ['admin', 'dict:del']
+        add: ['dict:add'],
+        edit: ['dict:edit'],
+        del: ['dict:del']
       },
       dictId: null
     }

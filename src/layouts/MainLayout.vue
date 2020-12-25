@@ -419,7 +419,6 @@ export default {
       this.leftDrawerMini = true
       this.miniState = true
     }
-    console.log('permission_routers=', this.roupermission_routersters)
   },
   watch: {
     $route (route) {

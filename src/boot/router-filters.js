@@ -7,7 +7,7 @@ import { filterAsyncRouter } from '@/store/module-permission'
 
 // "async" is optional;
 // more info on params: https://quasar.dev/quasar-cli/cli-documentation/boot-files#Anatomy-of-a-boot-file
-export default async ({ app, router, Vue }) => {
+export default ({ app, router, store, Vue }) => {
   // Check for protected and guest routes and perform checks
   router.beforeEach((to, from, next) => {
     if (to.meta.title) {
@@ -20,18 +20,18 @@ export default async ({ app, router, Vue }) => {
         next({ path: '/' })
         LoadingBar.stop()
       } else {
-        if (app.store.getters['user/roles'].length === 0) { // 判断当前用户是否已拉取完user_info信息
-          app.store.dispatch('user/GetInfo').then(() => { // 拉取user_info
+        if (store.getters['user/roles'].length === 0) { // 判断当前用户是否已拉取完user_info信息
+          store.dispatch('user/GetInfo').then(() => { // 拉取user_info
             // 动态路由，拉取菜单
             loadMenus(next, to)
           }).catch(() => {
-            app.store.dispatch('user/LogOut').then(() => {
+            store.dispatch('user/LogOut').then(() => {
               location.reload() // 为了重新实例化vue-router对象 避免bug
             })
           })
-        } else if (app.store.getters['user/loadMenus']) { // 登录时未拉取 菜单，在此处拉取
+        } else if (store.getters['user/loadMenus']) { // 登录时未拉取 菜单，在此处拉取
           // 修改成false，防止死循环
-          app.store.dispatch('user/updateLoadMenus')
+          store.dispatch('user/updateLoadMenus')
           loadMenus(next, to)
         } else {
           next()
@@ -39,7 +39,6 @@ export default async ({ app, router, Vue }) => {
         }
       }
     } else {
-      console.log('router-filters ', to.fullPath, to.meta.auth)
       /* has no token*/
       if (!to.meta.auth) { // 在免登录白名单，直接进入
         next()
@@ -55,8 +54,8 @@ export default async ({ app, router, Vue }) => {
     if (!protectedRoute) return next()
 
     // If auth is required and the user is logged in, verify the token...
-    if (app.store.getters['user/isAuthed']) {
-      return app.store.dispatch('user/validate').then(user => {
+    if (store.getters['user/isAuthed']) {
+      return store.dispatch('user/validate').then(user => {
         user ? next() : next({ name: 'user-login', query: { redirect: to.fullPath } })
         LoadingBar.stop()
       })
@@ -70,7 +69,7 @@ export default async ({ app, router, Vue }) => {
     buildMenus().then(res => {
       const asyncRouter = filterAsyncRouter(res)
       asyncRouter.push({ path: '*', redirect: '/404', hidden: true })
-      app.store.dispatch('permission/GenerateRoutes', asyncRouter).then(() => { // 存储路由
+      store.dispatch('permission/GenerateRoutes', asyncRouter).then(() => { // 存储路由
         router.addRoutes(asyncRouter) // 动态添加可访问路由表
         next({ ...to, replace: true })
         LoadingBar.stop()

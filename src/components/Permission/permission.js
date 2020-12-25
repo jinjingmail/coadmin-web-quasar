@@ -1,12 +1,12 @@
-import store from '@/store'
+import { Store } from '@/store'
 
 export default {
   inserted(el, binding, vnode) {
     const { value } = binding
-    const roles = store.permission.getters && store.permission.getters.roles
     if (value && value instanceof Array && value.length > 0) {
+      // const roles = store.permission.getters && store.permission.getters.roles
+      const roles = Store.getters['user/roles']
       const permissionRoles = value
-
       const hasPermission = roles.some(role => {
         return permissionRoles.includes(role)
       })
