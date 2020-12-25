@@ -52,8 +52,8 @@ module.exports = function (ctx) {
       publicPath: '/coadmin-web-quasar/',
       env: {
         VUE_APP_BASE_API: ctx.dev
-          ? '/coadmin-web-quasar'
-          : '/coadmin-web-quasar'
+          ? 'http://localhost:8000'
+          : 'http://prod.api.xxx.com'
       },
 
       // transpile: false,
@@ -93,7 +93,24 @@ module.exports = function (ctx) {
     devServer: {
       https: false,
       port: 8080,
-      open: true // opens browser window automatically
+      open: true, // opens browser window automatically
+      proxy: {
+        // proxy all requests starting with /api to jsonplaceholder
+        '/api': {
+          target: process.env.VUE_APP_BASE_API,
+          changeOrigin: true,
+          pathRewrite: {
+            '^/api': ''
+          }
+        },
+        '/auth': {
+          target: process.env.VUE_APP_BASE_API,
+          changeOrigin: true,
+          pathRewrite: {
+            '^/auth': 'auth'
+          }
+        }
+      }
     },
 
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-framework

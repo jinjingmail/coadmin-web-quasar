@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 
 import tagviews from './module-tagviews'
 import settings from './module-settings'
+import permission from './module-permission'
 import user from './module-user'
 
 Vue.use(Vuex)
@@ -10,6 +11,7 @@ Vue.use(Vuex)
 const modules = {
   tagviews,
   settings,
+  permission,
   user
 }
 
@@ -29,6 +31,7 @@ export default function (/* { ssrContext } */) {
     // enable strict mode (adds overhead!)
     // for dev mode only
     strict: process.env.DEV
+    // strict: false
   })
 
   // Automatically run the `init` action if available for every module.

@@ -15,7 +15,7 @@
             <span v-show="false"
               class="q-ml-xs"
               style="letter-spacing: 0.1em;font-size:12px;font-weight:500;"
-            >v1.14.1</span>
+            >{{$q.version}}</span>
           </q-toolbar-title>
         </template>
 
@@ -157,7 +157,7 @@
                   flat
                   borderless
                   size="sm"
-                  @click="$store.dispatch('user/logout').then(()=>{$router.push('/user/login')})"
+                  @click="$store.dispatch('user/LogOut').then(()=>{$router.push('/login')})"
                 />
               </q-toolbar>
             </div>
@@ -333,7 +333,7 @@
                 </q-item-section>
               </q-item>
             </template>
-            <side-menu ref="menu" v-for="(routeItem) in routes" :route-item="routeItem" :key="routeItem.path" base-path="" :level="1"/>
+            <side-menu ref="menu" v-for="(routeItem) in permission_routers" :route-item="routeItem" :key="routeItem.path" base-path="" :level="1"/>
           </q-list>
         </q-scroll-area>
       </div>
@@ -386,7 +386,6 @@ import SideMenu from 'components/SideMenu.vue'
 import PageTagViews from 'components/PageTagViews.vue'
 import BrandColor from 'components/BrandColor.vue'
 import Breadcrumb from 'components/Breadcrumb.vue'
-import routes from '../router/routes.js'
 
 // 演示引入其他图标
 import { mdiCallMade } from '@quasar/extras/mdi-v5'
@@ -401,6 +400,7 @@ export default {
   },
   data () {
     return {
+      username: 'usernaee_ ',
       miniState: false,
       leftDrawerMini: false,
       leftDrawerOpen: false,
@@ -421,6 +421,7 @@ export default {
       this.leftDrawerMini = true
       this.miniState = true
     }
+    console.log('permission_routers=', this.roupermission_routersters)
   },
   watch: {
     $route (route) {
@@ -478,12 +479,9 @@ export default {
     ...mapGetters('tagviews', [
       'cachedViews'
     ]),
-    ...mapGetters('user', [
-      'username'
+    ...mapGetters('permission', [
+      'permission_routers'
     ]),
-    routes () {
-      return routes
-    },
     /* cachedViews () {
       return this.$store.state.tagviews.cachedViews
     }, */

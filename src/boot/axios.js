@@ -3,6 +3,7 @@ import axios from 'axios'
 import Cookies from 'js-cookie'
 import router from '@/router'
 import store from '@/store'
+import { getToken } from '@/utils/auth'
 import { Notify } from 'quasar'
 
 import setting from '@/default-setting'
@@ -19,7 +20,7 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
   config => {
     // eslint-disable-next-line dot-notation
-    config.headers['Authorization'] = 'xxx-token' // 让每个请求携带自定义token 请根据实际情况自行修改
+    config.headers['Authorization'] = getToken() // 让每个请求携带自定义token 请根据实际情况自行修改
     config.headers['Content-Type'] = 'application/json'
     return config
   },
@@ -63,7 +64,7 @@ axiosInstance.interceptors.response.use(
       console.log(code)
       if (code) {
         if (code === 401) {
-          store.dispatch('user/logout').then(() => {
+          store.dispatch('user/LogOut').then(() => {
             // 用户登录界面提示
             Cookies.set('point', 401)
             location.reload()
