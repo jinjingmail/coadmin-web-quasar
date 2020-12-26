@@ -50,6 +50,7 @@
       row-key="id"
       dense
       flat
+      square
       class="q-pt-sm q-ma-sm"
       :data="crud.data"
       :columns="crud.columns"
