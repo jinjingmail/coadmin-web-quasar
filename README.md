@@ -32,6 +32,7 @@ Quasar相比ElementUI，胜在可定制性上比较强，每个组件保留了�
 - 感谢：eladmin-web、vue-element-admin、quasar-admin-crm、quasar-element-pro
 
 ```bash
+TODO 新增全局页面（page、table）配置参数
 TODO CoadminForm 表单配置型 Validator
 TODO CoadminOptionGroup 自定义form项的错误提示
 TODO CoadminDateSelect 可以手工输入日期、可以选择“最近7天、最近30天、本月、。。。”
