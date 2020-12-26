@@ -4,12 +4,12 @@
     参考 props 定义
 -->
 <template>
-  <div v-if="formLabel" :class="computedClass" class="form-label q-pt-sm">
+  <div v-if="formLabel" :class="computedClass" class="form-label">
     <label :class="{'dense':dense, 'ellipsis-2-lines':!noEllipsis}"><slot name="form-label">{{formLabel}}</slot></label>
     <q-option-group
       v-model="model"
       ref="optionGroup"
-      class="col q-pt-xs"
+      class="col q-py-sm"
       v-bind="$attrs"
       v-on="listeners"
       :options="optionsTranslated"
@@ -28,7 +28,7 @@
   <q-option-group v-else
     v-model="model"
     ref="optionGroup"
-    class="q-pt-sm"
+    class="q-py-sm"
     :class="computedClass"
     v-bind="$attrs"
     v-on="listeners"
@@ -79,10 +79,25 @@ export default {
     } else {
       this.optionsTranslated = this.options.map(o => { return { label: o[this.labelKey], value: o[this.valueKey] } })
     }
-    if ((this.$attrs.type === 'checkbox' || this.$attrs.type === 'toggle') && !this.$attrs.value) {
+    const value = this.$attrs.value
+
+    if (!(value === false || value === 0 || !value) && (this.$attrs.type === 'checkbox' || this.$attrs.type === 'toggle')) {
       this.model = []
     } else {
-      this.model = this.$attrs.value
+      if (this.optionsTranslated && this.optionsTranslated.length === 0) {
+        this.model = value
+        return
+      }
+      const opt0 = this.optionsTranslated[0]
+      if (typeof opt0[this.valueKey] === 'string') {
+        if (!(value === null || value === undefined || typeof value === 'object')) {
+          this.model = value + ''
+        } else {
+          this.model = value
+        }
+      } else {
+        this.model = value
+      }
     }
   },
   mounted () {

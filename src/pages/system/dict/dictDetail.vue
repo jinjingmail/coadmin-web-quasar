@@ -101,7 +101,7 @@ const columns = [
     sortable: true
   },
   { name: 'value', label: '值', field: 'value', align: 'left' },
-  { name: 'dictSort', label: '排序', field: 'dictSort', align: 'left' },
+  { name: 'dictSort', label: '排序', field: 'dictSort', align: 'left', sortable: true },
   { name: 'action', label: '操作', align: 'center' }
 ]
 

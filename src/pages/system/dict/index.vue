@@ -59,7 +59,7 @@
         >
           <template v-slot:top-right="props">
             <div class='row q-col-gutter-x-sm q-col-gutter-y-xs q-px-sm q-py-sm full-width'>
-              <coadmin-input class='col' placeholder="ID、名称、描述" v-model="query.blurry" content-style="width:140px" clearable @keyup.enter.native="crud.toQuery"/>
+              <coadmin-input class='col-auto' placeholder="ID、名称、描述" v-model="query.blurry" content-style="width:140px" clearable @keyup.enter.native="crud.toQuery"/>
               <div class='col-auto'>
                 <q-btn dense padding="xs sm" color="primary" icon="search" @click="crud.toQuery" />
               </div>
@@ -80,7 +80,7 @@
           </template>
 
           <template v-slot:pagination>
-            <crud-pagination no-persistence-page-size/>
+            <crud-pagination />
           </template>
 
         </coadmin-table>
@@ -107,6 +107,8 @@ import crudDict from '@/api/system/dict'
 
 import dictDetail from './dictDetail'
 
+const defaultForm = { id: null, name: null, description: null, dictDetails: [] }
+const visibleColumns = ['name', 'description', 'action']
 const columns = [
   { name: 'id', field: 'id', label: 'ID' },
   {
@@ -121,8 +123,6 @@ const columns = [
   { name: 'description', label: '描述', field: 'description', align: 'left' },
   { name: 'action', label: '操作', align: 'center' }
 ]
-const visibleColumns = ['name', 'description', 'action']
-const defaultForm = { id: null, name: null, description: null, dictDetails: [] }
 
 export default {
   name: 'Dict',

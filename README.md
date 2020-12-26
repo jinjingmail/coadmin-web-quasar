@@ -32,6 +32,8 @@ Quasar相比ElementUI，胜在可定制性上比较强，每个组件保留了�
 - 感谢：eladmin-web、vue-element-admin、quasar-admin-crm、quasar-element-pro
 
 ```bash
+TODO CoadminForm 表单配置型 Validator
+TODO CoadminForm 中，label-position改名label-align，增加 label-top
 TODO CoadminOptionGroup 自定义form项的错误提示
 TODO CoadminDateSelect 可以手工输入日期、可以选择“最近7天、最近30天、本月、。。。”
 TODO CoadminTree selected和ticked，可以设置“只选parent，只选leaf”
@@ -40,6 +42,7 @@ TODO BUG CoadminSelect use-input的时候，会出现下拉列出的选项空白
 TODO BUG CoadminInput 在popup-proxy 里面时，有时候prepend、append、before、after 的slot会失效
 TODO BUG 对话框最大化后，取消拖动
 TODO BUG 图表dark模式文字颜色
+TODO BUG CoadminTreeSelect 的 v-model不合理
 ```
 
 ## Demo
