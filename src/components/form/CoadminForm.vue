@@ -28,11 +28,8 @@ export default {
     return {
     }
   },
-  computed: {
-  },
-  created () {
-  },
   mounted () {
+    console.log('coadmin.form labelStyle=', this.labelStyle)
   },
   methods: {
     validate (shouldFocus) {
@@ -56,7 +53,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-@import './form.scss'
-</style>
