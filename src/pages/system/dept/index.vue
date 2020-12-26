@@ -3,6 +3,9 @@
 -->
 <template>
   <div >
+    <coadmin-dialog title="查找" no-max seamless ref="search" @before-hide="filterTable=''">
+      <q-input placeholder="在当前页查找" dense outlined v-model="filterTable" clearable class="q-ml-sm q-mr-sm q-mt-none q-mb-sm"/>
+    </coadmin-dialog>
     <coadmin-dialog
       ref="formDialog"
       :value="crud.status.cu > 0"
@@ -11,14 +14,10 @@
       @before-hide="crud.cancelCU"
       content-style="width:600px; max-width:95vw;"
     >
-      <coadmin-form ref="form" label-width="large" label-position="right" class="q-pa-md">
+      <coadmin-form ref="form" label-width="small" label-position="right" class="q-pa-md">
         <div class="row q-col-gutter-x-xl q-col-gutter-y-md">
           <coadmin-form-item class="col-12" form-label="ID" v-if="form.id">
-            <q-field dense borderless>
-              <template v-slot:control>
-                <div class="self-center full-width no-outline" tabindex="0">{{form.id}} pid={{form.pid}} enabled={{form.enabled}}</div>
-              </template>
-            </q-field>
+            <div class="q-pt-xs">{{form.id}}</div>
           </coadmin-form-item>
           <coadmin-input class="col-12" form-label="机构名称" v-model="form.name" :disable="!!crud.status.view" :rules="[
               val => (!!val) || '必填'
@@ -76,8 +75,21 @@
           filter-key-equal="id"
           selected-color="purple"
           selectable
+          filter-placeholder="ID、名称、拼音首字母"
           @update:selected="handleTreeDeptNodeClick"
-        />
+          @selected-label="label => treeSelectedLabel=label"
+        >
+          <template v-slot:toolbar-end>
+            <q-btn
+              dense
+              flat
+              icon="refresh"
+              @click="() => { init();}"
+            >
+              <q-tooltip :delay="800">刷新列表</q-tooltip>
+            </q-btn>
+          </template>
+        </coadmin-tree>
       </template>
 
       <template v-if="$q.screen.xs" v-slot:separator>
@@ -91,25 +103,43 @@
           dense
           flat
           class="q-pt-sm q-ma-sm"
+          hide-bottom
           :data="crud.data"
           :columns="crud.columns"
           :visible-columns="crud.visibleColumns"
-          :title="crud.title"
+          :title="treeSelectedLabel"
           :loading="crud.loading"
           :selected.sync="crud.selections"
+          :filter="filterTable"
           @row-click="(evt, row, index) => crud.selections = [row]"
         >
           <template v-slot:top-right="props">
             <div class='row q-col-gutter-x-sm q-col-gutter-y-xs q-px-sm q-py-sm full-width'>
-              <coadmin-input class='col-auto' placeholder="ID、名称" v-model="query.blurry" content-style="width:200px" clearable @keyup.enter.native="crud.toQuery"/>
-              <div class='col-auto'>
-                <q-btn dense padding="xs sm" color="primary" icon="search" @click="crud.toQuery" />
-              </div>
+              <coadmin-select
+                class="col-auto"
+                placeholder="状态"
+                form-label="状态"
+                label-position="right"
+                content-style="width:120px"
+                outlined
+                v-model="query.enabled"
+                no-filter
+                :options="dict.dept_status"
+                @input="crud.toQuery()"
+                clearable
+                emit-value
+                map-options
+              />
               <q-space/>
               <crud-operation :permission="permission" />
               <div class="col-auto">
                 <q-btn-dropdown dense color="primary" class="btn-dropdown-hide-droparrow" icon="apps" auto-close>
-                  <crud-more :tableSlotTopProps="props" />
+                  <crud-more :tableSlotTopProps="props">
+                    <template v-slot:start>
+                      <q-btn flat align="left" label="在当前页查找" icon="find_in_page" @click.native="$refs.search.show()" />
+                      <q-separator/>
+                    </template>
+                  </crud-more>
                 </q-btn-dropdown>
               </div>
             </div>
@@ -127,10 +157,6 @@
             </q-td>
           </template>
 
-          <template v-slot:pagination>
-            <crud-pagination />
-          </template>
-
         </coadmin-table>
       </template>
     </q-splitter>
@@ -141,12 +167,11 @@
 import { mapGetters } from 'vuex'
 import CRUD, { presenter, header, form, crud } from '@crud/crud'
 import crudOperation from '@crud/CRUD.operation'
-import crudPagination from '@crud/CRUD.pagination'
 import crudRow from '@crud/CRUD.row'
 import crudMore from '@crud/CRUD.more'
 import crudDept, { getDepts } from '@/api/system/dept'
 
-const defaultForm = { id: null, name: null, isTop: '0', pid: null, sort: 10, enabled: 'true' }
+const defaultForm = { id: null, name: null, isTop: '0', pid: null, sort: 10, enabled: true }
 const visibleColumns = ['name', 'sort', 'enabled', 'treeNames', 'action']
 const columns = [
   { name: 'id', field: 'id', label: 'ID' },
@@ -167,27 +192,30 @@ const columns = [
 
 export default {
   name: 'Dept',
-  components: { crudOperation, crudMore, crudPagination, crudRow },
+  components: { crudOperation, crudMore, crudRow },
   cruds() {
-    return CRUD({ columns, visibleColumns, idField: 'id', title: '机构', query: { pid: null }, url: 'api/dept', crudMethod: { ...crudDept } })
+    return CRUD({ columns, visibleColumns, idField: 'id', title: '机构', sort: ['sort,desc'], query: { pid: null }, url: 'api/dept', crudMethod: { ...crudDept } })
   },
   mixins: [presenter(), header(), form(defaultForm), crud()],
   data () {
     return {
       splitter: 30,
-      treeNodeSelected: null,
+      treeSelectedLabel: null,
       treeDatas: [],
       permission: {
         add: ['admin', 'dept:add'],
         edit: ['admin', 'dept:edit'],
         del: ['admin', 'dept:del']
-      }
+      },
+      filterTable: ''
     }
   },
-  mounted () {
+  created () {
+    /*
     this.$nextTick(() => {
       this.getDeptDatas()
-    })
+    })*/
+    this.init()
   },
   computed: {
     ...mapGetters('permission', [
@@ -195,6 +223,9 @@ export default {
     ])
   },
   methods: {
+    init () {
+      this.getDeptDatas()
+    },
     getDeptDatas() {
       const sort = 'id,desc'
       const params = { sort: sort }
@@ -205,14 +236,16 @@ export default {
       })
     },
     // 切换机构
-    handleTreeDeptNodeClick(data) {
-      console.log('handleTreeDeptNodeClick', data)
-      if (data.pid === 0) {
-        this.query.pids = data
-        this.query.treeId = data
+    handleTreeDeptNodeClick(id) {
+      if (id == null) {
+        id = 0
+      }
+      if (id === 0) {
+        this.query.pids = null
+        this.query.treeId = id
       } else {
-        this.query.pids = data
-        this.query.treeId = data
+        this.query.pids = id
+        this.query.treeId = id
       }
       this.crud.toQuery()
     }

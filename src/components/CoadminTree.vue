@@ -1,6 +1,8 @@
 <!--
   增加插槽：
     toolbar:         过滤界面
+    toolbar-start
+    toolbar-end
   增加属性：
     selectable：    是否可以使用 selected 属性
     no-toolbar
@@ -28,12 +30,13 @@
     <slot name="toolbar" v-if="!noToolbar">
       <q-toolbar>
         <div class="row full-width">
+          <slot name="toolbar-start" />
           <q-input v-if="!noFilter"
             ref="filter"
             dense
             v-model="filterInput"
             :placeholder="filterPlaceholder"
-            class="col-8"
+            class="col"
           >
             <template v-slot:append>
               <q-icon v-if="filterInput !== ''" name="clear" class="cursor-pointer" @click="filterReset" />
@@ -49,6 +52,7 @@
             :icon="filterExpanded?expandBtnIconMore:expandBtnIconLess"
             @click="(filterExpanded = !filterExpanded)?$refs.tree.collapseAll():$refs.tree.expandAll()"
           />
+          <slot name="toolbar-end" />
         </div>
       </q-toolbar>
     </slot>

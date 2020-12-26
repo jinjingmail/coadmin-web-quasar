@@ -14,11 +14,7 @@
       <coadmin-form ref="form" label-width="small" label-position="right" class="q-pa-md">
         <div class="row q-col-gutter-x-xl q-col-gutter-y-md">
           <coadmin-form-item class="col-12" form-label="ID" v-if="form.id">
-            <q-field dense borderless>
-              <template v-slot:control>
-                <div class="self-center full-width no-outline" tabindex="0">{{form.id}}</div>
-              </template>
-            </q-field>
+            <div class="q-pt-xs">{{form.id}}</div>
           </coadmin-form-item>
           <coadmin-input class="col-12" form-label="标签" v-model="form.label" :disable="!!crud.status.view" :rules="[
               val => (!!val) || '必填'
@@ -26,7 +22,7 @@
           <coadmin-input class="col-12" form-label="值" v-model="form.value" :disable="!!crud.status.view" :rules="[
               val => (!!val) || '必填'
               ]"/>
-          <coadmin-input class="col-12" form-label="排序" v-model="form.dictSort" :disable="!!crud.status.view" />
+          <coadmin-input class="col-12" form-label="排序" v-model="form.sort" :disable="!!crud.status.view" />
         </div>
       </coadmin-form>
       <q-card-actions class="q-pa-md" align="right">
@@ -68,7 +64,7 @@
 
       <template v-slot:body-cell-action="props">
         <q-td :props="props">
-          <crud-row :data="props.row" :data-add="{dictSort: props.row.dictSort+10}"  flat :permission="permission" :type="$q.screen.gt.xs?'button':'menu'"/>
+          <crud-row :data="props.row" :data-add="{sort: props.row.sort+10}"  flat :permission="permission" :type="$q.screen.gt.xs?'button':'menu'"/>
         </q-td>
       </template>
 
@@ -88,8 +84,8 @@ import crudRow from '@crud/CRUD.row'
 import crudMore from '@crud/CRUD.more'
 import crudDictDetail from '@/api/system/dictDetail'
 
-const defaultForm = { id: null, label: null, value: null, dictSort: 10 }
-const visibleColumns = ['label', 'value', 'dictSort', 'action']
+const defaultForm = { id: null, label: null, value: null, sort: 10 }
+const visibleColumns = ['label', 'value', 'sort', 'action']
 const columns = [
   { name: 'id', field: 'id', label: 'ID' },
   {
@@ -101,7 +97,7 @@ const columns = [
     sortable: true
   },
   { name: 'value', label: '值', field: 'value', align: 'left' },
-  { name: 'dictSort', label: '排序', field: 'dictSort', align: 'left', sortable: true },
+  { name: 'sort', label: '排序', field: 'sort', align: 'left', sortable: true },
   { name: 'action', label: '操作', align: 'center' }
 ]
 
@@ -115,7 +111,7 @@ export default {
       idField: 'id',
       query: { dictName: '', dictId: null },
       title: '字典详情',
-      sort: ['dictSort,asc', 'id,desc'],
+      sort: ['sort,asc', 'id,desc'],
       url: 'api/dictDetail',
       crudMethod: { ...crudDictDetail },
       queryOnPresenterCreated: false

@@ -9,7 +9,7 @@
     <q-option-group
       v-model="model"
       ref="optionGroup"
-      class="col q-py-sm"
+      class="col q-py-xs"
       v-bind="$attrs"
       v-on="listeners"
       :options="optionsTranslated"
@@ -28,7 +28,7 @@
   <q-option-group v-else
     v-model="model"
     ref="optionGroup"
-    class="q-py-sm"
+    class="q-py-xs"
     :class="computedClass"
     v-bind="$attrs"
     v-on="listeners"

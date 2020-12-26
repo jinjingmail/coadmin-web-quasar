@@ -14,11 +14,7 @@
       <coadmin-form ref="form" label-width="small" label-position="right" class="q-pa-md">
         <div class="row q-col-gutter-x-xl q-col-gutter-y-md">
           <coadmin-form-item class="col-12" form-label="ID" v-if="form.id">
-            <q-field dense borderless>
-              <template v-slot:control>
-                <div class="self-center full-width no-outline" tabindex="0">{{form.id}}</div>
-              </template>
-            </q-field>
+            <div class="q-pt-xs">{{form.id}}</div>
           </coadmin-form-item>
           <coadmin-input class="col-12" form-label="名称" v-model="form.name" :disable="!!crud.status.view" :rules="[
               val => (!!val) || '必填'
