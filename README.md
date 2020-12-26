@@ -33,7 +33,6 @@ Quasar相比ElementUI，胜在可定制性上比较强，每个组件保留了�
 
 ```bash
 TODO CoadminForm 表单配置型 Validator
-TODO CoadminForm 中，label-position改名label-align，增加 label-top，新增label-color
 TODO CoadminOptionGroup 自定义form项的错误提示
 TODO CoadminDateSelect 可以手工输入日期、可以选择“最近7天、最近30天、本月、。。。”
 TODO CoadminTree selected和ticked，可以设置“只选parent，只选leaf”
