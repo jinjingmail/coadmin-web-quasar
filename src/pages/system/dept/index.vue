@@ -14,8 +14,11 @@
       @before-hide="crud.cancelCU"
       content-style="width:600px; max-width:95vw;"
     >
-      <coadmin-form ref="form" label-width="small" label-align="right" class="q-pa-md">
-        <div class="row q-col-gutter-x-xl q-col-gutter-y-md">
+      <coadmin-form
+        ref="form"
+        label-width="small"
+        label-align="right"
+        class="q-pa-md row q-col-gutter-x-xl q-col-gutter-y-md">
           <coadmin-form-item class="col-12" form-label="ID" v-if="form.id">
             <div class="q-pt-xs">{{form.id}}</div>
           </coadmin-form-item>
@@ -49,7 +52,6 @@
             clearable
             :disable="!!crud.status.view"
           />
-        </div>
       </coadmin-form>
       <q-card-actions class="q-pa-md" align="right">
         <q-btn label="取消" flat v-close-popup/>
@@ -119,7 +121,7 @@
                 class="col-auto"
                 placeholder="状态"
                 form-label="状态"
-                label-align="right"
+                label-style="margin-top:10px"
                 content-style="width:120px"
                 outlined
                 v-model="query.enabled"

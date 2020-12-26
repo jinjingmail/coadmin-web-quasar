@@ -11,8 +11,11 @@
       @before-hide="crud.cancelCU"
       content-style="width:600px; max-width:95vw;"
     >
-      <coadmin-form ref="form" label-width="small" label-align="right" class="q-pa-md">
-        <div class="row q-col-gutter-x-xl q-col-gutter-y-md">
+      <coadmin-form
+        ref="form"
+        label-width="small"
+        label-align="right"
+        class="q-pa-md row q-col-gutter-x-xl q-col-gutter-y-md">
           <coadmin-form-item class="col-12" form-label="ID" v-if="form.id">
             <div class="q-pt-xs">{{form.id}}</div>
           </coadmin-form-item>
@@ -23,7 +26,6 @@
               val => (!!val) || '必填'
               ]"/>
           <coadmin-input class="col-12" form-label="排序" v-model="form.sort" :disable="!!crud.status.view" />
-        </div>
       </coadmin-form>
       <q-card-actions class="q-pa-md" align="right">
         <q-btn label="取消" flat v-close-popup/>
