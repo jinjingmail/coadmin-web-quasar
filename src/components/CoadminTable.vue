@@ -59,6 +59,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import Setting from '@/default-setting'
 
 export default {
   name: 'CoadminTable',
@@ -131,6 +132,20 @@ export default {
     ...mapGetters('settings', [
       'tagsView'
     ]),
+    settingTableClass () {
+      if (this.$q.screen.gt.xs) {
+        return Setting.tableClass
+      } else {
+        return Setting.tableClassMobile
+      }
+    },
+    settingTableStyle () {
+      if (this.$q.screen.gt.xs) {
+        return Setting.tableStyle
+      } else {
+        return Setting.tableStyleMobile
+      }
+    },
     computedVirtualScroll () {
       let vs = this.virtualScroll
       if (this.stickyHeader) {
@@ -139,21 +154,21 @@ export default {
       return vs
     },
     computedClass () {
-      let cls = ''
+      let cls = this.settingTableClass
       if (this.stickyHeader && this.stickyFirstColumn && this.stickyLastColumn) {
-        cls = 'coadmin-table-sticky-header-and-first-last-column'
+        cls += ' coadmin-table-sticky-header-and-first-last-column'
       } else if (this.stickyHeader && this.stickyFirstColumn) {
-        cls = 'coadmin-table-sticky-header-and-first-column'
+        cls += ' coadmin-table-sticky-header-and-first-column'
       } else if (this.stickyHeader && this.stickyLastColumn) {
-        cls = 'coadmin-table-sticky-header-and-last-column'
+        cls += ' coadmin-table-sticky-header-and-last-column'
       } else if (this.stickyFirstColumn && this.stickyLastColumn) {
-        cls = 'coadmin-table-sticky-first-and-last-column'
+        cls += ' coadmin-table-sticky-first-and-last-column'
       } else if (this.stickyHeader) {
-        cls = 'coadmin-table-sticky-header'
+        cls += ' coadmin-table-sticky-header'
       } else if (this.stickyFirstColumn) {
-        cls = 'coadmin-table-sticky-first-column'
+        cls += ' coadmin-table-sticky-first-column'
       } else if (this.stickyLastColumn) {
-        cls = 'coadmin-table-sticky-last-column'
+        cls += ' coadmin-table-sticky-last-column'
       }
       if (this.tableClass) {
         cls = cls + ' ' + this.tableClass
@@ -175,9 +190,7 @@ export default {
         }
         // }
       }
-      return {
-        height: height
-      }
+      return 'height:' + height + ';' + this.settingTableStyle
     },
     listeners: function () {
       const vm = this

@@ -21,10 +21,11 @@
 <template>
   <q-dialog
     ref="dialog"
+    :content-class="computedContentClass"
+    :content-style="settingDialogStyle"
     :maximized="maxscreen"
     v-bind="$attrs"
     v-on="$listeners"
-    class="coadmin-dialog"
     @before-show="_beforeShow"
   >
     <q-card ref="card" :style="contentStyle" :class="contentClass" :id="uuid">
@@ -71,6 +72,7 @@
 
 <script>
 import { random } from '@/utils/index'
+import Setting from '@/default-setting'
 
 export default {
   name: 'CoadminDialog',
@@ -128,6 +130,25 @@ export default {
       tempStyleMaxWidth: null,
       tempStyleLeft: null,
       tempStyleTop: null
+    }
+  },
+  computed: {
+    computedContentClass () {
+      return this.settingDialogClass + ' .coadmin-dialog'
+    },
+    settingDialogClass () {
+      if (this.$q.screen.gt.xs) {
+        return Setting.dialogClass
+      } else {
+        return Setting.dialogClassMobile
+      }
+    },
+    settingDialogStyle () {
+      if (this.$q.screen.gt.xs) {
+        return Setting.dialogStyle
+      } else {
+        return Setting.dialogStyleMobile
+      }
     }
   },
   created () {

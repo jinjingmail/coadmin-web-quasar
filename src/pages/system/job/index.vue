@@ -10,7 +10,6 @@
       ref="formDialog"
       :value="crud.status.cu > 0"
       :title="crud.status.title"
-      square
       no-backdrop-dismiss
       @before-hide="crud.cancelCU"
       content-style="width:600px; max-width:95vw;"
