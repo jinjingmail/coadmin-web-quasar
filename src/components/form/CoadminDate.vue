@@ -14,7 +14,7 @@
     <label :class="{'dense':dense, 'ellipsis-2-lines':!noEllipsis}" :style="computedLabelStyle"><slot name="form-label">{{formLabel}}</slot></label>
     <q-date
       ref="date"
-      class=""
+      class="custom-other-bg"
       style="display: flex"
       v-bind="$attrs"
       v-on="listeners"
@@ -39,6 +39,7 @@
   <q-date v-else
     ref="date"
     :class="computedClass"
+    class="custom-other-bg"
     v-bind="$attrs"
     v-on="listeners"
     :mask="mask"
