@@ -15,6 +15,7 @@ Vue.use(permission)
 
 import CoadminTable from './components/CoadminTable'
 import CoadminDialog from './components/CoadminDialog'
+import CoadminCard from './components/CoadminCard'
 import CoadminTree from './components/CoadminTree'
 
 import CoadminField from 'components/form/CoadminField.vue'
@@ -29,6 +30,7 @@ import CoadminTreeSelect from 'components/form/CoadminTreeSelect.vue'
 
 Vue.component(CoadminTable.name, CoadminTable)
 Vue.component(CoadminDialog.name, CoadminDialog)
+Vue.component(CoadminCard.name, CoadminCard)
 Vue.component(CoadminTree.name, CoadminTree)
 
 Vue.component(CoadminField.name, CoadminField)
