@@ -10,6 +10,7 @@
       ref="formDialog"
       :value="crud.status.cu > 0"
       :title="crud.status.title"
+      square
       no-backdrop-dismiss
       @before-hide="crud.cancelCU"
       content-style="width:600px; max-width:95vw;"
@@ -50,8 +51,8 @@
       row-key="id"
       dense
       flat
-      square
-      class="q-pt-sm q-ma-sm"
+      color="teal-10"
+      class="q-ma-sm "
       :data="crud.data"
       :columns="crud.columns"
       :visible-columns="crud.visibleColumns"

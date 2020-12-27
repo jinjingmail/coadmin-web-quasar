@@ -10,8 +10,8 @@
       :class="$q.dark.isActive?'text-white':'text-dark'"
     >
       <div>
-        <span>© 2020 Company</span>
-        <span class="q-ml-sm">Created by Jinjin</span>
+        <span>{{footerTxt}}</span>
+        <span class="q-ml-sm">{{caseNumber}}</span>
       </div>
     </q-footer>
   </q-layout>
@@ -19,10 +19,17 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import Setting from '@/default-setting'
 
 export default {
   name: 'LoginLayout',
   computed: {
+    footerTxt () {
+      return Setting.footerTxt
+    },
+    caseNumber () {
+      return Setting.caseNumber
+    },
     layoutMainStyles () {
       return {
         backgroundColor: this.colorPageBg
