@@ -69,7 +69,7 @@
       <template v-slot:before>
         <coadmin-tree
           ref="tree"
-          class="q-pt-sm q-ma-sm"
+          class=""
           node-key="id"
           label-key="label"
           :nodes="treeDatas"
@@ -103,9 +103,7 @@
           ref="table"
           row-key="id"
           dense
-          flat
-          class="q-pt-sm q-ma-sm"
-          hide-bottom
+          style="margin-bottom:3px; margin-right:3px;"
           :data="crud.data"
           :columns="crud.columns"
           :visible-columns="crud.visibleColumns"

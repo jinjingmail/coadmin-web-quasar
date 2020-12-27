@@ -38,7 +38,7 @@
       ref="table"
       row-key="id"
       dense
-      class="q-pt-sm q-ma-sm"
+      style="margin-bottom:3px; margin-right:3px;"
       :data="crud.data"
       :columns="crud.columns"
       :visible-columns="crud.visibleColumns"

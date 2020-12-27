@@ -49,9 +49,6 @@
       ref="table"
       row-key="id"
       dense
-      flat
-      color="teal-10"
-      class="q-ma-sm "
       :data="crud.data"
       :columns="crud.columns"
       :visible-columns="crud.visibleColumns"
