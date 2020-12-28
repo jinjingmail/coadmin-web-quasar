@@ -69,6 +69,11 @@ export const filterAsyncRouter = (routers) => { // 遍历后台传来的路由�
     if (router.children && router.children.length) {
       router.children = filterAsyncRouter(router.children)
     }
+    if (router.meta) {
+      router.meta.auth = true
+    } else {
+      router.meta = { auth: true }
+    }
     return true
   })
 }

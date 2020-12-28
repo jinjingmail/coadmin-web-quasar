@@ -57,7 +57,7 @@ module.exports = {
    *  q-pa-md
    *  q-ma-md
    */
-  pageClass: 'q-pa-sm ',
+  pageClass: 'q-pa-sm',
   pageClassMobile: '',
   pageStyle: '',
   pageStyleMobile: '',

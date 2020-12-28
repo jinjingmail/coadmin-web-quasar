@@ -13,6 +13,7 @@ export default ({ app, router, store, Vue }) => {
       document.title = to.meta.title + ' - ' + Setting.title
     }
     LoadingBar.start()
+    console.log('to.path=', to.path, getToken())
     if (getToken()) {
       // 已登录且要跳转的页面是登录页
       if (to.path === '/login') {

@@ -46,6 +46,7 @@
           ref="table"
           row-key="id"
           dense
+          class="q-mr-sm"
           style="margin-bottom:3px; margin-left:3px;"
           :data="crud.data"
           :columns="crud.columns"
