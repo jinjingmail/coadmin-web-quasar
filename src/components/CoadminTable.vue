@@ -4,7 +4,7 @@
     sticky-header
     sticky-first-column
     sticky-last-column
-    loading-delay       多少ms后开始显示 loading-spinner
+    loading-delay       多少ms后开始显示 loading 状态
     loading-spinner     '', 'cycle', 'gears', 'ios', 'ball', 'dots' 【提示：loading-spinner=''，则使用q-table默认loading】
 -->
 <template>
@@ -21,6 +21,7 @@
     :virtual-scroll="computedVirtualScroll"
     :rows-per-page-options="rowsPerPageOptions"
     :no-data-label="noDataLabel"
+    :no-results-label="noResultsLabel"
     :selected-rows-label="selectedRowsLabel"
     :separator="computedSeparator"
   >
@@ -77,6 +78,10 @@ export default {
     noDataLabel: {
       type: String,
       default: '无数据'
+    },
+    noResultsLabel: {
+      type: String,
+      default: '无结果'
     },
     selectedRowsLabel: {
       type: Function,
