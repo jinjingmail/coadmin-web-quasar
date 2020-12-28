@@ -33,6 +33,8 @@ Quasar相比ElementUI，胜在可定制性上比较强，每个组件保留了�
 - 感谢：eladmin-web、vue-element-admin、quasar-admin-crm、quasar-element-pro
 
 ```bash
+TODO 增加配置：左侧菜单栏是否阴影、header是否阴影、table字体颜色、coadmin-table的separator
+TODO CROD.operate 增加选项“按grid显示”
 TODO 针对mac系统，适配一下自定义组件（比如dialog的关闭按钮放到左上角）
 TODO CoadminForm 表单配置型 Validator
 TODO CoadminOptionGroup 自定义form项的错误提示
