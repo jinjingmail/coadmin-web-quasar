@@ -25,15 +25,6 @@
     :selected-rows-label="selectedRowsLabel"
     :separator="computedSeparator"
   >
-    <template v-slot:no-data="prop">
-      <div class="full-width row flex-center q-gutter-sm">
-        <q-icon size="1.4em" :name="prop.filter ? 'filter_b_and_w' : prop.icon" />
-        <span style="font-size:1.4em">
-          {{ prop.message }}
-        </span>
-      </div>
-    </template>
-
     <template v-for="slotName in Object.keys($slots)" v-slot:[slotName]>
       <slot :name="slotName"/>
     </template>
@@ -41,6 +32,18 @@
       <slot :name="slotName" v-bind="prop"/>
     </template>
 
+    <template v-slot:no-data="prop">
+      <slot name="no-data" v-bind="prop">
+        <div class="full-width row flex-center q-gutter-sm">
+          <q-icon size="1.4em" :name="prop.filter ? 'filter_b_and_w' : prop.icon" />
+          <span style="font-size:1.4em">
+            {{ prop.message }}
+          </span>
+        </div>
+      </slot>
+    </template>
+
+    <!-- 添加pagination slot，以便页面没有分页时q-table显示默认的分页信息 -->
     <template v-slot:pagination>
       <slot name="pagination"/>
     </template>
