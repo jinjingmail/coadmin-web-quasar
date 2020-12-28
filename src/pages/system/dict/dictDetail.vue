@@ -100,7 +100,7 @@ const columns = [
     sortable: true
   },
   { name: 'value', label: '值', field: 'value', align: 'left' },
-  { name: 'sort', label: '排序', field: 'sort', align: 'left', sortable: true },
+  { name: 'sort', label: '排序', field: 'sort', sortable: true },
   { name: 'action', label: '操作', align: 'center' }
 ]
 

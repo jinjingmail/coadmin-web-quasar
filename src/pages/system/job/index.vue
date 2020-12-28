@@ -131,8 +131,8 @@ const columns = [
     align: 'left',
     sortable: true
   },
-  { name: 'sort', label: '排序', field: 'sort', align: 'left', sortable: true },
-  { name: 'enabled', label: 'enabled', field: 'enabled', align: 'left' },
+  { name: 'sort', label: '排序', field: 'sort', sortable: true },
+  { name: 'enabled', label: 'enabled', field: 'enabled' },
   { name: 'action', label: '操作', align: 'center' }
 ]
 

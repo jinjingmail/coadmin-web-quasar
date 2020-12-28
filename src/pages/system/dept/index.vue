@@ -184,9 +184,9 @@ const columns = [
     align: 'left',
     sortable: true
   },
-  { name: 'pid', label: 'PID', field: 'pid', align: 'left' },
-  { name: 'sort', label: '排序', field: 'sort', align: 'left', sortable: true },
-  { name: 'enabled', label: 'enabled', field: 'enabled', align: 'left' },
+  { name: 'pid', label: 'PID', field: 'pid' },
+  { name: 'sort', label: '排序', field: 'sort', sortable: true },
+  { name: 'enabled', label: 'enabled', field: 'enabled' },
   { name: 'treeNames', label: 'names', field: 'treeNames', align: 'left' },
   { name: 'action', label: '操作', align: 'center' }
 ]
