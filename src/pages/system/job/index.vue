@@ -49,6 +49,7 @@
       ref="table"
       row-key="id"
       dense
+      sticky-header
       :data="crud.data"
       :columns="crud.columns"
       :visible-columns="crud.visibleColumns"

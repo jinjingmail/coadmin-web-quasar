@@ -1,9 +1,13 @@
 <!--
   增加插槽：
   增加属性：
+    tree-table          树表
+    children-key        树表children字段，默认'children'
+
     sticky-header
     sticky-first-column
     sticky-last-column
+
     loading-delay       多少ms后开始显示 loading 状态
     loading-spinner     '', 'cycle', 'gears', 'ios', 'ball', 'dots' 【提示：loading-spinner=''，则使用q-table默认loading】
 -->
@@ -20,6 +24,7 @@
     :fullscreen="isFullscreen"
     :virtual-scroll="computedVirtualScroll"
     :rows-per-page-options="rowsPerPageOptions"
+    :data="computedTreeTableData"
     :no-data-label="noDataLabel"
     :no-results-label="noResultsLabel"
     :selected-rows-label="selectedRowsLabel"
@@ -32,8 +37,8 @@
       <slot :name="slotName" v-bind="prop"/>
     </template>
 
-    <template v-slot:body="props">
-      <q-tr :props="props">
+    <template v-if="treeTable" v-slot:body="props">
+      <q-tr v-if="props.expand || props.row.isAlwaysShow" :props="props">
         <q-td>
           <q-checkbox v-model="props.selected"/>
         </q-td>
@@ -48,10 +53,11 @@
       </q-tr>
     </template>
 
-    <!-- 添加pagination slot，以便页面没有分页时q-table显示默认的分页信息 -->
+    <!-- 添加pagination slot，以便页面没有分页时q-table显示默认的分页信息
     <template v-slot:pagination>
       <slot name="pagination"/>
     </template>
+     -->
 
     <!-- loadingSpinner 明确为空或者自定义了slot:loading，则忽略 -->
     <template v-slot:loading v-if="showLoading && loadingSpinner && !$slots['loading']">
@@ -107,7 +113,13 @@ export default {
     loadingDelay: {
       type: Number,
       default: 300
-    }
+    },
+    treeTable: Boolean,
+    childrenKey: {
+      type: String,
+      default: 'children'
+    },
+    data: Array
   },
   data () {
     return {
@@ -139,8 +151,25 @@ export default {
     ...mapGetters('settings', [
       'tagsView'
     ]),
+    computedTreeTableData () {
+      const data = Object.assign([], this.data)
+      if (this.treeTable) {
+        for (const d of data) {
+          d.isAlwaysShow = true
+        }
+      }
+      //console.log('new data={}', data)
+      return data
+    },
     computedSeparator () {
       return this.separator
+    },
+    settingPageClass () {
+      if (this.$q.screen.gt.xs) {
+        return Setting.pageClass
+      } else {
+        return Setting.pageClassMobile
+      }
     },
     settingTableClass () {
       if (this.$q.screen.gt.xs) {
@@ -195,25 +224,25 @@ export default {
             sub += '- 2px '
           }
           // TODO 这段代码需要使用自动计算dom高度的方法来代替
-          if (this._contains(Setting.pageClass, ['q-pa-xs', 'q-ma-xs', 'q-py-xs', 'q-my-xs'])) {
+          if (this._contains(this.settingPageClass, ['q-pa-xs', 'q-ma-xs', 'q-py-xs', 'q-my-xs'])) {
             sub += '- 5px '
-          } else if (this._contains(Setting.pageClass, ['q-pt-xs', 'q-pb-xs', 'q-mt-xs', 'q-mb-xs'])) {
+          } else if (this._contains(this.settingPageClass, ['q-pt-xs', 'q-pb-xs', 'q-mt-xs', 'q-mb-xs'])) {
             sub += '- 2px '
-          } else if (this._contains(Setting.pageClass, ['q-pa-sm', 'q-ma-sm', 'q-py-sm', 'q-my-sm'])) {
+          } else if (this._contains(this.settingPageClass, ['q-pa-sm', 'q-ma-sm', 'q-py-sm', 'q-my-sm'])) {
             sub += '- 13px '
-          } else if (this._contains(Setting.pageClass, ['q-pt-sm', 'q-pb-sm', 'q-mt-sm', 'q-mb-sm'])) {
+          } else if (this._contains(this.settingPageClass, ['q-pt-sm', 'q-pb-sm', 'q-mt-sm', 'q-mb-sm'])) {
             sub += '- 6px '
-          } else if (this._contains(Setting.pageClass, ['q-pa-md', 'q-ma-md', 'q-py-md', 'q-my-md'])) {
+          } else if (this._contains(this.settingPageClass, ['q-pa-md', 'q-ma-md', 'q-py-md', 'q-my-md'])) {
             sub += '- 30px '
-          } else if (this._contains(Setting.pageClass, ['q-pt-md', 'q-pb-md', 'q-mt-md', 'q-mb-md'])) {
+          } else if (this._contains(this.settingPageClass, ['q-pt-md', 'q-pb-md', 'q-mt-md', 'q-mb-md'])) {
             sub += '- 15px '
-          } else if (this._contains(Setting.pageClass, ['q-pa-lg', 'q-ma-lg', 'q-py-lg', 'q-my-lg'])) {
+          } else if (this._contains(this.settingPageClass, ['q-pa-lg', 'q-ma-lg', 'q-py-lg', 'q-my-lg'])) {
             sub += '- 45px '
-          } else if (this._contains(Setting.pageClass, ['q-pt-lg', 'q-pb-lg', 'q-mt-lg', 'q-mb-lg'])) {
+          } else if (this._contains(this.settingPageClass, ['q-pt-lg', 'q-pb-lg', 'q-mt-lg', 'q-mb-lg'])) {
             sub += '- 23px '
-          } else if (this._contains(Setting.pageClass, ['q-pa-xl', 'q-ma-xl', 'q-py-xl', 'q-my-xl'])) {
+          } else if (this._contains(this.settingPageClass, ['q-pa-xl', 'q-ma-xl', 'q-py-xl', 'q-my-xl'])) {
             sub += '- 93px '
-          } else if (this._contains(Setting.pageClass, ['q-pt-xl', 'q-pb-xl', 'q-mt-xl', 'q-mb-xl'])) {
+          } else if (this._contains(this.settingPageClass, ['q-pt-xl', 'q-pb-xl', 'q-mt-xl', 'q-mb-xl'])) {
             sub += '- 47px '
           }
           height = 'calc(100vh ' + sub + ')'

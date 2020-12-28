@@ -38,7 +38,6 @@
       ref="table"
       row-key="id"
       dense
-      class="q-ml-sm"
       style="margin-bottom:3px; margin-right:3px;"
       :data="crud.data"
       :columns="crud.columns"
@@ -72,7 +71,9 @@
       </template>
 
       <template v-slot:pagination>
-        <crud-pagination no-persistence-page-size/>
+        <crud-pagination
+          no-persistence-page-size
+          no-page-if-only-one-page/>
       </template>
 
     </coadmin-table>

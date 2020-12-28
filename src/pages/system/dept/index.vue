@@ -69,7 +69,7 @@
       <template v-slot:before>
         <coadmin-tree
           ref="tree"
-          class="q-mr-sm"
+          :class="$q.screen.gt.xs?'q-mr-sm':''"
           node-key="id"
           label-key="label"
           :nodes="treeDatas"
@@ -103,8 +103,9 @@
           ref="table"
           row-key="id"
           dense
-          class="q-ml-sm"
+          :class="$q.screen.gt.xs?'q-ml-sm':''"
           style="margin-bottom:3px; margin-right:3px;"
+          tree-table
           :data="crud.data"
           :columns="crud.columns"
           :visible-columns="crud.visibleColumns"
@@ -158,6 +159,11 @@
             </q-td>
           </template>
 
+          <template v-slot:pagination>
+            <crud-pagination
+              no-page-if-only-one-page/>
+          </template>
+
         </coadmin-table>
       </template>
     </q-splitter>
@@ -168,6 +174,7 @@
 import { mapGetters } from 'vuex'
 import CRUD, { presenter, header, form, crud } from '@crud/crud'
 import crudOperation from '@crud/CRUD.operation'
+import crudPagination from '@crud/CRUD.pagination'
 import crudRow from '@crud/CRUD.row'
 import crudMore from '@crud/CRUD.more'
 import crudDept, { getDepts } from '@/api/system/dept'
@@ -193,7 +200,7 @@ const columns = [
 
 export default {
   name: 'Dept',
-  components: { crudOperation, crudMore, crudRow },
+  components: { crudOperation, crudMore, crudRow, crudPagination },
   cruds() {
     return CRUD({ columns, visibleColumns, idField: 'id', title: '机构', sort: ['sort,desc'], query: { pid: null }, url: 'api/dept', crudMethod: { ...crudDept } })
   },
