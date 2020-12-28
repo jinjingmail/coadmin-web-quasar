@@ -4,6 +4,8 @@ import { buildMenus } from '@/api/system/menu'
 import { filterAsyncRouter } from '@/store/module-permission'
 import Setting from '@/default-setting'
 
+const whiteList = ['/login']// no redirect whitelist
+
 // "async" is optional;
 // more info on params: https://quasar.dev/quasar-cli/cli-documentation/boot-files#Anatomy-of-a-boot-file
 export default ({ app, router, store, Vue }) => {
@@ -40,7 +42,7 @@ export default ({ app, router, store, Vue }) => {
       }
     } else {
       /* has no token*/
-      if (!to.meta.auth) { // 在免登录白名单，直接进入
+      if (whiteList.includes(to.path)) { // 在免登录白名单，直接进入
         next()
         LoadingBar.stop()
       } else {
