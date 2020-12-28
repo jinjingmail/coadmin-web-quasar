@@ -24,7 +24,7 @@
     :fullscreen="isFullscreen"
     :virtual-scroll="computedVirtualScroll"
     :rows-per-page-options="rowsPerPageOptions"
-    :data="computedTreeTableData"
+    :data="data"
     :no-data-label="noDataLabel"
     :no-results-label="noResultsLabel"
     :selected-rows-label="selectedRowsLabel"
@@ -35,22 +35,6 @@
     </template>
     <template v-for="slotName in Object.keys($scopedSlots)" v-slot:[slotName]="prop">
       <slot :name="slotName" v-bind="prop"/>
-    </template>
-
-    <template v-if="treeTable" v-slot:body="props">
-      <q-tr v-if="props.expand || props.row.isAlwaysShow" :props="props">
-        <q-td>
-          <q-checkbox v-model="props.selected"/>
-        </q-td>
-
-        <q-td
-          v-for="col in props.cols"
-          :key="col.name"
-          :props="props"
-        >
-          {{col.value}}
-        </q-td>
-      </q-tr>
     </template>
 
     <!-- 添加pagination slot，以便页面没有分页时q-table显示默认的分页信息
@@ -152,14 +136,15 @@ export default {
       'tagsView'
     ]),
     computedTreeTableData () {
+      /*
       const data = Object.assign([], this.data)
       if (this.treeTable) {
         for (const d of data) {
           d.isAlwaysShow = true
         }
-      }
+      }*/
       //console.log('new data={}', data)
-      return data
+      return this.data
     },
     computedSeparator () {
       return this.separator
