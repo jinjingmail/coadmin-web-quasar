@@ -24,7 +24,7 @@
     :fullscreen="isFullscreen"
     :virtual-scroll="computedVirtualScroll"
     :rows-per-page-options="rowsPerPageOptions"
-    :data="data"
+    :data="computedTreeTableData"
     :no-data-label="noDataLabel"
     :no-results-label="noResultsLabel"
     :selected-rows-label="selectedRowsLabel"
@@ -136,15 +136,14 @@ export default {
       'tagsView'
     ]),
     computedTreeTableData () {
-      /*
       const data = Object.assign([], this.data)
       if (this.treeTable) {
         for (const d of data) {
           d.isAlwaysShow = true
         }
-      }*/
+      }
       //console.log('new data={}', data)
-      return this.data
+      return data
     },
     computedSeparator () {
       return this.separator
