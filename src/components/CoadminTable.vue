@@ -32,15 +32,20 @@
       <slot :name="slotName" v-bind="prop"/>
     </template>
 
-    <template v-slot:no-data="prop">
-      <slot name="no-data" v-bind="prop">
-        <div class="full-width row flex-center q-gutter-sm">
-          <q-icon size="1.4em" :name="prop.filter ? 'filter_b_and_w' : prop.icon" />
-          <span style="font-size:1.4em">
-            {{ prop.message }}
-          </span>
-        </div>
-      </slot>
+    <template v-slot:body="props">
+      <q-tr :props="props">
+        <q-td>
+          <q-checkbox v-model="props.selected"/>
+        </q-td>
+
+        <q-td
+          v-for="col in props.cols"
+          :key="col.name"
+          :props="props"
+        >
+          {{col.value}}
+        </q-td>
+      </q-tr>
     </template>
 
     <!-- 添加pagination slot，以便页面没有分页时q-table显示默认的分页信息 -->
