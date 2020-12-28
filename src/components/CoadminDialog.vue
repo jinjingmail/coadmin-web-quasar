@@ -13,21 +13,23 @@
     no-close
     close-method
     icon
-    content-style
     content-class
+    content-style
+    card-class
+    card-style
     ...
 -->
 <template>
   <q-dialog
     ref="dialog"
-    :content-class="computedContentClass"
-    :content-style="settingDialogStyle"
+    :content-class="'coadmin-dialog ' + contentClass"
+    :content-style="contentStyle"
     :maximized="maxscreen"
     v-bind="$attrs"
     v-on="$listeners"
     @before-show="_beforeShow"
   >
-    <coadmin-card ref="card" :style="contentStyle" :class="contentClass" :id="uuid">
+    <coadmin-card ref="card" :style="computedCardStyle" :class="computedCardClass" :id="uuid">
       <q-card-section v-if="!noHeader" class="no-padding">
         <q-toolbar>
           <q-toolbar v-if="!noDrag" v-drag="{moveElId: uuid, dragOutY:40}" class="q-pl-none">
@@ -49,8 +51,13 @@
 
           <slot name="header_right_prepend"></slot>
           <slot name="header_right">
-            <q-btn v-if="!noMax" flat round dense :icon="maxscreen?icon_max_exit:icon_max" @click="toggleMaxScreen()"/>
-            <q-btn v-if="!noClose" flat round dense :icon="icon_close?icon_close:'close'" @click="closeMethod?closeMethod():$refs.dialog.hide()"/>
+            <q-btn v-if="!noMax" flat round dense
+              :icon="maxscreen?icon_max_exit:icon_max"
+              @click="toggleMaxScreen()"/>
+
+            <q-btn v-if="!noClose" flat round dense
+              :icon="icon_close?icon_close:'close'"
+              @click="closeMethod?closeMethod():$refs.dialog.hide()"/>
           </slot>
         </q-toolbar>
       </q-card-section>
@@ -114,11 +121,19 @@ export default {
     },
     contentClass: {
       type: String,
-      default: undefined
+      default: ''
     },
     contentStyle: {
       type: String,
-      default: undefined
+      default: ''
+    },
+    cardClass: {
+      type: String,
+      default: ''
+    },
+    cardStyle: {
+      type: String,
+      default: ''
     }
   },
   data () {
@@ -132,9 +147,6 @@ export default {
     }
   },
   computed: {
-    computedContentClass () {
-      return this.settingDialogClass + ' .coadmin-dialog'
-    },
     settingDialogClass () {
       if (this.$q.screen.gt.xs) {
         return Setting.dialogClass
@@ -147,6 +159,20 @@ export default {
         return Setting.dialogStyle
       } else {
         return Setting.dialogStyleMobile
+      }
+    },
+    computedCardClass () {
+      return this.settingDialogClass + ' ' + this.cardClass
+    },
+    computedCardStyle () {
+      if (this.settingDialogStyle && this.cardStyle) {
+        return this.settingDialogStyle + ';' + this.cardStyle
+      } else if (this.cardStyle) {
+        return this.cardStyle
+      } else if (this.settingDialogStyle) {
+        return this.settingDialogStyle
+      } else {
+        return ''
       }
     }
   },

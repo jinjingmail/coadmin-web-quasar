@@ -13,6 +13,7 @@ Quasar相比ElementUI，胜在可定制性上比较强，每个组件保留了�
 ## 主要特点
 - 给个`star`吧
 - 良好的适配移动端小屏幕
+- 全局页面（page、table、dialog）配置参数
 - Dark 和 Light模式自由切换
 - 可以分别自定义Dark 和 Light模式下的颜色样式，并保存到LocalStorage里面，关闭浏览器不丢失
  - 可自定义左侧菜单栏宽度、背景色、字体色，顶部标题栏颜色、Tab标签栏位置和是否显示 等
@@ -32,7 +33,7 @@ Quasar相比ElementUI，胜在可定制性上比较强，每个组件保留了�
 - 感谢：eladmin-web、vue-element-admin、quasar-admin-crm、quasar-element-pro
 
 ```bash
-TODO 新增全局页面（page、table）配置参数
+TODO 针对mac系统，适配一下自定义组件（比如dialog的关闭按钮放到左上角）
 TODO CoadminForm 表单配置型 Validator
 TODO CoadminOptionGroup 自定义form项的错误提示
 TODO CoadminDateSelect 可以手工输入日期、可以选择“最近7天、最近30天、本月、。。。”
