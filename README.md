@@ -14,7 +14,7 @@ Quasar相比ElementUI，胜在可定制性上比较强，同时官网文档也�
 - 给个`star`吧
 - 良好的适配移动端小屏幕
 - 感谢：eladmin-web、vue-element-admin、quasar-admin-crm、quasar-element-pro
-- 更多特点请查阅 Quasar-admin-template 项目
+- 更多特性请查阅 Quasar-admin-template 项目
 
 ```bash
 TODO “在当前页查找”支持ESC键盘按键

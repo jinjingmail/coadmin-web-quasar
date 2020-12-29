@@ -62,7 +62,7 @@
 
     <q-splitter
       v-model="splitter"
-      unit="%"
+      unit="px"
       :horizontal="$q.screen.xs"
       emit-immediately
     >
@@ -217,7 +217,7 @@ export default {
   mixins: [presenter(), header(), form(defaultForm), crud()],
   data () {
     return {
-      splitter: 30,
+      splitter: 350,
       treeSelectedLabel: null,
       treeDatas: [],
       permission: {
