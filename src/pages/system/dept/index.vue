@@ -107,9 +107,9 @@
           dense
           tree-table
           tree-children-key="children"
-          expand-btn-flatx
-          expand-btn-style="margin-right:5px; color: red;"
-          :expand-btn-width="3"
+          expand-flatx
+          expand-style="margin-right:5px; color: red;"
+          :expand-width="3"
           :data="crud.data"
           :columns="crud.columns"
           :visible-columns="crud.visibleColumns"

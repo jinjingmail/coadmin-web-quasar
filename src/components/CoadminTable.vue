@@ -4,10 +4,10 @@
     tree-table          启用树表
     tree-children-key   树表children字段，默认'children'
     expand-key          树表展开按钮所在字段
-    extand-btn-width    树表展开按钮的宽度
-    extand-btn-size     树表展开按钮的大小：xs、sm、md、lg、xl
-    extand-btn-flat     树表展开按钮
-    expand-btn-style    树表展开按钮style
+    extand-width        树表展开按钮的宽度
+    extand-size         树表展开按钮的大小：xs、sm、md、lg、xl
+    extand-flat         树表展开按钮
+    expand-style        树表展开按钮style
     expand-icon         树表展开按钮的图标
     expand-icon-fold    树表折叠按钮的图标
     expand-without-label 点击文字不展开树表
@@ -67,17 +67,15 @@
           </template>
           <q-td v-else :key="col.name" :props="props">
             <template v-if="_isExpandColumn(col.name)">
-              <span :style="_expandSpaceStyle(props)" style="display:inline-block">
-                &nbsp;
-              </span>
+              <span :style="_expandSpaceStyle(props)" style="display:inline-block" />
               <q-btn
                 v-if="props.row.__has_child"
                 dense
                 padding="none"
                 style="margin-top:-3px; margin-right:2px;"
-                :style="expandBtnStyle"
-                :size="expandBtnSize"
-                :flat="expandBtnFlat"
+                :style="expandStyle"
+                :size="expandSize"
+                :flat="expandFlat"
                 @click.stop="props.expand = !props.expand"
                 :icon="props.expand ? expandIconFold : expandIcon" />
                 <span @click.stop="(expandWithoutLabel || !props.row.__has_child)?'':props.expand = !props.expand" :class="(expandWithoutLabel || !props.row.__has_child)?'':'cursor-pointer'">{{col.value}}</span>
@@ -165,17 +163,17 @@ export default {
       default: 'children'
     },
     expandKey: String,
-    expandBtnWidth: {
+    expandWidth: {
       type: Number,
       default: 0
     },
-    expandBtnSize: {
+    expandSize: {
       type: String,
       default: 'sm',
       validator: val => ['xs', 'sm', 'md', 'lg', 'xl'].includes(val)
     },
-    expandBtnFlat: Boolean,
-    expandBtnStyle: String,
+    expandFlat: Boolean,
+    expandStyle: String,
     expandIcon: {
       type: String,
       default: 'keyboard_arrow_right'
@@ -350,8 +348,8 @@ export default {
     }
   },
   methods: {
-    _calcExpandBtnSizeToWidth () {
-      switch (this.expandBtnSize) {
+    _calcExpandSizeToWidth () {
+      switch (this.expandSize) {
         case 'xs': return 14
         case 'sm': return 18
         case 'md': return 25
@@ -361,12 +359,12 @@ export default {
       }
     },
     _expandSpaceStyle (props) {
-      const userWidth = this.expandBtnWidth ? this.expandBtnWidth : 0
-      const width = 'width:' + (props.row.__deep * this._calcExpandBtnSizeToWidth() + (props.row.__has_child ? 0 : this._calcExpandBtnSizeToWidth()) + userWidth * props.row.__deep) + 'px;'
+      const userWidth = this.expandWidth ? this.expandWidth : 0
+      const width = 'width:' + (props.row.__deep * this._calcExpandSizeToWidth() + (props.row.__has_child ? 0 : this._calcExpandSizeToWidth()) + userWidth * props.row.__deep) + 'px;'
       if (props.row.__has_child) {
         return width
       } else {
-        return width + this.expandBtnStyle
+        return width + this.expandStyle
       }
     },
     /*
