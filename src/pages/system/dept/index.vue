@@ -104,7 +104,7 @@
           row-key="id"
           dense
           :class="$q.screen.gt.xs?'q-ml-sm':''"
-          style="margin-bottom:3px; margin-right:3px;"
+          flat
           tree-table
           :data="crud.data"
           :columns="crud.columns"
