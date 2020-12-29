@@ -30,6 +30,7 @@
     :selected-rows-label="selectedRowsLabel"
     :separator="computedSeparator"
   >
+
     <template v-for="slotName in Object.keys($slots)" v-slot:[slotName]>
       <slot :name="slotName"/>
     </template>
@@ -37,11 +38,25 @@
       <slot :name="slotName" v-bind="prop"/>
     </template>
 
-    <!-- 添加pagination slot，以便页面没有分页时q-table显示默认的分页信息
+    <template v-if="treeTable" v-slot:body="props">
+      <q-tr :props="props">
+        <q-td v-if="$attrs.selection">
+          <q-checkbox v-model="props.selected"/>
+        </q-td>
+
+        <template v-for="col in props.cols">
+          <slot v-if="$scopedSlots['body-cell-' + col.name]" :name="'body-cell-' + col.name" v-bind="props"/>
+          <q-td v-else :key="col.name" :props="props">
+            {{col.value}}
+          </q-td>
+        </template>
+      </q-tr>
+    </template>
+
+    <!-- 添加pagination slot，以便页面没有分页时q-table显示默认的分页信息-->
     <template v-slot:pagination>
       <slot name="pagination"/>
     </template>
-     -->
 
     <!-- loadingSpinner 明确为空或者自定义了slot:loading，则忽略 -->
     <template v-slot:loading v-if="showLoading && loadingSpinner && !$slots['loading']">

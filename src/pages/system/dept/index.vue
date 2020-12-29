@@ -111,6 +111,7 @@
           :visible-columns="crud.visibleColumns"
           :title="treeSelectedLabel"
           :loading="crud.loading"
+          selection="multiple"
           :selected.sync="crud.selections"
           :filter="filterTable"
           @row-click="(evt, row, index) => crud.selections = [row]"
@@ -148,7 +149,7 @@
           </template>
 
           <template v-slot:body-cell-action="props">
-            <q-td :props="props">
+            <q-td>
               <crud-row
                 flat
                 :type="$q.screen.gt.xs?'button':'menu'"
