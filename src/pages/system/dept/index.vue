@@ -104,12 +104,12 @@
           row-key="id"
           :class="$q.screen.gt.xs?'q-ml-sm':''"
           flat
+          dense
           tree-table
           tree-children-key="children"
-          expand-btn-flat
+          expand-btn-flatx
+          expand-btn-style="margin-right:5px; color: red;"
           :expand-btn-width="3"
-          expand-btn-style="margin-right:5px; "
-          :expanded="[7]"
           :data="crud.data"
           :columns="crud.columns"
           :visible-columns="crud.visibleColumns"
@@ -193,6 +193,7 @@ const defaultForm = { id: null, name: null, isTop: '0', pid: null, sort: 10, ena
 const visibleColumns = ['name', 'sort', 'enabled', 'treeNames', 'action']
 const columns = [
   { name: 'id', field: 'id', label: 'ID' },
+  { name: 'sort', label: '排序', field: 'sort', sortable: true },
   {
     name: 'name',
     field: 'name',
@@ -202,7 +203,6 @@ const columns = [
     sortable: true
   },
   { name: 'pid', label: 'PID', field: 'pid' },
-  { name: 'sort', label: '排序', field: 'sort', sortable: true },
   { name: 'enabled', label: 'enabled', field: 'enabled', align: 'left' },
   { name: 'treeNames', label: 'names', field: 'treeNames', align: 'left' },
   { name: 'action', label: '操作', align: 'center' }

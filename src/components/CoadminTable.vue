@@ -1,16 +1,16 @@
 <!--
   增加插槽：
   增加属性：
-    tree-table          树表
+    tree-table          启用树表
     tree-children-key   树表children字段，默认'children'
-    expand-key          树表展开按钮所在字段（需要保证指定的字段是左对齐，否则看不出树形效果）
+    expand-key          树表展开按钮所在字段
     extand-btn-width    树表展开按钮的宽度
     extand-btn-size     树表展开按钮的大小：xs、sm、md、lg、xl
     extand-btn-flat     树表展开按钮
     expand-btn-style    树表展开按钮style
     expand-icon         树表展开按钮的图标
     expand-icon-fold    树表折叠按钮的图标
-    TODO 是否吧第一行作为全点击、连接线、body-cell slot支持
+    expand-without-label 点击文字不展开树表
 
     sticky-header
     sticky-first-column
@@ -18,6 +18,11 @@
 
     loading-delay       多少ms后开始显示 loading 状态
     loading-spinner     '', 'cycle', 'gears', 'ios', 'ball', 'dots' 【提示：loading-spinner=''，则使用q-table默认loading】
+  局限：
+    通过下面slot自定义的列，不能作为 expand-key
+      slot:body-cell-[name]
+    树表不能包含如下的slot
+      slot:body slot:body-cell
 -->
 <template>
   <q-table
@@ -51,9 +56,9 @@
     </template>
 
     <template v-if="treeTable" v-slot:body="props">
-      <q-tr :props="props">
+      <q-tr :props="props" @click="evt => _treeTableRowClick(evt, props)" :class="$listeners['row-click']?'cursor-pointer':''">
         <q-td v-if="$attrs.selection">
-          <q-checkbox v-model="props.selected"/>
+          <q-checkbox :dense="props.dense" v-model="props.selected"/>
         </q-td>
 
         <template v-for="col in props.cols">
@@ -67,22 +72,22 @@
               </span>
               <q-btn
                 v-if="props.row.__has_child"
+                dense
                 padding="none"
                 style="margin-top:-3px; margin-right:2px;"
                 :style="expandBtnStyle"
-                :size="expandBtnSize" dense :flat="expandBtnFlat"
-                @click="props.expand = !props.expand"
+                :size="expandBtnSize"
+                :flat="expandBtnFlat"
+                @click.stop="props.expand = !props.expand"
                 :icon="props.expand ? expandIconFold : expandIcon" />
+                <span @click.stop="(expandWithoutLabel || !props.row.__has_child)?'':props.expand = !props.expand" :class="(expandWithoutLabel || !props.row.__has_child)?'':'cursor-pointer'">{{col.value}}</span>
             </template>
-            {{col.value}}
+            <template v-else>
+              {{col.value}}
+            </template>
           </q-td>
         </template>
       </q-tr>
-    </template>
-
-    <!-- 添加pagination slot，以便页面没有分页时q-table显示默认的分页信息-->
-    <template v-slot:pagination>
-      <slot name="pagination"/>
     </template>
 
     <!-- loadingSpinner 明确为空或者自定义了slot:loading，则忽略 -->
@@ -179,6 +184,7 @@ export default {
       type: String,
       default: 'keyboard_arrow_down'
     },
+    expandWithoutLabel: Boolean,
     expanded: Array
   },
   data () {
@@ -333,8 +339,8 @@ export default {
       for (const dd of this.data) {
         const d = { ...dd }
         result.push(d)
-        d.__deep = deep
         const children = d[this.treeChildrenKey]
+        d.__deep = deep
         d.__has_child = !!children && !!children.length && children.length > 0
         if (d.__has_child && this.treeExpandedKeys.includes(d[this.rowKey])) {
           this._deepTreeData(result, children, deep + 1)
@@ -363,24 +369,45 @@ export default {
         return width + this.expandBtnStyle
       }
     },
+    /*
+     * slot:body-cell-[name] 的列不能作为可扩展按钮位置
+     */
     _isExpandColumn (columnName) {
-      if (this.expandKey && this.visibleColumns.includes(this.expandKey)) {
-        if (this.expandKey === columnName) {
-          return true
-        }
+      if (this.$scopedSlots['body-cell-' + columnName]) {
         return false
       }
+
+      if (this.expandKey && this.visibleColumns.includes(this.expandKey)) {
+        if (this.expandKey === columnName) {
+          for (const column of this.columns) {
+            // 被选做扩展按钮的列，强制为左对齐，否则看不出树形效果
+            if (column.name === this.expandKey && column.align !== 'left') {
+              Vue.set(column, 'align', 'left')
+            }
+          }
+          return true
+        } else if (!this.$scopedSlots['body-cell-' + this.expandKey]) {
+          return false
+        }
+      }
+
       if (this.columns && this.columns.length > 0) {
         for (const column of this.columns) {
           if (this.visibleColumns && this.visibleColumns.length > 0) {
             if (this.visibleColumns.includes(column.name)) {
               if (column.name === columnName) {
+                if (this.$scopedSlots['body-cell-' + column.name]) {
+                  continue
+                }
                 // 被选做扩展按钮的列，强制为左对齐，否则看不出树形效果
                 if (column.align !== 'left') {
                   Vue.set(column, 'align', 'left')
                 }
                 return true
               } else {
+                if (this.$scopedSlots['body-cell-' + column.name]) {
+                  continue
+                }
                 return false
               }
             }
@@ -393,8 +420,8 @@ export default {
       for (const dd of children1) {
         const d = { ...dd }
         result.push(d)
-        d.__deep = deep
         const children = d[this.treeChildrenKey]
+        d.__deep = deep
         d.__has_child = !!children && !!children.length && children.length > 0
         if (d.__has_child && this.treeExpandedKeys.includes(d[this.rowKey])) {
           this._deepTreeData(result, children, deep + 1)
@@ -402,14 +429,12 @@ export default {
       }
     },
     _contains (string, strArray) {
-      if (string) {
-        for (const str of strArray) {
-          if (string.includes(str)) {
-            return true
-          }
-        }
+      return strArray.includes(string)
+    },
+    _treeTableRowClick (evt, props) {
+      if (this.$listeners['row-click']) {
+        this.$emit('row-click', evt, props.row, props.rowIndex)
       }
-      return false
     },
 
     /**  q-table 自带方法 begin */
