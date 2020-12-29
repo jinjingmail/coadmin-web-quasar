@@ -102,10 +102,14 @@
         <coadmin-table
           ref="table"
           row-key="id"
-          dense
           :class="$q.screen.gt.xs?'q-ml-sm':''"
           flat
           tree-table
+          tree-children-key="children"
+          expand-btn-flat
+          :expand-btn-width="3"
+          expand-btn-style="margin-right:5px; "
+          :expanded="[7]"
           :data="crud.data"
           :columns="crud.columns"
           :visible-columns="crud.visibleColumns"
@@ -117,7 +121,7 @@
           @row-click="(evt, row, index) => crud.selections = [row]"
         >
           <template v-slot:top-right="props">
-            <div class='row q-col-gutter-x-sm q-col-gutter-y-xs q-px-sm q-py-sm full-width'>
+            <div class='row q-col-gutter-x-sm q-col-gutter-y-xs full-width'>
               <coadmin-select
                 class="col-auto"
                 placeholder="状态"
@@ -148,8 +152,13 @@
             </div>
           </template>
 
+          <template v-slot:body-cell-sort="props">
+            <q-td key="sort" :props="props">
+              {{props.row.sort}}
+            </q-td>
+          </template>
           <template v-slot:body-cell-action="props">
-            <q-td>
+            <q-td key="action" :props="props">
               <crud-row
                 flat
                 :type="$q.screen.gt.xs?'button':'menu'"
@@ -194,7 +203,7 @@ const columns = [
   },
   { name: 'pid', label: 'PID', field: 'pid' },
   { name: 'sort', label: '排序', field: 'sort', sortable: true },
-  { name: 'enabled', label: 'enabled', field: 'enabled' },
+  { name: 'enabled', label: 'enabled', field: 'enabled', align: 'left' },
   { name: 'treeNames', label: 'names', field: 'treeNames', align: 'left' },
   { name: 'action', label: '操作', align: 'center' }
 ]

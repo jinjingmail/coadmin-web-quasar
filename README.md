@@ -17,6 +17,7 @@ Quasar相比ElementUI，胜在可定制性上比较强，同时官网文档也�
 - 更多特点请查阅 Quasar-admin-template 项目
 
 ```bash
+TODO “在当前页查找”支持ESC键盘按键
 TODO 增加 coadmin-table-select
 TODO 增加用户配置：左侧菜单栏是否阴影、header是否阴影、table字体颜色、coadmin-table的separator
 TODO CROD.operate 增加选项“按grid显示”

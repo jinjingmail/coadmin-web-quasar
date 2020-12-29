@@ -2,7 +2,15 @@
   增加插槽：
   增加属性：
     tree-table          树表
-    children-key        树表children字段，默认'children'
+    tree-children-key   树表children字段，默认'children'
+    expand-key          树表展开按钮所在字段（需要保证指定的字段是左对齐，否则看不出树形效果）
+    extand-btn-width    树表展开按钮的宽度
+    extand-btn-size     树表展开按钮的大小：xs、sm、md、lg、xl
+    extand-btn-flat     树表展开按钮
+    expand-btn-style    树表展开按钮style
+    expand-icon         树表展开按钮的图标
+    expand-icon-fold    树表折叠按钮的图标
+    TODO 是否吧第一行作为全点击、连接线、body-cell slot支持
 
     sticky-header
     sticky-first-column
@@ -20,15 +28,19 @@
     :style="computedStyle"
     v-bind="$attrs"
     v-on="listeners"
+    :row-key="rowKey"
+    :data="computedTreeTableData"
+    :columns="columns"
+    :visible-columns="visibleColumns"
     :loading="showLoading"
     :fullscreen="isFullscreen"
     :virtual-scroll="computedVirtualScroll"
     :rows-per-page-options="rowsPerPageOptions"
-    :data="computedTreeTableData"
     :no-data-label="noDataLabel"
     :no-results-label="noResultsLabel"
     :selected-rows-label="selectedRowsLabel"
     :separator="computedSeparator"
+    :expanded.sync="treeExpandedKeys"
   >
 
     <template v-for="slotName in Object.keys($slots)" v-slot:[slotName]>
@@ -45,8 +57,23 @@
         </q-td>
 
         <template v-for="col in props.cols">
-          <slot v-if="$scopedSlots['body-cell-' + col.name]" :name="'body-cell-' + col.name" v-bind="props"/>
+          <template v-if="$scopedSlots['body-cell-' + col.name]">
+            <slot :name="'body-cell-' + col.name" v-bind="props"/>
+          </template>
           <q-td v-else :key="col.name" :props="props">
+            <template v-if="_isExpandColumn(col.name)">
+              <span :style="_expandSpaceStyle(props)" style="display:inline-block">
+                &nbsp;
+              </span>
+              <q-btn
+                v-if="props.row.__has_child"
+                padding="none"
+                style="margin-top:-3px; margin-right:2px;"
+                :style="expandBtnStyle"
+                :size="expandBtnSize" dense :flat="expandBtnFlat"
+                @click="props.expand = !props.expand"
+                :icon="props.expand ? expandIconFold : expandIcon" />
+            </template>
             {{col.value}}
           </q-td>
         </template>
@@ -74,6 +101,7 @@
 </template>
 
 <script>
+import Vue from 'vue'
 import { mapGetters } from 'vuex'
 import Setting from '@/default-setting'
 
@@ -81,6 +109,17 @@ export default {
   name: 'CoadminTable',
   inheritAttrs: false,
   props: {
+    rowKey: {
+      type: String,
+      default: 'id'
+    },
+    data: {
+      type: Array,
+      required: true
+    },
+    columns: Array,
+    visibleColumns: Array,
+
     rowsPerPageOptions: {
       type: Array,
       default: () => [0]
@@ -103,6 +142,7 @@ export default {
     stickyHeader: Boolean,
     stickyFirstColumn: Boolean,
     stickyLastColumn: Boolean,
+
     loading: Boolean,
     loadingSpinner: {
       type: String,
@@ -113,26 +153,56 @@ export default {
       type: Number,
       default: 300
     },
+
     treeTable: Boolean,
-    childrenKey: {
+    treeChildrenKey: {
       type: String,
       default: 'children'
     },
-    data: Array
+    expandKey: String,
+    expandBtnWidth: {
+      type: Number,
+      default: 0
+    },
+    expandBtnSize: {
+      type: String,
+      default: 'sm',
+      validator: val => ['xs', 'sm', 'md', 'lg', 'xl'].includes(val)
+    },
+    expandBtnFlat: Boolean,
+    expandBtnStyle: String,
+    expandIcon: {
+      type: String,
+      default: 'keyboard_arrow_right'
+    },
+    expandIconFold: {
+      type: String,
+      default: 'keyboard_arrow_down'
+    },
+    expanded: Array
   },
   data () {
     return {
       isFullscreen: undefined,
-      showLoading: false
+      showLoading: false,
+      treeExpandedKeys: []
     }
   },
   created () {
     this.showLoading = this.loading
     this.isFullscreen = this.fullscreen
-  },
-  mounted () {
+    if (this.expanded && this.expanded.length && this.expanded.length > 0) {
+      Object.assign(this.treeExpandedKeys, this.expanded)
+    }
   },
   watch: {
+    expanded (valNew) {
+      if (this.expanded && this.expanded.length && this.expanded.length > 0) {
+        this.treeExpandedKeys = Object.assign([], this.expanded)
+      } else {
+        this.treeExpandedKeys = []
+      }
+    },
     loading (valNew) {
       this.showLoading = false
       if (valNew) {
@@ -150,16 +220,6 @@ export default {
     ...mapGetters('settings', [
       'tagsView'
     ]),
-    computedTreeTableData () {
-      const data = Object.assign([], this.data)
-      if (this.treeTable) {
-        for (const d of data) {
-          d.isAlwaysShow = true
-        }
-      }
-      //console.log('new data={}', data)
-      return data
-    },
     computedSeparator () {
       return this.separator
     },
@@ -263,9 +323,84 @@ export default {
           }
         }
       )
+    },
+    computedTreeTableData () {
+      if (!this.treeTable) {
+        return this.data
+      }
+      const deep = 0
+      const result = []
+      for (const dd of this.data) {
+        const d = { ...dd }
+        result.push(d)
+        d.__deep = deep
+        const children = d[this.treeChildrenKey]
+        d.__has_child = !!children && !!children.length && children.length > 0
+        if (d.__has_child && this.treeExpandedKeys.includes(d[this.rowKey])) {
+          this._deepTreeData(result, children, deep + 1)
+        }
+      }
+      return result
     }
   },
   methods: {
+    _calcExpandBtnSizeToWidth () {
+      switch (this.expandBtnSize) {
+        case 'xs': return 14
+        case 'sm': return 18
+        case 'md': return 25
+        case 'lg': return 35
+        case 'xl': return 42
+        default: return 18
+      }
+    },
+    _expandSpaceStyle (props) {
+      const userWidth = this.expandBtnWidth ? this.expandBtnWidth : 0
+      const width = 'width:' + (props.row.__deep * this._calcExpandBtnSizeToWidth() + (props.row.__has_child ? 0 : this._calcExpandBtnSizeToWidth()) + userWidth * props.row.__deep) + 'px;'
+      if (props.row.__has_child) {
+        return width
+      } else {
+        return width + this.expandBtnStyle
+      }
+    },
+    _isExpandColumn (columnName) {
+      if (this.expandKey && this.visibleColumns.includes(this.expandKey)) {
+        if (this.expandKey === columnName) {
+          return true
+        }
+        return false
+      }
+      if (this.columns && this.columns.length > 0) {
+        for (const column of this.columns) {
+          if (this.visibleColumns && this.visibleColumns.length > 0) {
+            if (this.visibleColumns.includes(column.name)) {
+              if (column.name === columnName) {
+                // 被选做扩展按钮的列，强制为左对齐，否则看不出树形效果
+                if (column.align !== 'left') {
+                  Vue.set(column, 'align', 'left')
+                }
+                return true
+              } else {
+                return false
+              }
+            }
+          }
+        }
+      }
+      return false
+    },
+    _deepTreeData (result, children1, deep) {
+      for (const dd of children1) {
+        const d = { ...dd }
+        result.push(d)
+        d.__deep = deep
+        const children = d[this.treeChildrenKey]
+        d.__has_child = !!children && !!children.length && children.length > 0
+        if (d.__has_child && this.treeExpandedKeys.includes(d[this.rowKey])) {
+          this._deepTreeData(result, children, deep + 1)
+        }
+      }
+    },
     _contains (string, strArray) {
       if (string) {
         for (const str of strArray) {
