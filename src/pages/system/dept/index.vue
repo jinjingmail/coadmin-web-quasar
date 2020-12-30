@@ -48,6 +48,7 @@
             :nodes="treeDatas"
             filter-key-like="nameLetter"
             filter-key-equal="id"
+            filter-placeholder="名称、拼音首字母"
             selectable
             clearable
             :disable="!!crud.status.view"
@@ -78,7 +79,7 @@
           selected-color="purple"
           selectable
           filter-placeholder="ID、名称、拼音首字母"
-          @update:selected="handleTreeDeptNodeClick"
+          @update:selected="handleTreeNodeClick"
           @selected-label="label => treeSelectedLabel=label"
         >
           <template v-slot:toolbar-end>
@@ -108,7 +109,8 @@
           tree-table
           tree-children-key="children"
           expand-flatx
-          expand-style="margin-right:5px; color: red;"
+          expand-size="sm"
+          expand-style="margin-right:5px; color: red; "
           :expand-width="3"
           :data="crud.data"
           :columns="crud.columns"
@@ -157,6 +159,7 @@
               {{props.row.sort}}
             </q-td>
           </template>
+
           <template v-slot:body-cell-action="props">
             <q-td key="action" :props="props">
               <crud-row
@@ -193,18 +196,11 @@ const defaultForm = { id: null, name: null, isTop: '0', pid: null, sort: 10, ena
 const visibleColumns = ['name', 'sort', 'enabled', 'treeNames', 'action']
 const columns = [
   { name: 'id', field: 'id', label: 'ID' },
-  { name: 'sort', label: '排序', field: 'sort', sortable: true },
-  {
-    name: 'name',
-    field: 'name',
-    label: '名称',
-    required: true,
-    align: 'left',
-    sortable: true
-  },
-  { name: 'pid', label: 'PID', field: 'pid' },
-  { name: 'enabled', label: 'enabled', field: 'enabled', align: 'left' },
-  { name: 'treeNames', label: 'names', field: 'treeNames', align: 'left' },
+  { name: 'sort', field: 'sort', label: '排序' },
+  { name: 'name', field: 'name', label: '名称', required: true, align: 'left' },
+  { name: 'pid', field: 'pid', label: 'PID' },
+  { name: 'enabled', field: 'enabled', label: 'enabled', align: 'left' },
+  { name: 'treeNames', field: 'treeNames', label: 'names', align: 'left' },
   { name: 'action', label: '操作', align: 'center' }
 ]
 
@@ -217,7 +213,7 @@ export default {
   mixins: [presenter(), header(), form(defaultForm), crud()],
   data () {
     return {
-      splitter: 350,
+      splitter: 250,
       treeSelectedLabel: null,
       treeDatas: [],
       permission: {
@@ -254,7 +250,7 @@ export default {
       })
     },
     // 切换机构
-    handleTreeDeptNodeClick(id) {
+    handleTreeNodeClick(id) {
       if (id == null) {
         id = 0
       }

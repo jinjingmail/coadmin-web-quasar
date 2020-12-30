@@ -125,14 +125,7 @@ const defaultForm = { id: null, name: null, sort: 10, enabled: true }
 const visibleColumns = ['name', 'sort', 'enabled', 'action']
 const columns = [
   { name: 'id', field: 'id', label: 'ID' },
-  {
-    name: 'name',
-    field: 'name',
-    label: '名称',
-    required: true,
-    align: 'left',
-    sortable: true
-  },
+  { name: 'name', field: 'name', label: '名称', required: true, align: 'left' },
   { name: 'sort', label: '排序', field: 'sort', sortable: true },
   { name: 'enabled', label: 'enabled', field: 'enabled' },
   { name: 'action', label: '操作', align: 'center' }
