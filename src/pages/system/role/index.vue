@@ -125,6 +125,7 @@
         <coadmin-tree
           ref="tree"
           :class="$q.screen.gt.xs?'q-ml-sm':''"
+          accordion
           node-key="id"
           label-key="title"
           tick-strategy2="strict"

@@ -30,6 +30,7 @@ TODO CoadminOptionGroup 自定义form项的错误提示
 TODO CoadminDateSelect 可以手工输入日期、可以选择“最近7天、最近30天、本月、。。。”
 TODO CoadminTree selected和ticked，可以设置“只选parent，只选leaf”
 
+TODO BUG coadmin-tree-select 在菜单管理页面无法自动展开的问题
 TODO BUG 在iphone上，输入框也要小一些
 TODO BUG 在iphone上，有些按钮字体太小（颜色设置按钮、退出登录按钮等）
 TODO BUG table和card会丢失阴影的问题
