@@ -49,7 +49,7 @@
       @row-click="(evt, row, index) => crud.selections = [row]"
     >
       <template v-slot:top-right="props">
-        <div class='row q-col-gutter-x-sm q-col-gutter-y-xs q-px-sm q-py-sm full-width'>
+        <div class='row q-col-gutter-x-sm q-col-gutter-y-xs q-pa-xs full-width'>
           <coadmin-input class='col-auto' placeholder="ID、标签、值" v-model="query.blurry" content-style="width:140px" clearable @keyup.enter.native="crud.toQuery"/>
           <div class='col-auto'>
             <q-btn dense padding="xs sm" color="primary" icon="search" @click="crud.toQuery" />

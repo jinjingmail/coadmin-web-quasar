@@ -57,10 +57,16 @@
           @row-click="dictRowClick"
         >
           <template v-slot:top-right="props">
-            <div class='row q-col-gutter-x-sm q-col-gutter-y-xs q-px-sm q-py-sm full-width'>
-              <coadmin-input class='col-auto' placeholder="ID、名称、描述" v-model="query.blurry" content-style="width:140px" clearable @keyup.enter.native="crud.toQuery"/>
+            <div class='row q-col-gutter-x-sm q-col-gutter-y-xs q-pa-xs full-width'>
+              <coadmin-input class='col-auto'
+                placeholder="ID、名称、描述"
+                v-model="query.blurry"
+                content-style="width:140px"
+                clearable
+                @clear="crud.toQuery()"
+                @keydown.enter.native="crud.toQuery()"/>
               <div class='col-auto'>
-                <q-btn dense padding="xs sm" color="primary" icon="search" @click="crud.toQuery" />
+                <q-btn dense padding="xs sm" color="primary" icon="search" @click="crud.toQuery()" />
               </div>
               <q-space/>
               <crud-operation :permission="permission" no-view no-edit no-label/>

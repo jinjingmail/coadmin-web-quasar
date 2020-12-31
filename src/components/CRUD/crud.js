@@ -1,3 +1,4 @@
+import { Notify } from 'quasar'
 import { initData, download } from '@/api/data'
 import { parseTime, downloadFile } from '@/utils/index'
 import Setting from '@/default-setting'
@@ -541,11 +542,52 @@ function CRUD(options) {
       return crud.vms.find(vm => vm && vm.type === type).vm
     },
     notify(title, type = CRUD.NOTIFICATION_TYPE.INFO) {
+      /*
       crud.vms[0].vm.$q.notify({
         type,
         message: title,
         timeout: 3000,
         position: 'top'
+      })*/
+      Notify.create({
+        type,
+        message: title,
+        timeout: 5000,
+        position: 'bottom'
+      })
+    },
+    notifyInfo(title) {
+      Notify.create({
+        type: CRUD.NOTIFICATION_TYPE.INFO,
+        message: title,
+        timeout: 5000,
+        position: 'bottom'
+      })
+    },
+    notifySuccess(title) {
+      Notify.create({
+        type: CRUD.NOTIFICATION_TYPE.SUCCESS,
+        message: title,
+        timeout: 5000,
+        position: 'bottom'
+      })
+    },
+    notifyWarning(title) {
+      Notify.create({
+        type: CRUD.NOTIFICATION_TYPE.WARNING,
+        message: title,
+        timeout: 10 * 1000,
+        position: 'bottom',
+        closeBtn: '关闭'
+      })
+    },
+    notifyError(title) {
+      Notify.create({
+        type: CRUD.NOTIFICATION_TYPE.ERROR,
+        message: title,
+        timeout: 60 * 1000,
+        position: 'bottom',
+        closeBtn: '关闭'
       })
     },
     updateProp(name, value) {

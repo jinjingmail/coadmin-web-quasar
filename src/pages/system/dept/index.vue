@@ -76,9 +76,9 @@
           :nodes="treeDatas"
           filter-key-like="nameLetter"
           filter-key-equal="id"
+          filter-placeholder="ID、名称、拼音首字母"
           selected-color="purple"
           selectable
-          filter-placeholder="ID、名称、拼音首字母"
           @update:selected="handleTreeNodeClick"
           @selected-label="label => treeSelectedLabel=label"
         >
@@ -104,7 +104,6 @@
           ref="table"
           row-key="id"
           :class="$q.screen.gt.xs?'q-ml-sm':''"
-          flat
           dense
           tree-table
           tree-children-key="children"
@@ -123,7 +122,7 @@
           @row-click="(evt, row, index) => crud.selections = [row]"
         >
           <template v-slot:top-right="props">
-            <div class='row q-col-gutter-x-sm q-col-gutter-y-xs full-width'>
+            <div class='row q-col-gutter-x-sm q-col-gutter-y-xs q-pa-xs full-width'>
               <coadmin-select
                 class="col-auto"
                 placeholder="状态"

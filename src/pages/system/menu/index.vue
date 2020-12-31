@@ -24,7 +24,7 @@
             :selected.sync="form.pid"
             :expanded.sync="treeSelectExpanded"
             node-key="id"
-            label-key="label"
+            label-key="title"
             filter-key-like="titleLetter"
             filter-key-equal="id"
             filter-placeholder="名称、拼音首字母"
@@ -110,7 +110,7 @@
           ref="tree"
           :class="$q.screen.gt.xs?'q-mr-sm':''"
           node-key="id"
-          label-key="label"
+          label-key="title"
           :nodes="menuDatas"
           filter-key-like="titleLetter"
           filter-key-equal="id"
@@ -142,7 +142,6 @@
           ref="table"
           row-key="id"
           dense
-          flat
           :class="$q.screen.gt.xs?'q-ml-sm':''"
           tree-table
           expand-key="title"
@@ -158,7 +157,7 @@
           @row-click="(evt, row, index) => crud.selections = [row]"
         >
           <template v-slot:top-right="props">
-            <div class='row q-col-gutter-x-sm q-col-gutter-y-xs q-px-sm q-py-sm full-width'>
+            <div class='row q-col-gutter-x-sm q-col-gutter-y-xs q-pa-xs full-width'>
               <crud-operation :permission="permission" />
               <div class="col-auto">
                 <q-btn-dropdown dense color="primary" class="btn-dropdown-hide-droparrow" icon="apps" auto-close>
@@ -185,7 +184,7 @@
                 flat
                 :type="$q.screen.gt.xs?'button':'menu'"
                 :data="props.row"
-                :data-add="{sort: props.row.sort+10}"
+                :data-add="{pid: props.row.pid, sort: props.row.sort+10}"
                 :permission="permission"
               />
             </q-td>

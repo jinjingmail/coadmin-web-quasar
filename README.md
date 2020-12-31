@@ -17,6 +17,7 @@ Quasar相比ElementUI，胜在可定制性上比较强，同时官网文档也�
 - 更多特性请查阅 Quasar-admin-template 项目
 
 ```bash
+TODO coadmin-tree、coadmin-select、coadmin-tree-select 等的 $emit 加入是否需要的判断
 TODO 树表懒加载
 TODO 树表增加图标显示
 TODO “在当前页查找”支持ESC键盘按键
@@ -29,6 +30,9 @@ TODO CoadminOptionGroup 自定义form项的错误提示
 TODO CoadminDateSelect 可以手工输入日期、可以选择“最近7天、最近30天、本月、。。。”
 TODO CoadminTree selected和ticked，可以设置“只选parent，只选leaf”
 
+TODO BUG 在iphone上，输入框也要小一些
+TODO BUG 在iphone上，有些按钮字体太小（颜色设置按钮、退出登录按钮等）
+TODO BUG table和card会丢失阴影的问题
 TODO BUG CoadminSelect use-input的时候，会出现下拉列出的选项空白行的问题
 TODO BUG CoadminInput 在popup-proxy 里面时，有时候prepend、append、before、after 的slot会失效
 TODO BUG 对话框最大化后，取消拖动
