@@ -58,4 +58,3 @@ export function updateEmail(form) {
 }
 
 export default { add, edit, del }
-

@@ -17,6 +17,12 @@ Quasar相比ElementUI，胜在可定制性上比较强，同时官网文档也�
 - 更多特性请查阅 Quasar-admin-template 项目
 
 ```bash
+TODO coadmin-input dense 下过小，建议从33改为36
+TODO option-group/select 组件string和number类型互相能识别（单选、多选）
+TODO 优化一下tree-table查找expand列的代码，只在列显示发生变化时确定
+TODO 菜单crud的rules
+TODO PageTagView 的选中状态颜色，根据父对象的背景色自动计算
+TODO 为 coadmin-tree 添加 tree-class / tree-style tree-class-mobile tree-style-mobile
 TODO coadmin-tree、coadmin-select、coadmin-tree-select 等的 $emit 加入是否需要的判断
 TODO 树表懒加载
 TODO 树表增加图标显示
@@ -30,6 +36,8 @@ TODO CoadminOptionGroup 自定义form项的错误提示
 TODO CoadminDateSelect 可以手工输入日期、可以选择“最近7天、最近30天、本月、。。。”
 TODO CoadminTree selected和ticked，可以设置“只选parent，只选leaf”
 
+TODO BUG coadmin-tree-select 的 leaf-all-only-parent 时，v-model的值不正确
+TODO BUG 不能将一个子菜单，修改为顶级菜单
 TODO BUG coadmin-tree-select 在菜单管理页面无法自动展开的问题
 TODO BUG 在iphone上，输入框也要小一些
 TODO BUG 在iphone上，有些按钮字体太小（颜色设置按钮、退出登录按钮等）

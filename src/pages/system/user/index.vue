@@ -12,7 +12,7 @@
       :title="crud.status.title"
       no-backdrop-dismiss
       @before-hide="crud.cancelCU"
-      card-style="width:600px; max-width:95vw;"
+      card-style="width:700px; max-width:95vw;"
     >
       <coadmin-form
         ref="form"
@@ -22,36 +22,74 @@
           <coadmin-form-item class="col-12" form-label="ID" v-if="form.id">
             <div class="q-pt-xs">{{form.id}}</div>
           </coadmin-form-item>
-          <coadmin-input class="col-12" form-label="机构名称" v-model="form.name" :disable="!!crud.status.view" :rules="[
+          <coadmin-input class="col-12" form-label="* 用户名" v-model="form.username" :disable="!!crud.status.view" :rules="[
               val => (!!val) || '必填'
               ]"/>
-          <coadmin-input class="col-12" form-label="排序" v-model.number="form.sort" type="number" :disable="!!crud.status.view" :rules="[
-              val => (!!val) || '必填'
-              ]"/>
+          <coadmin-input class="col-12 col-sm-6" form-label="电话" v-model.number="form.phone" :disable="!!crud.status.view"/>
+          <coadmin-input class="col-12 col-sm-6" form-label="邮箱" v-model.number="form.email" :disable="!!crud.status.view"/>
           <coadmin-option-group
-            class="col-12"
-            form-label="状态"
-            v-model="form.enabled"
+            class="col-12 col-sm-6"
+            form-label="* 性别"
+            v-model="form.gender"
+            :options="dict.gender"
             :disable="!!crud.status.view"
             inline
-            :options="dict.dept_status"
             type="radio"
+          />
+          <coadmin-option-group
+            class="col-12 col-sm-6"
+            form-label="* 状态"
+            v-model="form.enabled"
+            :options="dict.user_status"
+            :disable="!!crud.status.view"
+            inline
+            type="radio"
+          />
+          <coadmin-select
+            class="col-12"
+            form-label="* 岗位"
+            option-value="id"
+            option-label="name"
+            outlined
+            v-model="form.jobs"
+            no-filter
+            :options="jobDatas"
+            :disable="!!crud.status.view"
+            clearable
+            multiple
+            emit-value
+            map-options
           />
           <coadmin-tree-select
             class="col-12"
             tree-class="q-pa-sm"
-            form-label="选择上级机构"
-            :selected.sync="form.pid"
-            :expended="form.pid"
+            form-label="* 机构"
+            :nodes="deptDatas"
+            :ticked.sync="form.depts"
+            :expended="form.depts"
             node-key="id"
             label-key="name"
-            :nodes="treeDatas"
+            tick-strategy="leaf-all-only-parent"
             filter-key-like="nameLetter"
             filter-key-equal="id"
             filter-placeholder="名称、拼音首字母"
-            selectable
             clearable
             :disable="!!crud.status.view"
+          />
+          <coadmin-select
+            class="col-12"
+            form-label="* 角色"
+            option-value="id"
+            option-label="name"
+            outlined
+            v-model="form.roles"
+            no-filter
+            :options="roleDatas"
+            :disable="!!crud.status.view"
+            clearable
+            multiple
+            emit-value
+            map-options
           />
       </coadmin-form>
       <q-card-actions class="q-pa-md" align="right">
@@ -72,14 +110,14 @@
           :class="$q.screen.gt.xs?'q-mr-sm':''"
           node-key="id"
           label-key="label"
-          :nodes="treeDatas"
+          :nodes="deptDatas"
           filter-key-like="nameLetter"
           filter-key-equal="id"
           filter-placeholder="ID、名称、拼音首字母"
           selected-color="purple"
           selectable
           @update:selected="handleTreeNodeClick"
-          @selected-label="label => treeSelectedLabel=label"
+          @selected-label="label => deptSelectedLabel=label"
         >
           <template v-slot:toolbar-end>
             <q-btn
@@ -104,16 +142,10 @@
           row-key="id"
           :class="$q.screen.gt.xs?'q-ml-sm':''"
           dense
-          tree-table
-          tree-children-key="children"
-          expand-flatx
-          expand-size="sm"
-          expand-style="margin-right:5px; color: red; "
-          :expand-width="3"
           :data="crud.data"
           :columns="crud.columns"
           :visible-columns="crud.visibleColumns"
-          :title="treeSelectedLabel"
+          :title="deptSelectedLabel"
           :loading="crud.loading"
           selection="multiple"
           :selected.sync="crud.selections"
@@ -130,8 +162,8 @@
                 content-style="width:120px"
                 outlined
                 v-model="query.enabled"
-                :options="dict.dept_status"
                 no-filter
+                :options="dict.user_status"
                 @input="crud.toQuery()"
                 clearable
                 emit-value
@@ -158,7 +190,7 @@
                 flat
                 :type="$q.screen.gt.xs?'button':'menu'"
                 :data="props.row"
-                :data-add="{sort: props.row.sort+10, pid: props.row.pid}"
+                no-add
                 :permission="permission"
               />
             </q-td>
@@ -182,45 +214,48 @@ import crudOperation from '@crud/CRUD.operation'
 import crudPagination from '@crud/CRUD.pagination'
 import crudRow from '@crud/CRUD.row'
 import crudMore from '@crud/CRUD.more'
-import crudDept, { getDepts } from '@/api/system/dept'
+import crudUser from '@/api/system/user'
+import { getDepts } from '@/api/system/dept'
+import { getAll, getLevel } from '@/api/system/role'
+import { getAllJob } from '@/api/system/job'
 
-const defaultForm = { id: null, name: null, isTop: '0', pid: null, sort: 10, enabled: true }
-const visibleColumns = ['name', 'sort', 'enabled', 'treeNames', 'action']
+const defaultForm = { id: null, username: null, nickName: null, gender: null, email: null, phone: null, enabled: 'false', roles: [], jobs: [], depts: [] }
+const visibleColumns = ['username', 'gender', 'enabled', 'createTime', 'action']
 const columns = [
   { name: 'id', field: 'id', label: 'ID' },
-  { name: 'sort', field: 'sort', label: '排序' },
-  { name: 'name', field: 'name', label: '名称', required: true, align: 'left' },
-  { name: 'pid', field: 'pid', label: 'PID' },
-  { name: 'enabled', field: 'enabled', label: 'enabled', align: 'left' },
-  { name: 'treeNames', field: 'treeNames', label: 'names', align: 'left' },
+  { name: 'username', field: 'username', label: '用户名', required: true, align: 'left' },
+  { name: 'gender', field: 'gender', label: '性别', align: 'center' },
+  { name: 'enabled', field: 'enabled', label: 'enabled', align: 'center' },
+  { name: 'email', field: 'email', label: '邮箱', align: 'left' },
+  { name: 'phone', field: 'phone', label: '电话', align: 'left' },
+  { name: 'createTime', field: 'createTime', label: '创建时间', align: 'left' },
   { name: 'action', label: '操作', align: 'center' }
 ]
 
 export default {
-  name: 'Dept',
+  name: 'User',
   components: { crudOperation, crudMore, crudRow, crudPagination },
   cruds() {
-    return CRUD({ columns, visibleColumns, idField: 'id', title: '机构', sort: ['sort,desc'], query: { pid: null }, url: 'api/dept', crudMethod: { ...crudDept } })
+    return CRUD({ columns, visibleColumns, idField: 'id', title: '用户', query: { deptId: null }, url: 'api/users', crudMethod: { ...crudUser } })
   },
   mixins: [presenter(), header(), form(defaultForm), crud()],
   data () {
     return {
       splitter: 250,
-      treeSelectedLabel: null,
-      treeDatas: [],
+      filterTable: '',
       permission: {
-        add: ['admin', 'dept:add'],
-        edit: ['admin', 'dept:edit'],
-        del: ['admin', 'dept:del']
+        add: ['admin', 'user:add'],
+        edit: ['admin', 'user:edit'],
+        del: ['admin', 'user:del']
       },
-      filterTable: ''
+      deptSelectedLabel: null,
+      deptDatas: [],
+      jobDatas: [],
+      roleDatas: [],
+      level: 3
     }
   },
   created () {
-    /*
-    this.$nextTick(() => {
-      this.getDeptDatas()
-    })*/
     this.init()
   },
   computed: {
@@ -230,29 +265,48 @@ export default {
   },
   methods: {
     init () {
+      // TODO 这些数据只有修改或新增用户才用到，所以考虑延迟加载或异步加载
       this.getDeptDatas()
+      this.getRoleDatas()
+      this.getJobDatas()
+      this.getRoleLevel()
+    },
+    getRoleLevel() {
+      getLevel().then(res => {
+        this.level = res
+      }).catch(err => {
+        console.error('getRoleLevel:', err)
+      })
+    },
+    getRoleDatas () {
+      getAll().then(res => {
+        this.roleDatas = res
+      }).catch(err => {
+        console.error('getRoleDatas:', err)
+        this.crud.notifyError('获取角色失败：' + JSON.stringify(err))
+      })
+    },
+    getJobDatas () {
+      getAllJob().then(res => {
+        this.jobDatas = res.content
+      }).catch(err => {
+        console.error('getJobDatas:', err)
+        this.crud.notifyError('获取岗位失败：' + JSON.stringify(err))
+      })
     },
     getDeptDatas() {
       const sort = 'sort,asc'
       const params = { sort: sort }
       getDepts(params).then(res => {
-        this.treeDatas = res.content
+        this.deptDatas = res.content
       }).catch(err => {
-        console.log('getDepts', err)
+        console.error('getDeptDatas:', err)
+        this.crud.notifyError('获取部门失败：' + JSON.stringify(err))
       })
     },
     // 切换机构
-    handleTreeNodeClick(id) {
-      if (id == null) {
-        id = 0
-      }
-      if (id === 0) {
-        this.query.pids = null
-        this.query.treeId = id
-      } else {
-        this.query.pids = id
-        this.query.treeId = id
-      }
+    handleTreeNodeClick(deptId) {
+      this.query.deptId = deptId
       this.crud.toQuery()
     }
   }

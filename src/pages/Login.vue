@@ -38,8 +38,6 @@
             />
             <coadmin-input
               class="q-mb-md"
-              outlined
-              dense
               no-error-icon
               type="password"
               v-model.trim="loginForm.password"
@@ -48,8 +46,6 @@
             />
             <coadmin-input
               class="q-mb-md"
-              outlined
-              dense
               no-error-icon
               v-model.trim="loginForm.code"
               placeholder="验证码"
