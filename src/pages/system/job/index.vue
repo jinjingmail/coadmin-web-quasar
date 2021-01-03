@@ -32,6 +32,7 @@
             class="col-12"
             form-label="状态"
             v-model="form.enabled"
+            value-to-string
             :disable="!!crud.status.view"
             inline
             :options="dict.dept_status"

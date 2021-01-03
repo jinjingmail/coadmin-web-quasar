@@ -31,6 +31,7 @@
     class="coadmin-table"
     :class="computedClass"
     card-class="custom-table-bg"
+    :color="color"
     :style="computedStyle"
     v-bind="$attrs"
     v-on="listeners"
@@ -130,6 +131,10 @@ export default {
     rowsPerPageOptions: {
       type: Array,
       default: () => [0]
+    },
+    color: {
+      type: String,
+      default: 'primary'
     },
     separator: String,
     virtualScroll: Boolean,
