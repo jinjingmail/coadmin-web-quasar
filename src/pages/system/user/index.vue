@@ -40,6 +40,7 @@
             class="col-12 col-sm-6"
             form-label="* 状态"
             v-model="form.enabled"
+            value-to-string
             :options="dict.user_status"
             :disable="!!crud.status.view"
             inline
@@ -114,7 +115,7 @@
           filter-key-like="nameLetter"
           filter-key-equal="id"
           filter-placeholder="ID、名称、拼音首字母"
-          selected-color="purple"
+          selected-color="primary"
           selectable
           @update:selected="handleTreeNodeClick"
           @selected-label="label => deptSelectedLabel=label"
@@ -184,6 +185,12 @@
             </div>
           </template>
 
+          <template v-slot:body-cell-enabled="props">
+            <q-td key="enabled" :props="props">
+              {{dict.label.user_status[props.row.enabled]}}
+            </q-td>
+          </template>
+
           <template v-slot:body-cell-action="props">
             <q-td key="action" :props="props">
               <crud-row
@@ -225,7 +232,7 @@ const columns = [
   { name: 'id', field: 'id', label: 'ID' },
   { name: 'username', field: 'username', label: '用户名', required: true, align: 'left' },
   { name: 'gender', field: 'gender', label: '性别', align: 'center' },
-  { name: 'enabled', field: 'enabled', label: 'enabled', align: 'center' },
+  { name: 'enabled', field: 'enabled', label: '状态', align: 'center' },
   { name: 'email', field: 'email', label: '邮箱', align: 'left' },
   { name: 'phone', field: 'phone', label: '电话', align: 'left' },
   { name: 'createTime', field: 'createTime', label: '创建时间', align: 'left' },

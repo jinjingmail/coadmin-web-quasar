@@ -88,7 +88,7 @@
             />
           <coadmin-input class="col-12 col-sm-6" form-label="权限标识" v-model="form.permission" :disable="!!crud.status.view"/>
           <coadmin-input class="col-12 col-sm-6" form-label="路由地址" v-model="form.path" :disable="!!crud.status.view" v-if="form.type===0 || form.type===1"/>
-          <coadmin-input class="col-12 col-sm-6" form-label="组件名称" v-model="form.name" :disable="!!crud.status.view" v-if="form.type===1"/>
+          <coadmin-input class="col-12 col-sm-6" form-label="组件名称" v-model="form.componentName" :disable="!!crud.status.view" v-if="form.type===1"/>
           <coadmin-input class="col-12 col-sm-6" form-label="组件路径" v-model="form.component" :disable="!!crud.status.view" v-if="form.type===1"/>
 
       </coadmin-form>
@@ -114,7 +114,7 @@
           :nodes="menuDatas"
           filter-key-like="titleLetter"
           filter-key-equal="id"
-          selected-color="purple"
+          selected-color="primary"
           selectable
           filter-placeholder="ID、名称、拼音首字母"
           @update:selected="handleTreeNodeClick"
@@ -219,6 +219,7 @@ const columns = [
   { name: 'sort', field: 'sort', label: '排序' },
   { name: 'permission', field: 'permission', label: '权限', align: 'left' },
   { name: 'component', field: 'component', label: '组件路径', align: 'left' },
+  { name: 'componentName', field: 'componentName', label: '组件名称', align: 'left' },
   { name: 'path', field: 'path', label: 'path', align: 'left' },
   { name: 'createTime', field: 'createTime', label: '创建时间' },
   { name: 'action', label: '操作', align: 'center' }
@@ -268,7 +269,6 @@ export default {
     handleTreeNodeClick (id) {
       this.query.pid = id
       this.crud.toQuery()
-      console.log('handleTreeNodeClick')
     }
   }
 }

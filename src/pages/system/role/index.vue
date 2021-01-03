@@ -128,7 +128,6 @@
           accordion
           node-key="id"
           label-key="title"
-          tick-strategy2="strict"
           tick-strategy="leaf-any-with-parent"
           :nodes="menuDatas"
           filter-key-like="titleLetter"
@@ -262,6 +261,7 @@ export default {
         row.menus.forEach(menu => {
           this.treeMenuTicked.push(menu.id)
         })
+        console.log('row.menus=', this.treeMenuTicked)
       } else {
         this.crud.selections = []
         this.treeMenuTicked = []

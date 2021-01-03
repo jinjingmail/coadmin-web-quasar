@@ -76,7 +76,7 @@
           filter-key-like="nameLetter"
           filter-key-equal="id"
           filter-placeholder="ID、名称、拼音首字母"
-          selected-color="purple"
+          selected-color="primary"
           selectable
           @update:selected="handleTreeNodeClick"
           @selected-label="label => treeSelectedLabel=label"
@@ -152,6 +152,12 @@
             </div>
           </template>
 
+          <template v-slot:body-cell-enabled="props">
+            <q-td key="enabled" :props="props">
+              {{dict.label.dept_status[props.row.enabled]}}
+            </q-td>
+          </template>
+
           <template v-slot:body-cell-action="props">
             <q-td key="action" :props="props">
               <crud-row
@@ -191,8 +197,8 @@ const columns = [
   { name: 'sort', field: 'sort', label: '排序' },
   { name: 'name', field: 'name', label: '名称', required: true, align: 'left' },
   { name: 'pid', field: 'pid', label: 'PID' },
-  { name: 'enabled', field: 'enabled', label: 'enabled', align: 'left' },
-  { name: 'treeNames', field: 'treeNames', label: 'names', align: 'left' },
+  { name: 'enabled', field: 'enabled', label: '状态', align: 'left' },
+  { name: 'treeNames', field: 'treeNames', label: '全部层级', align: 'left' },
   { name: 'action', label: '操作', align: 'center' }
 ]
 

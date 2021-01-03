@@ -92,6 +92,12 @@
         </div>
       </template>
 
+      <template v-slot:body-cell-enabled="props">
+        <q-td key="enabled" :props="props">
+          {{dict.label.job_status[props.row.enabled]}}
+        </q-td>
+      </template>
+
       <template v-slot:body-cell-action="props">
         <q-td :props="props">
           <crud-row
@@ -127,7 +133,7 @@ const columns = [
   { name: 'id', field: 'id', label: 'ID' },
   { name: 'name', field: 'name', label: '名称', required: true, align: 'left' },
   { name: 'sort', field: 'sort', label: '排序', sortable: true },
-  { name: 'enabled', field: 'enabled', label: 'enabled' },
+  { name: 'enabled', field: 'enabled', label: '状态' },
   { name: 'action', label: '操作', align: 'center' }
 ]
 
