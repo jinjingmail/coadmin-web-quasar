@@ -22,14 +22,14 @@
           <coadmin-form-item class="col-12" form-label="ID" v-if="form.id">
             <div class="q-pt-xs">{{form.id}}</div>
           </coadmin-form-item>
-          <coadmin-input class="col-12" form-label="* 用户名" v-model="form.username" :disable="!!crud.status.view" :rules="[
+          <coadmin-input class="col-12" form-label="用户名" v-model="form.username" :disable="!!crud.status.view" :rules="[
               val => (!!val) || '必填'
               ]"/>
           <coadmin-input class="col-12 col-sm-6" form-label="电话" v-model.number="form.phone" :disable="!!crud.status.view"/>
           <coadmin-input class="col-12 col-sm-6" form-label="邮箱" v-model.number="form.email" :disable="!!crud.status.view"/>
           <coadmin-option-group
             class="col-12 col-sm-6"
-            form-label="* 性别"
+            form-label="性别"
             v-model="form.gender"
             :options="dict.gender"
             :disable="!!crud.status.view"
@@ -38,7 +38,7 @@
           />
           <coadmin-option-group
             class="col-12 col-sm-6"
-            form-label="* 状态"
+            form-label="状态"
             v-model="form.enabled"
             value-to-string
             :options="dict.user_status"
@@ -48,7 +48,7 @@
           />
           <coadmin-select
             class="col-12"
-            form-label="* 岗位"
+            form-label="岗位"
             option-value="id"
             option-label="name"
             outlined
@@ -64,7 +64,7 @@
           <coadmin-tree-select
             class="col-12"
             tree-class="q-pa-sm"
-            form-label="* 机构"
+            form-label="机构"
             :nodes="deptDatas"
             :ticked.sync="form.depts"
             :expended="form.depts"
@@ -79,7 +79,7 @@
           />
           <coadmin-select
             class="col-12"
-            form-label="* 角色"
+            form-label="角色"
             option-value="id"
             option-label="name"
             outlined

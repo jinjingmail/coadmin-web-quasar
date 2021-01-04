@@ -5,7 +5,6 @@
     toolbar-start
     toolbar-end
   增加属性：
-    dark
     square
     flat
     bordered
@@ -36,7 +35,8 @@
     @selected-label -> function(label)：以label的形式输出selected的数据
 -->
 <template>
-  <q-card class="coadmin-tree custom-other-bg"
+  <q-card
+    class="coadmin-tree custom-other-bg"
     :tag="tag"
     :flat="flat"
     :square="square"
