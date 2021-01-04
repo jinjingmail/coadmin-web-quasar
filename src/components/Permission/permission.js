@@ -4,9 +4,9 @@ export default {
   inserted(el, binding, vnode) {
     const { value } = binding
     if (value && value instanceof Array && value.length > 0) {
-      // const roles = store.permission.getters && store.permission.getters.roles
       const roles = Store.getters['user/roles']
       const permissionRoles = value
+
       const hasPermission = roles.some(role => {
         return permissionRoles.includes(role)
       })
@@ -15,8 +15,10 @@ export default {
         el.parentNode && el.parentNode.removeChild(el)
       }
     } else {
+      // throw new Error(`使用方式： v-permission="['admin','editor']"`)
       // eslint-disable-next-line quotes
-      throw new Error(`使用方式： v-permission="['admin','editor']"`)
+      console.error(`need roles! Like v-permission="['admin','editor']"`)
+      el.parentNode && el.parentNode.removeChild(el)
     }
   }
 }

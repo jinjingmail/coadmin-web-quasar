@@ -16,23 +16,24 @@
     <slot name="start" />
     <coadmin-field dense borderless :outlined="false" class="col-auto">
       <template v-slot:control>
-        <div class="self-center full-width no-outline" tabindex="0">共{{page.total}}条</div>
+        <div class="self-center full-width no-outline" tabindex="0">共 {{page.total}} 条</div>
       </template>
     </coadmin-field>
-    <q-pagination v-if="!computedNoPageIfOnlyOnePage"
-      :value="page.page"
-      class="col-auto"
-      :max="pageMax"
-      :direction-links="true"
-      :boundary-links="false"
-      :input='input || !$q.screen.gt.xs'
-      @input="crud.pageChangeHandler"
-      :icon-prev="iconPrevPage"
-      :icon-next="iconNextPage"
-      :max-pages="$q.screen.gt.xs?maxPages:5"
-      :size="dense?undefined:'18px'"
-    >
-    </q-pagination>
+    <div class="col-auto">
+      <q-pagination v-if="!computedNoPageIfOnlyOnePage"
+        :value="page.page"
+        :max="pageMax"
+        :direction-links="true"
+        :boundary-links="false"
+        :input='input || !$q.screen.gt.xs'
+        @input="crud.pageChangeHandler"
+        :icon-prev="iconPrevPage"
+        :icon-next="iconNextPage"
+        :max-pages="$q.screen.gt.xs?maxPages:5"
+        :size="dense?undefined:'18px'"
+      >
+      </q-pagination>
+    </div>
     <coadmin-select v-if="!computedNoPageIfOnlyOnePage"
       class="col-auto"
       :dense="dense"

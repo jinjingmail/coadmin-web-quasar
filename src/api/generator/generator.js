@@ -30,4 +30,3 @@ export function sync(tables) {
     data: tables
   })
 }
-

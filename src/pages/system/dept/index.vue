@@ -107,7 +107,6 @@
           dense
           tree-table
           tree-children-key="children"
-          expand-flatx
           expand-size="sm"
           expand-style="margin-right:5px; color: red; "
           :expand-width="3"
@@ -195,8 +194,8 @@ const defaultForm = { id: null, name: null, isTop: '0', pid: null, sort: 10, ena
 const visibleColumns = ['name', 'sort', 'enabled', 'treeNames', 'action']
 const columns = [
   { name: 'id', field: 'id', label: 'ID' },
-  { name: 'sort', field: 'sort', label: '排序' },
   { name: 'name', field: 'name', label: '名称', required: true, align: 'left' },
+  { name: 'sort', field: 'sort', label: '排序' },
   { name: 'pid', field: 'pid', label: 'PID' },
   { name: 'enabled', field: 'enabled', label: '状态', align: 'left' },
   { name: 'treeNames', field: 'treeNames', label: '全部层级', align: 'left' },
@@ -224,10 +223,6 @@ export default {
     }
   },
   created () {
-    /*
-    this.$nextTick(() => {
-      this.getDeptDatas()
-    })*/
     this.init()
   },
   computed: {

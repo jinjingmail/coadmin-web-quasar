@@ -5,7 +5,7 @@
   <coadmin-dialog
     ref="dialog"
     :title="crud.title"
-    card-style="width:1000px; max-width:95vw"
+    card-style="width:80vw; max-width:95vw;"
   >
     <coadmin-table
       ref="table"
@@ -18,7 +18,7 @@
       card-class="custom-other-bg"
     >
       <template v-slot:top-right>
-        <div class='row q-col-gutter-x-sm q-col-gutter-y-xs q-px-xs q-py-xs full-width'>
+        <div class='row q-col-gutter-x-sm q-col-gutter-y-xs q-pa-xs full-width'>
           <coadmin-input
             v-model="query.blurry"
             placeholder="ID、任务名、执行方法"
@@ -47,7 +47,7 @@
             outlined
             v-model="query.isSuccess"
             no-filter
-            :options="[{label: '失败', value: false}, {label: '成功', value: true}]"
+            :options="[{label: '成功', value: true}, {label: '失败', value: false}]"
             @input="crud.toQuery()"
             clearable
             emit-value
