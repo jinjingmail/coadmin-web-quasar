@@ -5,6 +5,7 @@ import tagviews from './module-tagviews'
 import settings from './module-settings'
 import permission from './module-permission'
 import user from './module-user'
+import api from './module-api'
 
 Vue.use(Vuex)
 
@@ -12,7 +13,8 @@ const modules = {
   tagviews,
   settings,
   permission,
-  user
+  user,
+  api
 }
 
 /*
