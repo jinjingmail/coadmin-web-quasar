@@ -290,7 +290,7 @@ export default {
         this.roleDatas = res
       }).catch(err => {
         console.error('getRoleDatas:', err)
-        this.crud.notifyError('获取角色失败：' + JSON.stringify(err))
+        this.crud.notifyError('获取角色失败：', err)
       })
     },
     getJobDatas () {
@@ -298,7 +298,7 @@ export default {
         this.jobDatas = res.content
       }).catch(err => {
         console.error('getJobDatas:', err)
-        this.crud.notifyError('获取岗位失败：' + JSON.stringify(err))
+        this.crud.notifyError('获取岗位失败：', err)
       })
     },
     getDeptDatas() {
@@ -308,7 +308,7 @@ export default {
         this.deptDatas = res.content
       }).catch(err => {
         console.error('getDeptDatas:', err)
-        this.crud.notifyError('获取部门失败：' + JSON.stringify(err))
+        this.crud.notifyError('获取部门失败：', err)
       })
     },
     // 切换机构

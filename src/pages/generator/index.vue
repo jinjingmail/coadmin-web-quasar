@@ -127,7 +127,7 @@ export default {
       generator(tableName, 0).then(data => {
         this.crud.notifySuccess('生成成功')
       }).catch(err => {
-        this.crud.notifyFailure(JSON.stringify(err))
+        this.crud.notifyFailure('失败', err)
       })
     },
     toDownload(tableName) {

@@ -8,6 +8,7 @@
       ref="table"
       row-key="columnName"
       dense
+      :flat="false"
       title="字段配置"
       :data="dataColumn"
       :columns="columns"
@@ -106,41 +107,43 @@
         </div>
       </template>
     </coadmin-table>
-    <coadmin-card bordered>
+
+    <coadmin-card bordered rounded>
       <q-card-actions class="q-pa-md" >
-        <q-btn label="生成配置" size="lg" flat/>
+        <div class="text-h6">生成配置</div>
         <q-space/>
         <q-btn dense label="保存" color="primary" padding="xs md" @click="saveTableConfig"/>
       </q-card-actions>
       <coadmin-form
         ref="form"
         label-width="medium"
-        label-align="right"
-        class="q-pa-md row q-col-gutter-x-xl q-col-gutter-y-md">
+        :label-align="$q.screen.gt.xs?'right':'auto'"
+        :label-top="!$q.screen.gt.xs"
+        class="q-pa-md row q-col-gutter-x-sm q-col-gutter-y-md">
         <coadmin-input class="col-12 col-sm-6" form-label="作者" v-model="formTable.author" :rules="[
           val => (!!val) || '必填'
           ]"/>
-        <coadmin-form-item class="col-12 col-sm-6" >类上面的作者名称</coadmin-form-item>
+        <coadmin-form-item class="col-12 col-sm-6" ><div class="q-pt-xs">类上面的作者名称</div></coadmin-form-item>
 
         <coadmin-input class="col-12 col-sm-6" form-label="模块名称" v-model="formTable.moduleName" :rules="[
           val => (!!val) || '必填'
           ]"/>
-        <coadmin-form-item class="col-12 col-sm-6" >模块的名称，请选择项目中已存在的模块</coadmin-form-item>
+        <coadmin-form-item class="col-12 col-sm-6" ><div class="q-pt-xs">模块的名称，请选择项目中已存在的模块</div></coadmin-form-item>
 
         <coadmin-input class="col-12 col-sm-6" form-label="至于包下" v-model="formTable.pack" :rules="[
           val => (!!val) || '必填'
           ]"/>
-        <coadmin-form-item class="col-12 col-sm-6" >项目包的名称，生成的代码放到哪个包里面</coadmin-form-item>
+        <coadmin-form-item class="col-12 col-sm-6" ><div class="q-pt-xs">项目包的名称，生成的代码放到哪个包里面</div></coadmin-form-item>
 
         <coadmin-input class="col-12 col-sm-6" form-label="接口名称" v-model="formTable.apiAlias" :rules="[
           val => (!!val) || '必填'
           ]"/>
-        <coadmin-form-item class="col-12 col-sm-6" >接口的名称，用于控制器与接口文档中</coadmin-form-item>
+        <coadmin-form-item class="col-12 col-sm-6" ><div class="q-pt-xs">接口的名称，用于控制器与接口文档中</div></coadmin-form-item>
 
         <coadmin-input class="col-12 col-sm-6" form-label="前端路径" v-model="formTable.path" :rules="[
           val => (!!val) || '必填'
           ]"/>
-        <coadmin-form-item class="col-12 col-sm-6" >输入views文件夹下的目录，不存在即创建</coadmin-form-item>
+        <coadmin-form-item class="col-12 col-sm-6" ><div class="q-pt-xs">输入views文件夹下的目录，不存在即创建</div></coadmin-form-item>
 
         <!--            <el-form-item label="接口目录">-->
         <!--              <el-input v-model="form.apiPath" style="width: 40%" />-->
@@ -150,7 +153,7 @@
         <coadmin-input class="col-12 col-sm-6" form-label="去表前缀" v-model="formTable.prefix" :rules="[
           val => (!!val) || '必填'
           ]"/>
-        <coadmin-form-item class="col-12 col-sm-6" >默认不去除表前缀，可自定义</coadmin-form-item>
+        <coadmin-form-item class="col-12 col-sm-6" ><div class="q-pt-xs">默认不去除表前缀，可自定义</div></coadmin-form-item>
 
         <coadmin-option-group class="col-12 col-sm-6" form-label="是否覆盖" v-model="formTable.cover" inline
           :options="[
@@ -158,7 +161,7 @@
             {label: '否', value: false}
           ]"
         />
-        <coadmin-form-item class="col-12 col-sm-6" >谨防误操作，请慎重选择</coadmin-form-item>
+        <coadmin-form-item class="col-12 col-sm-6" ><div class="q-pt-xs">谨防误操作，请慎重选择</div></coadmin-form-item>
 
       </coadmin-form>
     </coadmin-card>

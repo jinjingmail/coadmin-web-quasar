@@ -531,7 +531,12 @@ function CRUD(options) {
         closeBtn: '关闭'
       })
     },
-    notifyError(title) {
+    notifyError(title, err) {
+      if (err.response && err.response.data && err.response.data.message) {
+        title = title + err.response.data.message
+      } else {
+        title = title + JSON.stringify(err)
+      }
       Notify.create({
         type: CRUD.NOTIFICATION_TYPE.ERROR,
         message: title,
@@ -540,7 +545,12 @@ function CRUD(options) {
         closeBtn: '关闭'
       })
     },
-    notifyFailure(title) {
+    notifyFailure(title, err) {
+      if (err.response && err.response.data && err.response.data.message) {
+        title = title + err.response.data.message
+      } else {
+        title = title + JSON.stringify(err)
+      }
       Notify.create({
         type: CRUD.NOTIFICATION_TYPE.ERROR,
         message: title,

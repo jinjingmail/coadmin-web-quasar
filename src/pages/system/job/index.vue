@@ -62,7 +62,7 @@
       @row-click="(evt, row, index) => crud.selections = [row]"
     >
       <template v-slot:top-right="props">
-        <div class='row q-col-gutter-x-sm q-col-gutter-y-xs q-px-xs q-py-xs full-width'>
+        <div class='row q-col-gutter-x-sm q-col-gutter-y-xs q-pa-xs full-width'>
           <coadmin-select
             class="col-auto"
             placeholder="状态"

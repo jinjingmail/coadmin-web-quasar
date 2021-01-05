@@ -237,11 +237,7 @@ export default {
       }).catch(err => {
         this.loadingSaveRoleMenu = false
         console.log('editMenu fail', err)
-        if (err.response && err.response.data) {
-          this.crud.notifyError('保存失败：' + err.response.data.message)
-        } else {
-          this.crud.notifyError('保存失败：' + JSON.stringify(err))
-        }
+        this.crud.notifyError('保存失败：', err)
       })
     },
     _tableRowSelected(newSelected) {

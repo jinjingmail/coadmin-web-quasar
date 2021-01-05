@@ -140,8 +140,7 @@ export default {
     },
     columns: Array,
     visibleColumns: {
-      type: Array,
-      default: () => []
+      type: Array
     },
 
     cardClass: {

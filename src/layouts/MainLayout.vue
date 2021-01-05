@@ -124,7 +124,7 @@
           <q-btn flat dense :icon="$q.dark.isActive ? 'wb_sunny' : 'brightness_3'" @click="changeSetting({key:'darkMode', value: !$q.dark.isActive})"/>
           <q-btn flat dense :label="$q.screen.gt.xs?user.username:''" @click="$refs.drawerRight.toggle()" class="no-wrap">
             <q-avatar size="md" class="q-pl-xs">
-              <img src="~assets/boy-avatar.jpg">
+              <img :src="user.avatarName ? baseApi + '/avatar/' + user.avatarName : Avatar"/>
             </q-avatar>
           </q-btn>
         </div>
@@ -157,7 +157,7 @@
             <div class="column items-center">
               <div class="text-body1 q-mb-xs">{{user.username}}</div>
               <q-avatar size="80px">
-                <img src="~assets/boy-avatar.jpg">
+                <img :src="user.avatarName ? baseApi + '/avatar/' + user.avatarName : Avatar"/>
               </q-avatar>
 
               <q-toolbar>
@@ -408,7 +408,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions, mapState } from 'vuex'
 import Setting from '@/default-setting'
 import SideMenu from 'components/SideMenu.vue'
 import PageTagViews from 'components/PageTagViews.vue'
@@ -522,6 +522,9 @@ export default {
     ]),
     ...mapGetters('user', [
       'user'
+    ]),
+    ...mapState('api', [
+      'baseApi'
     ]),
     /* cachedViews () {
       return this.$store.state.tagviews.cachedViews

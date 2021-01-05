@@ -52,6 +52,18 @@ const routes = [
       }
     ]
   }, {
+    path: '/user',
+    component: MainLayout,
+    children: [
+      {
+        path: 'center',
+        name: 'user-center',
+        hidden: true,
+        component: () => import('pages/system/user/center.vue'),
+        meta: { title: '用户设置', icon: 'add', noCache: true }
+      }
+    ]
+  }, {
     path: '/redirect',
     component: MainLayout,
     hidden: true,
