@@ -83,6 +83,12 @@
           :columns="crud.columns"
           :loading="crud.loading"
         >
+          <template v-slot:body-cell-createTime="props">
+            <q-td key="createTime" :props="props">
+              {{formatTime(props.row.createTime)}}
+            </q-td>
+          </template>
+
           <template v-slot:pagination>
             <crud-pagination />
           </template>

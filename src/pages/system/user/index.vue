@@ -191,6 +191,12 @@
             </q-td>
           </template>
 
+          <template v-slot:body-cell-createTime="props">
+            <q-td key="createTime" :props="props">
+              {{formatTime(props.row.createTime)}}
+            </q-td>
+          </template>
+
           <template v-slot:body-cell-action="props">
             <q-td key="action" :props="props">
               <crud-row

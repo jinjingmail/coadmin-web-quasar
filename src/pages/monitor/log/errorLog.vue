@@ -8,7 +8,7 @@
     </coadmin-dialog>
     <coadmin-dialog
       ref="detailDialog"
-      card-style="width: 80vw; max-width: 95vw;"
+      card-style="width: 90vw; max-width: 95vw;"
     >
       <div>
         <b>请求方法：</b>
@@ -45,6 +45,16 @@
             clearable
             @keyup.enter.native="crud.toQuery()"
             @clear="crud.toQuery()"
+          />
+          <coadmin-date-select
+            class="col-auto"
+            placeholder="创建时间"
+            v-model="query.createTime"
+            content-style="width:200px"
+            :default-time="[' 00:00:00', ' 23:59:59']"
+            clearable
+            @input="crud.toQuery()"
+            range
           />
           <div class='col-auto'>
             <q-btn dense padding="xs sm" color="primary" icon="search" @click="crud.toQuery()" />
@@ -83,6 +93,12 @@
       <template v-slot:body-cell-expand="props">
         <q-td key="expand" :props="props">
           <q-btn flat dense label="详情" color="primary" @click="_showLogDetail(props.row.method, props.row.params, props.row.id)"/>
+        </q-td>
+      </template>
+
+      <template v-slot:body-cell-createTime="props">
+        <q-td key="createTime" :props="props">
+          {{formatTime(props.row.createTime)}}
         </q-td>
       </template>
 

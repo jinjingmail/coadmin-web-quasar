@@ -1,6 +1,6 @@
 import { Notify } from 'quasar'
 import { initData, download } from '@/api/data'
-import { parseTime, downloadFile } from '@/utils/index'
+import { parseTime, formatTime, downloadFile } from '@/utils/index'
 import Setting from '@/default-setting'
 import Vue from 'vue'
 
@@ -720,7 +720,8 @@ function presenter(crud) {
       // this.crud.page.size = this.$store.state.settings.pageSize
     },
     methods: {
-      parseTime
+      parseTime,
+      formatTime
     },
     created() {
       for (const k in this.$crud) {

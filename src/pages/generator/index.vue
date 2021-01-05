@@ -73,6 +73,12 @@
         </div>
       </template>
 
+      <template v-slot:body-cell-createTime="props">
+        <q-td key="createTime" :props="props">
+          {{formatTime(props.row.createTime)}}
+        </q-td>
+      </template>
+
       <template v-slot:body-cell-action="props">
         <q-td :props="props">
           <q-btn dense label="修改" flat color="primary" @click="$refs.config.show(props.row.tableName)"/>

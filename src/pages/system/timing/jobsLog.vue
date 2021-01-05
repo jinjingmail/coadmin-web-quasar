@@ -53,7 +53,9 @@
             emit-value
             map-options
           />
-
+          <div class='col-auto'>
+            <q-btn dense padding="xs sm" color="primary" icon="search" @click="crud.toQuery()" />
+          </div>
         </div>
       </template>
 
@@ -76,6 +78,12 @@
             </coadmin-dialog>
 
           </q-btn>
+        </q-td>
+      </template>
+
+      <template v-slot:body-cell-createTime="props">
+        <q-td key="createTime" :props="props">
+          {{formatTime(props.row.createTime)}}
         </q-td>
       </template>
 
