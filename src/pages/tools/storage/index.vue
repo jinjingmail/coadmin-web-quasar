@@ -1,31 +1,31 @@
 <template>
   <div>
-  <q-card>
-    <q-tabs
-      v-model="tab"
-      dense
-      class="text-grey"
-      active-color="primary"
-      indicator-color="primary"
-      align="left"
-      narrow-indicator
-    >
-      <q-tab name="local" label="本地存储" />
-      <q-tab name="qiniu" label="七牛云存储" />
-    </q-tabs>
+    <q-card>
+      <q-tabs
+        v-model="tab"
+        dense
+        class="text-grey"
+        active-color="primary"
+        indicator-color="primary"
+        align="left"
+        narrow-indicator
+      >
+        <q-tab name="local" label="本地存储" />
+        <q-tab name="qiniu" label="七牛云存储" />
+      </q-tabs>
 
-    <q-separator />
+      <q-separator />
 
-    <q-tab-panels v-model="tab">
-      <q-tab-panel name="local">
-        <local ref="local"/>
-      </q-tab-panel>
+      <q-tab-panels v-model="tab">
+        <q-tab-panel name="local">
+          <local ref="local"/>
+        </q-tab-panel>
 
-      <q-tab-panel name="qiniu">
-        <qi-niu ref="qiniu"/>
-      </q-tab-panel>
-    </q-tab-panels>
-  </q-card>
+        <q-tab-panel name="qiniu">
+          <qi-niu ref="qiniu"/>
+        </q-tab-panel>
+      </q-tab-panels>
+    </q-card>
   </div>
 </template>
 
