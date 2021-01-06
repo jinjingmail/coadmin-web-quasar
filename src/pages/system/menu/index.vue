@@ -4,7 +4,7 @@
 <template>
   <div >
     <coadmin-dialog title="查找" no-max seamless ref="search" @before-hide="filterTable=''">
-      <q-input placeholder="在当前页查找" dense outlined v-model="filterTable" clearable class="q-ml-sm q-mr-sm q-mt-none q-mb-sm"/>
+      <q-input placeholder="在当前页查找" dense outlined v-model="filterTable" clearable class="q-mx-sm q-mt-none q-mb-sm"/>
     </coadmin-dialog>
     <coadmin-dialog
       ref="formDialog"

@@ -4,7 +4,7 @@
 <template>
   <div >
     <coadmin-dialog title="查找" no-max seamless ref="search" @before-hide="filterTable=''">
-      <q-input placeholder="在当前页查找" dense outlined v-model="filterTable" clearable class="q-ml-sm q-mr-sm q-mt-none q-mb-sm"/>
+      <q-input placeholder="在当前页查找" dense outlined v-model="filterTable" clearable class="q-mx-sm q-mt-none q-mb-sm"/>
     </coadmin-dialog>
 
     <coadmin-dialog
@@ -32,9 +32,9 @@
       :title="crud.title"
       :loading="crud.loading"
       :loading-delay="0"
-      :filter="filterTable"
       :selected.sync="crud.selections"
       @row-click="(evt, row, index) => crud.selections = [row]"
+      :filter="filterTable"
     >
       <template v-slot:top-right="props">
         <div class='row q-col-gutter-x-sm q-col-gutter-y-xs q-pa-xs full-width'>
@@ -56,10 +56,11 @@
             @input="crud.toQuery()"
             range
           />
-
           <div class='col-auto'>
             <q-btn dense padding="xs sm" color="primary" icon="search" @click="crud.toQuery()" />
           </div>
+          <q-space/>
+
           <div class='col-auto'>
             <q-btn dense label="清空日志" color="negative" :loading="crud.delAllLoading">
               <q-popup-proxy>

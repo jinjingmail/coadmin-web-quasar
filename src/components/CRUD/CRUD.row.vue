@@ -25,6 +25,7 @@
     label-view / label-edit / label-del / label-add
     icon-edit / icon-view / icon-del / icon-add
     no-edit / no-view / no-del / no-add
+    msg-del
     no-wrap     多个按钮不出现换行
     no-icon
     no-label
@@ -69,7 +70,7 @@
           <q-popup-proxy>
             <coadmin-card style="min-width: 160px;" :class="$q.dark.isActive?'bg-grey-9':''">
               <q-card-section class="bg-primary text-white">
-                <div class="text-subtitle1 text-no-wrap">{{msg}}</div>
+                <div class="text-subtitle1 text-no-wrap">{{msgDel}}</div>
               </q-card-section>
               <q-separator />
               <q-card-actions align="right" class="q-pa-md">
@@ -108,7 +109,7 @@
       <q-popup-proxy>
         <coadmin-card style="min-width: 160px;" :class="$q.dark.isActive?'bg-grey-9':''">
           <q-card-section class="bg-primary text-white">
-            <div class="text-subtitle1 text-no-wrap">{{msg}}</div>
+            <div class="text-subtitle1 text-no-wrap">{{msgDel}}</div>
           </q-card-section>
           <q-separator />
           <q-card-actions align="right" class="q-pa-md">
@@ -145,7 +146,7 @@ export default {
     noEdit: Boolean,
     noDel: Boolean,
     noAdd: Boolean,
-    msg: {
+    msgDel: {
       type: String,
       default: '确定删除本条数据？'
     },
@@ -300,6 +301,11 @@ export default {
       this.crud.doDelete(this.data)
     },
     [CRUD.HOOK.afterDelete](crud, data) {
+      if (data === this.data) {
+        this.delLoading = false
+      }
+    },
+    [CRUD.HOOK.afterDeleteError](crud, data) {
       if (data === this.data) {
         this.delLoading = false
       }

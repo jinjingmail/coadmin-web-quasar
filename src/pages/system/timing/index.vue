@@ -4,7 +4,7 @@
 <template>
   <div >
     <coadmin-dialog title="查找" no-max seamless ref="search" @before-hide="filterTable=''">
-      <q-input placeholder="在当前页查找" dense outlined v-model="filterTable" clearable class="q-ml-sm q-mr-sm q-mt-none q-mb-sm"/>
+      <q-input placeholder="在当前页查找" dense outlined v-model="filterTable" clearable class="q-mx-sm q-mt-none q-mb-sm"/>
     </coadmin-dialog>
     <coadmin-dialog
       ref="formDialog"
@@ -107,6 +107,9 @@
             @keyup.enter.native="crud.toQuery()"
             @clear="crud.toQuery()"
           />
+          <div>
+            <q-btn dense padding="xs sm" color="primary" icon="search" @click="crud.toQuery()" />
+          </div>
           <q-space/>
           <crud-operation :permission="permission">
             <template v-slot:end>
@@ -114,7 +117,7 @@
               <q-btn dense label="任务日志" color="info" padding="xs sm" @click="$refs.jobsLog.show()"/>
             </template>
           </crud-operation>
-          <div class="col-auto">
+          <div>
             <q-btn-dropdown dense color="primary" class="btn-dropdown-hide-droparrow" icon="apps" auto-close>
               <crud-more :tableSlotTopProps="props">
                 <template v-slot:start>

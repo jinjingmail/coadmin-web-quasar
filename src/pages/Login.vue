@@ -52,7 +52,7 @@
               :rules="[ val => val && val.length > 0 || '请输入验证码']"
             >
               <template v-slot:after>
-                <img :src="codeUrl" @click="getCode" style="min-width:80px" alt="验证码"/>
+                <img :src="codeUrl" @click="getCode" style="width:94px; min-width:80px" alt="验证码"/>
               </template>
             </coadmin-input>
             <div class="column q-gutter-y-sm q-mt-none">

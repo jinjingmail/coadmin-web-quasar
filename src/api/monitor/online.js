@@ -7,3 +7,5 @@ export function del(keys) {
     data: keys
   })
 }
+
+export default { del }

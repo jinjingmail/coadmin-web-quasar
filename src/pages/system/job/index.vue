@@ -4,7 +4,7 @@
 <template>
   <div >
     <coadmin-dialog title="查找" no-max seamless ref="search" @before-hide="filterTable=''">
-      <q-input placeholder="在当前页查找" dense outlined v-model="filterTable" clearable class="q-ml-sm q-mr-sm q-mt-none q-mb-sm"/>
+      <q-input placeholder="在当前页查找" dense outlined v-model="filterTable" clearable class="q-mx-sm q-mt-none q-mb-sm"/>
     </coadmin-dialog>
     <coadmin-dialog
       ref="formDialog"
@@ -64,7 +64,6 @@
       <template v-slot:top-right="props">
         <div class='row q-col-gutter-x-sm q-col-gutter-y-xs q-pa-xs full-width'>
           <coadmin-select
-            class="col-auto"
             placeholder="状态"
             form-label="状态"
             label-style="margin-top:10px"
@@ -78,9 +77,13 @@
             emit-value
             map-options
           />
+          <div>
+            <q-btn dense padding="xs sm" color="primary" icon="search" @click="crud.toQuery()" />
+          </div>
           <q-space/>
+
           <crud-operation :permission="permission" />
-          <div class="col-auto">
+          <div>
             <q-btn-dropdown dense color="primary" class="btn-dropdown-hide-droparrow" icon="apps" auto-close>
               <crud-more :tableSlotTopProps="props">
                 <template v-slot:start>
@@ -129,9 +132,9 @@ import crudMore from '@crud/CRUD.more'
 import crudJob from '@/api/system/job'
 
 const defaultForm = { id: null, name: null, sort: 10, enabled: true }
-const visibleColumns = ['name', 'sort', 'enabled', 'action']
+const visibleColumns = ['id', 'name', 'sort', 'enabled', 'action']
 const columns = [
-  { name: 'id', field: 'id', label: 'ID' },
+  { name: 'id', field: 'id', label: 'ID', align: 'left' },
   { name: 'name', field: 'name', label: '名称', required: true, align: 'left' },
   { name: 'sort', field: 'sort', label: '排序', sortable: true },
   { name: 'enabled', field: 'enabled', label: '状态' },

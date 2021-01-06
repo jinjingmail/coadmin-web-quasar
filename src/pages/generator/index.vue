@@ -6,7 +6,7 @@
     <preview ref="preview"/>
     <config ref="config"/>
     <coadmin-dialog title="查找" no-max seamless ref="search" @before-hide="filterTable=''">
-      <q-input placeholder="在当前页查找" dense outlined v-model="filterTable" clearable class="q-ml-sm q-mr-sm q-mt-none q-mb-sm"/>
+      <q-input placeholder="在当前页查找" dense outlined v-model="filterTable" clearable class="q-mx-sm q-mt-none q-mb-sm"/>
     </coadmin-dialog>
     <coadmin-dialog
       ref="formDialog"
@@ -54,6 +54,7 @@
           <div class='col-auto'>
             <q-btn dense padding="xs sm" color="primary" icon="search" @click="crud.toQuery()" />
           </div>
+          <q-space/>
           <div class='col-auto'>
             <q-btn dense label="同步" color="primary"
               :loading="syncLoading"
