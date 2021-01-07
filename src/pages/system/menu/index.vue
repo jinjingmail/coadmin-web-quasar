@@ -29,7 +29,6 @@
             filter-key-equal="id"
             filter-placeholder="名称、拼音首字母"
             tree-class="q-pa-sm"
-            tree-stylex=""
             clearable
             selectable
           >

@@ -2,7 +2,9 @@
   <coadmin-dialog
     ref="dialog"
     :title="tableName"
+    no-backdrop-dismiss
     card-style="width:90vw; max-width:95vw; height:95vh"
+    @show="_dialogShow"
   >
     <coadmin-table
       ref="table"
@@ -45,8 +47,11 @@
                 {label:'文本框', value:'Input'},
                 {label:'文本域', value:'Textarea'},
                 {label:'单选框', value:'Radio'},
+                {label:'复选框', value:'Checkbox'},
                 {label:'下拉框', value:'Select'},
-                {label:'日期框', value:'Date'}
+                {label:'日期框', value:'Date'},
+                {label:'日期范围', value:'DateRange'},
+                {label:'纯显示', value:'showOnly'}
               ]"
             />
           </q-td>
@@ -128,32 +133,51 @@
         <coadmin-input class="col-12 col-sm-6" form-label="模块名称" v-model="formTable.moduleName" :rules="[
           val => (!!val) || '必填'
           ]"/>
-        <coadmin-form-item class="col-12 col-sm-6" ><div class="q-pt-xs">模块的名称，请选择项目中已存在的模块</div></coadmin-form-item>
+        <coadmin-form-item class="col-12 col-sm-6" ><div class="q-pt-xs">Java模块的名称，请选择项目中已存在的模块</div></coadmin-form-item>
 
         <coadmin-input class="col-12 col-sm-6" form-label="至于包下" v-model="formTable.pack" :rules="[
           val => (!!val) || '必填'
           ]"/>
-        <coadmin-form-item class="col-12 col-sm-6" ><div class="q-pt-xs">项目包的名称，生成的代码放到哪个包里面</div></coadmin-form-item>
+        <coadmin-form-item class="col-12 col-sm-6" ><div class="q-pt-xs">Java项目包的名称，生成的代码放到哪个包里面</div></coadmin-form-item>
 
         <coadmin-input class="col-12 col-sm-6" form-label="接口名称" v-model="formTable.apiAlias" :rules="[
           val => (!!val) || '必填'
           ]"/>
         <coadmin-form-item class="col-12 col-sm-6" ><div class="q-pt-xs">接口的名称，用于控制器与接口文档中</div></coadmin-form-item>
 
-        <coadmin-input class="col-12 col-sm-6" form-label="前端路径" v-model="formTable.path" :rules="[
+        <coadmin-input class="col-12 col-sm-6" form-label="前端Vue存放路径" v-model="formTable.path" :rules="[
           val => (!!val) || '必填'
           ]"/>
-        <coadmin-form-item class="col-12 col-sm-6" ><div class="q-pt-xs">输入views文件夹下的目录，不存在即创建</div></coadmin-form-item>
+        <coadmin-form-item class="col-12 col-sm-6" ><div class="q-pt-xs">Vue存放路径[...\src\pages\xxx]，不存在会自动创建</div></coadmin-form-item>
 
-        <!--            <el-form-item label="接口目录">-->
-        <!--              <el-input v-model="form.apiPath" style="width: 40%" />-->
-        <!--              <span style="color: #C0C0C0;margin-left: 10px;">Api存放路径[src/api]，为空则自动生成路径</span>-->
-        <!--            </el-form-item>-->
-
-        <coadmin-input class="col-12 col-sm-6" form-label="去表前缀" v-model="formTable.prefix" :rules="[
+        <coadmin-input class="col-12 col-sm-6" form-label="前端Api接口目录" v-model="formTable.apiPath" :rules="[
           val => (!!val) || '必填'
           ]"/>
-        <coadmin-form-item class="col-12 col-sm-6" ><div class="q-pt-xs">默认不去除表前缀，可自定义</div></coadmin-form-item>
+        <coadmin-form-item class="col-12 col-sm-6" ><div class="q-pt-xs">Api存放路径[...\src\api\]，不存在会自动创建</div></coadmin-form-item>
+
+        <coadmin-input class="col-12 col-sm-6" form-label="去表前缀" v-model="formTable.menuPid" />
+        <coadmin-form-item class="col-12 col-sm-6" ><div class="q-pt-xs">上级菜单</div></coadmin-form-item>
+
+        <coadmin-tree-select
+          ref="menu"
+          class="col-12 col-sm-6"
+          tree-class="q-pa-sm"
+          form-label="上级菜单"
+          :nodes="menuDatas"
+          :selected.sync="formTable.menuPid"
+          :expanded.sync="treeSelectExpanded"
+          node-key="id"
+          label-key="title"
+          filter-key-like="titleLetter"
+          filter-key-equal="id"
+          filter-placeholder="名称、拼音首字母"
+          placeholder="上级"
+          clearable
+          selectable
+        >
+          <template v-slot:append><q-icon name="keyboard_arrow_down"/></template>
+        </coadmin-tree-select>
+        <coadmin-form-item class="col-12 col-sm-6" ><div class="q-pt-xs">如果需要生成创建menu的sql，请指定</div></coadmin-form-item>
 
         <coadmin-option-group class="col-12 col-sm-6" form-label="是否覆盖" v-model="formTable.cover" inline
           :options="[
@@ -173,7 +197,6 @@ import { update, get } from '@/api/generator/genConfig'
 import { save, sync, generator } from '@/api/generator/generator'
 import { getDicts } from '@/api/system/dict'
 import { initData } from '@/api/data'
-import CoadminFormItem from 'src/components/form/CoadminFormItem.vue'
 
 const visibleColumns = ['columnName', 'columnType', 'remark', 'notNull', 'listShow', 'formShow',
   'formType', 'queryType', 'dateAnnotation', 'dictName']
@@ -191,7 +214,6 @@ const columns = [
 ]
 
 export default {
-  components: { CoadminFormItem },
   name: 'GeneratorConfig',
   data() {
     return {
@@ -200,8 +222,10 @@ export default {
       dicts: [],
       tableName: '',
       dataColumn: [],
-      formTable: { id: null, tableName: '', author: '', pack: '', path: '', moduleName: '', cover: 'false', apiPath: '', prefix: '', apiAlias: null },
-      loading: false
+      formTable: { id: null, tableName: '', author: '', pack: '', path: '', moduleName: '', cover: 'false', apiPath: '', prefix: '', apiAlias: null, menuPid: null },
+      loading: false,
+      menuDatas: [],
+      treeSelectExpanded: []
     }
   },
   methods: {
@@ -213,8 +237,11 @@ export default {
         this.$q.notify('获取表Columns失败')
       })
     },
-    show(tableName) {
+    _dialogShow() {
+    },
+    show(tableName, menuDatas) {
       this.tableName = tableName
+      this.menuDatas = menuDatas
       this.init()
       get(tableName).then(data => {
         this.formTable = data
@@ -234,7 +261,12 @@ export default {
         this.loading = false
       }).catch(err => {
         this.loading = false
-        console.log(err.response.data.message)
+        if (err && err.response && err.response.data && err.response.data.message) {
+          console.log(err.response.data.message)
+          this.$q.notify('保存失败：' + err.response.data.message)
+        } else {
+          this.$q.notify('保存失败：' + JSON.stringify(err))
+        }
       })
     },
     saveTableConfig() {
@@ -242,7 +274,7 @@ export default {
         if (valid) {
           this.loading = true
           update(this.formTable).then(res => {
-            this.$q.notify('保存成功', 'success')
+            this.$q.notify('保存成功')
             this.formTable = res
             this.loading = false
           }).catch(err => {
@@ -269,7 +301,7 @@ export default {
         // 生成代码
         generator(this.tableName, 0).then(data => {
           this.loading = false
-          this.$q.notify('生成成功')
+          this.$q.notify({ message: '生成成功', type: 'success' })
         }).catch(err => {
           this.loading = false
           console.log(err.response.data.message)

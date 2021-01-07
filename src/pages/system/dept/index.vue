@@ -123,13 +123,12 @@
           <template v-slot:top-right="props">
             <div class='row q-col-gutter-x-sm q-col-gutter-y-xs q-pa-xs full-width'>
               <coadmin-select
+                v-model="query.enabled"
                 class="col-auto"
-                placeholder="状态"
                 form-label="状态"
-                label-style="margin-top:10px"
+                form-label-style="margin-top:10px"
                 content-style="width:120px"
                 outlined
-                v-model="query.enabled"
                 :options="dict.dept_status"
                 no-filter
                 @input="crud.toQuery()"

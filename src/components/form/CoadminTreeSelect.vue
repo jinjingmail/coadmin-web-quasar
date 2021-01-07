@@ -138,7 +138,9 @@ export default {
      * 调用 popupTree.show() 触发一次事件发送
      */
     this.$refs.popupTree.show()
+    console.log('this.$refs.popupTree.show')
     this.$nextTick(() => {
+      console.log('this.$refs.popupTree.hide')
       this.$refs.popupTree.hide()
     })
   },

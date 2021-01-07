@@ -159,7 +159,7 @@
                 class="col-auto"
                 placeholder="状态"
                 form-label="状态"
-                label-style="margin-top:10px"
+                form-label-style="margin-top:10px"
                 content-style="width:120px"
                 outlined
                 v-model="query.enabled"

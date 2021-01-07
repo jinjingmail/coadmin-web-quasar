@@ -82,7 +82,7 @@
 
       <template v-slot:body-cell-action="props">
         <q-td :props="props">
-          <q-btn dense label="修改" flat color="primary" @click="$refs.config.show(props.row.tableName)"/>
+          <q-btn dense label="修改" flat color="primary" @click="$refs.config.show(props.row.tableName, menuDatas)"/>
           <q-btn dense label="预览" flat color="primary" @click="$refs.preview.show(props.row.tableName)"/>
           <q-btn dense label="下载" flat color="primary" @click="toDownload(props.row.tableName)"/>
           <q-btn dense label="生成" flat color="primary" @click="toGen(props.row.tableName)"/>
@@ -105,6 +105,7 @@ import Preview from './preview'
 import Config from './config'
 import { generator, sync } from '@/api/generator/generator'
 import { downloadFile } from '@/utils/index'
+import { getMenus } from '@/api/system/menu'
 
 const visibleColumns = ['tableName', 'engine', 'coding', 'remark', 'createTime', 'action']
 const columns = [
@@ -126,10 +127,24 @@ export default {
   data () {
     return {
       filterTable: '',
-      syncLoading: false
+      syncLoading: false,
+      menuDatas: []
     }
   },
+  created () {
+    this.getMenuDatas()
+  },
   methods: {
+    getMenuDatas() {
+      const sort = 'sort,asc'
+      const params = { sort: sort }
+      getMenus(params).then(res => {
+        this.menuDatas = res.content
+      }).catch(err => {
+        this.menuDatas = []
+        console.log('getMenuDatas', err)
+      })
+    },
     toGen(tableName) {
       generator(tableName, 0).then(data => {
         this.crud.notifySuccess('生成成功')

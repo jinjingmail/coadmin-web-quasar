@@ -511,7 +511,7 @@ function CRUD(options) {
         message: title,
         timeout: 10 * 1000,
         position: 'bottom',
-        closeBtn: '关闭'
+        closeBtn: 'CLOSE'
       })
     },
     notifyError(title, err) {
@@ -525,7 +525,7 @@ function CRUD(options) {
         message: title,
         timeout: 60 * 1000,
         position: 'bottom',
-        closeBtn: '关闭'
+        closeBtn: 'CLOSE'
       })
     },
     notifyFailure(title, err) {
@@ -539,7 +539,7 @@ function CRUD(options) {
         message: title,
         timeout: 60 * 1000,
         position: 'bottom',
-        closeBtn: '关闭'
+        closeBtn: 'CLOSE'
       })
     },
     updateProp(name, value) {

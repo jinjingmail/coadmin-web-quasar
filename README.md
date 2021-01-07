@@ -35,6 +35,8 @@ TODO CoadminForm 表单配置型 Validator
 TODO CoadminOptionGroup 自定义form项的错误提示
 TODO CoadminDateSelect 可以手工输入日期、可以选择“最近7天、最近30天、本月、。。。”
 TODO CoadminTree selected和ticked，可以设置“只选parent，只选leaf”
+TODO CoadminTreeSelect 的select 模式，选择一项后，自动关闭弹出界面
+TODO CoadminDate 支持 number 类型
 
 TODO BUG coadmin-tree-select 的 leaf-all-only-parent 时，v-model的值不正确
 TODO BUG 不能将一个子菜单，修改为顶级菜单

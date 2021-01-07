@@ -3,8 +3,8 @@
 -->
 <template>
   <div >
-    <coadmin-dialog title="查找" no-max seamless ref="search" @before-hide="filterTable=''">
-      <q-input placeholder="在当前页查找" dense outlined v-model="filterTable" clearable class="q-mx-sm q-mt-none q-mb-sm"/>
+    <coadmin-dialog title="查找" no-max seamless ref="search" @before-hide="crud.props.filterTable=''">
+      <q-input style="width:180px" placeholder="在当前页查找" dense outlined v-model="crud.props.filterTable" clearable class="q-mx-sm q-mt-none q-mb-sm"/>
     </coadmin-dialog>
     <coadmin-dialog
       ref="formDialog"
@@ -50,7 +50,6 @@
       ref="table"
       row-key="id"
       dense
-      sticky-header
       :data="crud.data"
       :columns="crud.columns"
       :visible-columns="crud.visibleColumns"
@@ -58,19 +57,20 @@
       :loading="crud.loading"
       selection="single"
       :selected.sync="crud.selections"
-      :filter="filterTable"
+      :filter="crud.props.filterTable"
       @row-click="(evt, row, index) => crud.selections = [row]"
     >
       <template v-slot:top-right="props">
         <div class='row q-col-gutter-x-sm q-col-gutter-y-xs q-pa-xs full-width'>
           <coadmin-select
-            placeholder="状态"
-            form-label="状态"
-            label-style="margin-top:10px"
-            content-style="width:120px"
-            outlined
             v-model="query.enabled"
+            placeholder="状态"
+            content-style="width:100px"
+            outlined
             no-filter
+            use-input
+            fill-input
+            hide-selected
             :options="dict.job_status"
             @input="crud.toQuery()"
             clearable
@@ -103,7 +103,7 @@
       </template>
 
       <template v-slot:body-cell-action="props">
-        <q-td :props="props">
+        <q-td key="action" :props="props">
           <crud-row
             flat
             :type="$q.screen.gt.xs?'button':'menu'"
@@ -154,8 +154,7 @@ export default {
         add: ['admin', 'job:add'],
         edit: ['admin', 'job:edit'],
         del: ['admin', 'job:del']
-      },
-      filterTable: ''
+      }
     }
   },
   computed: {
