@@ -148,15 +148,15 @@
         <coadmin-input class="col-12 col-sm-6" form-label="前端Vue存放路径" v-model="formTable.path" :rules="[
           val => (!!val) || '必填'
           ]"/>
-        <coadmin-form-item class="col-12 col-sm-6" ><div class="q-pt-xs">Vue存放路径[...\src\pages\xxx]，不存在会自动创建</div></coadmin-form-item>
+        <coadmin-form-item class="col-12 col-sm-6" ><div class="q-pt-xs">示例[d:\src\pages]，不存在会自动创建</div></coadmin-form-item>
 
         <coadmin-input class="col-12 col-sm-6" form-label="前端Api接口目录" v-model="formTable.apiPath" :rules="[
           val => (!!val) || '必填'
           ]"/>
-        <coadmin-form-item class="col-12 col-sm-6" ><div class="q-pt-xs">Api存放路径[...\src\api\]，不存在会自动创建</div></coadmin-form-item>
+        <coadmin-form-item class="col-12 col-sm-6" ><div class="q-pt-xs">示例[d:\src\api\]，不存在会自动创建</div></coadmin-form-item>
 
         <coadmin-input class="col-12 col-sm-6" form-label="去表前缀" v-model="formTable.menuPid" />
-        <coadmin-form-item class="col-12 col-sm-6" ><div class="q-pt-xs">上级菜单</div></coadmin-form-item>
+        <coadmin-form-item class="col-12 col-sm-6" ><div class="q-pt-xs">留空不去除表前缀</div></coadmin-form-item>
 
         <coadmin-tree-select
           ref="menu"
@@ -171,13 +171,12 @@
           filter-key-like="titleLetter"
           filter-key-equal="id"
           filter-placeholder="名称、拼音首字母"
-          placeholder="上级"
           clearable
           selectable
         >
           <template v-slot:append><q-icon name="keyboard_arrow_down"/></template>
         </coadmin-tree-select>
-        <coadmin-form-item class="col-12 col-sm-6" ><div class="q-pt-xs">如果需要生成创建menu的sql，请指定</div></coadmin-form-item>
+        <coadmin-form-item class="col-12 col-sm-6" ><div class="q-pt-xs">用于得到创建菜单的sql，请在XxxController.java中查看sql</div></coadmin-form-item>
 
         <coadmin-option-group class="col-12 col-sm-6" form-label="是否覆盖" v-model="formTable.cover" inline
           :options="[
@@ -195,7 +194,6 @@
 <script>
 import { update, get } from '@/api/generator/genConfig'
 import { save, sync, generator } from '@/api/generator/generator'
-import { getDicts } from '@/api/system/dict'
 import { initData } from '@/api/data'
 
 const visibleColumns = ['columnName', 'columnType', 'remark', 'notNull', 'listShow', 'formShow',
@@ -213,23 +211,28 @@ const columns = [
   { name: 'dictName', field: 'dictName', label: '关联字典', align: 'left', style: 'min-width: 160px' }
 ]
 
+const defaultFormTable = { id: null, tableName: '', author: '', pack: '', path: '', moduleName: '', cover: 'false', apiPath: '', prefix: '', apiAlias: null, menuPid: null }
+
 export default {
   name: 'GeneratorConfig',
+  props: {
+    menuDatas: Array,
+    dicts: Array
+  },
   data() {
     return {
       columns,
       visibleColumns,
-      dicts: [],
       tableName: '',
       dataColumn: [],
-      formTable: { id: null, tableName: '', author: '', pack: '', path: '', moduleName: '', cover: 'false', apiPath: '', prefix: '', apiAlias: null, menuPid: null },
+      formTable: { },
       loading: false,
-      menuDatas: [],
       treeSelectExpanded: []
     }
   },
   methods: {
     init () {
+      this.formTable = { ...defaultFormTable }
       initData('api/generator/columns', { tableName: this.tableName }).then(data => {
         this.dataColumn = data.content
       }).catch(err => {
@@ -239,9 +242,8 @@ export default {
     },
     _dialogShow() {
     },
-    show(tableName, menuDatas) {
+    show(tableName) {
       this.tableName = tableName
-      this.menuDatas = menuDatas
       this.init()
       get(tableName).then(data => {
         this.formTable = data
@@ -249,9 +251,7 @@ export default {
         console.log('get table config failure', err)
         this.$q.notify('获取表配置失败')
       })
-      getDicts().then(data => {
-        this.dicts = data
-      })
+
       this.$refs.dialog.show()
     },
     saveColumnConfig() {

@@ -4,7 +4,8 @@
 <template>
   <div >
     <preview ref="preview"/>
-    <config ref="config"/>
+    <config ref="config" :dicts="dicts" :menuDatas="menuDatas"/>
+
     <coadmin-dialog title="查找" no-max seamless ref="search" @before-hide="filterTable=''">
       <q-input placeholder="在当前页查找" dense outlined v-model="filterTable" clearable class="q-mx-sm q-mt-none q-mb-sm"/>
     </coadmin-dialog>
@@ -106,6 +107,7 @@ import Config from './config'
 import { generator, sync } from '@/api/generator/generator'
 import { downloadFile } from '@/utils/index'
 import { getMenus } from '@/api/system/menu'
+import { getDicts } from '@/api/system/dict'
 
 const visibleColumns = ['tableName', 'engine', 'coding', 'remark', 'createTime', 'action']
 const columns = [
@@ -128,13 +130,20 @@ export default {
     return {
       filterTable: '',
       syncLoading: false,
-      menuDatas: []
+      menuDatas: [],
+      dicts: []
     }
   },
   created () {
     this.getMenuDatas()
+    this.getDicts()
   },
   methods: {
+    getDicts () {
+      getDicts().then(data => {
+        this.dicts = data
+      })
+    },
     getMenuDatas() {
       const sort = 'sort,asc'
       const params = { sort: sort }
