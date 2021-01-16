@@ -17,7 +17,6 @@ Quasar相比ElementUI，胜在可定制性上比较强，同时官网文档也�
 - 更多特性请查阅 Quasar-admin-template 项目
 
 ```bash
-TODO coadmin-input dense 下过小，建议从33改为36
 TODO option-group/select 组件string和number类型互相能识别（单选、多选）
 TODO 优化一下tree-table查找expand列的代码，只在列显示发生变化时确定
 TODO 菜单crud的rules
@@ -38,11 +37,8 @@ TODO CoadminTree selected和ticked，可以设置“只选parent，只选leaf”
 TODO CoadminTreeSelect 的select 模式，选择一项后，自动关闭弹出界面
 TODO CoadminDate 支持 number 类型
 
-TODO BUG coadmin-tree-select 的 leaf-all-only-parent 时，v-model的值不正确
 TODO BUG 不能将一个子菜单，修改为顶级菜单
-TODO BUG coadmin-tree-select 在菜单管理页面无法自动展开的问题
 TODO BUG 在iphone上，输入框也要小一些
-TODO BUG 在iphone上，有些按钮字体太小（颜色设置按钮、退出登录按钮等）
 TODO BUG table和card会丢失阴影的问题
 TODO BUG CoadminSelect use-input的时候，会出现下拉列出的选项空白行的问题
 TODO BUG CoadminInput 在popup-proxy 里面时，有时候prepend、append、before、after 的slot会失效
