@@ -52,9 +52,6 @@ TODO BUG 图表dark模式文字颜色
 TODO BUG CoadminTreeSelect 的 v-model不合理
 ```
 
-## Demo
-[Demo](http://jinjinge.gitee.io/coadmin-web-quasar)
-
 ## Install the dependencies（安装依赖）
 ```bash
 首先，安装新版nodejs
