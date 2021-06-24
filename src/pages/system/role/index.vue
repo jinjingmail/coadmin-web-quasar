@@ -141,7 +141,7 @@
             <q-btn dense class="q-my-sm" flat icon="refresh" @click="init()" >
               <q-tooltip :delay="800">刷新列表</q-tooltip>
             </q-btn>
-            <q-btn class="q-my-sm q-ml-sm " color="primary" padding="xs md" dense @click="_saveRoleMenu()" label="保存"/>
+            <q-btn class="q-my-sm q-ml-sm " color="primary" padding="xs md" dense @click="_saveRoleMenu()" v-if="checkPermission(['admin', 'roles:edit','roles:add'])" label="保存"/>
           </template>
         </coadmin-tree>
       </template>
@@ -159,6 +159,8 @@ import crudMore from '@crud/CRUD.more'
 
 import crudRoles from '@/api/system/role'
 import { getMenus } from '@/api/system/menu'
+
+import checkPermission from '@/utils/permission'
 
 const defaultForm = { id: null, name: null, depts: [], description: null, dataScope: '全部', level: 3 }
 const visibleColumns = ['name', 'level', 'description', 'action']
@@ -201,6 +203,7 @@ export default {
     ])
   },
   methods: {
+    checkPermission,
     init () {
       this.getMenuDatas()
     },

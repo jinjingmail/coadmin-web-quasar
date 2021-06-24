@@ -22,7 +22,7 @@
           :url="fileUploadApi"
           :headers="headers"
           field-name="file"
-          label="选择文件（请勿上传违法文件，且文件不能大于1K）"
+          label="选择文件（请勿上传违法文件，且文件不能大于50K）"
           max-files="3"
           :multiple="true"
           :filter="checkFileSize"
@@ -214,7 +214,7 @@ export default {
   },
   methods: {
     checkFileSize (files) {
-      return files.filter(file => file.size <= 1024)
+      return files.filter(file => file.size <= 50 * 1024)
     },
     _rejected (rejectedEntries) {
       this.rejectedReason = '超过规定大小:\n'

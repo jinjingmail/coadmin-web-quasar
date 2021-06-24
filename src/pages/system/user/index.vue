@@ -60,6 +60,9 @@
             multiple
             emit-value
             map-options
+            :rules="[
+              val => (!!val) || '必填'
+              ]"
           />
           <coadmin-tree-select
             class="col-12"
@@ -76,6 +79,9 @@
             filter-placeholder="名称、拼音首字母"
             clearable
             :disable="!!crud.status.view"
+            :rules="[
+              val => (!!val) || '必填'
+              ]"
           />
           <coadmin-select
             class="col-12"
@@ -87,6 +93,9 @@
             no-filter
             :options="roleDatas"
             :disable="!!crud.status.view"
+            :rules="[
+              val => (!!val) || '必填'
+              ]"
             clearable
             multiple
             emit-value
@@ -155,13 +164,22 @@
         >
           <template v-slot:top-right="props">
             <div class='row q-col-gutter-x-sm q-col-gutter-y-xs q-pa-xs full-width'>
+              <coadmin-input class='col-auto'
+                placeholder="ID、用户名、电话、邮箱"
+                v-model="query.blurry" content-style="width:200px"
+                clearable
+                @keyup.enter.native="crud.toQuery()"
+                @clear="crud.toQuery()"
+                />
               <coadmin-select
                 class="col-auto"
                 placeholder="状态"
-                form-label="状态"
                 form-label-style="margin-top:10px"
                 content-style="width:120px"
                 outlined
+                use-input
+                fill-input
+                hide-selected
                 v-model="query.enabled"
                 no-filter
                 :options="dict.user_status"
@@ -170,6 +188,9 @@
                 emit-value
                 map-options
               />
+              <div class='col-auto'>
+                <q-btn dense padding="xs sm" color="primary" icon="search" @click="crud.toQuery()" />
+              </div>
               <q-space/>
               <crud-operation :permission="permission" />
               <div class="col-auto">
@@ -239,8 +260,8 @@ const columns = [
   { name: 'username', field: 'username', label: '用户名', required: true, align: 'left' },
   { name: 'gender', field: 'gender', label: '性别', align: 'center' },
   { name: 'enabled', field: 'enabled', label: '状态', align: 'center' },
-  { name: 'email', field: 'email', label: '邮箱', align: 'left' },
   { name: 'phone', field: 'phone', label: '电话', align: 'left' },
+  { name: 'email', field: 'email', label: '邮箱', align: 'left' },
   { name: 'createTime', field: 'createTime', label: '创建时间', align: 'left' },
   { name: 'action', label: '操作', align: 'center' }
 ]

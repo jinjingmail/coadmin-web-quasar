@@ -17,10 +17,15 @@ Quasar相比ElementUI，胜在可定制性上比较强，同时官网文档也�
 - 更多特性请查阅 Quasar-admin-template 项目
 
 ```bash
+TODO coadmin-input 的tips功能
+TODO coadmin-input 的规则验证完善
+TODO coadmin-input 的textarea
+TODO coadmin-table 的expand功能
 TODO option-group/select 组件string和number类型互相能识别（单选、多选）
 TODO 优化一下tree-table查找expand列的代码，只在列显示发生变化时确定
 TODO 菜单crud的rules
 TODO PageTagView 的选中状态颜色，根据父对象的背景色自动计算
+TODO PageTagView 增加右键菜单：关闭全部、关闭其他、关闭右边
 TODO 为 coadmin-tree 添加 tree-class / tree-style tree-class-mobile tree-style-mobile
 TODO coadmin-tree、coadmin-select、coadmin-tree-select 等的 $emit 加入是否需要的判断
 TODO 树表懒加载
