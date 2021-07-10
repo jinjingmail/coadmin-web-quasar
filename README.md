@@ -17,6 +17,12 @@ Quasar相比ElementUI，胜在可定制性上比较强，同时官网文档也�
 - 更多特性请查阅 Quasar-admin-template 项目
 
 ```bash
+coadmin-dialog
+  - TODO 标题栏紧凑一点
+  - TODO 可移动的dialog的标题栏图标显示移动图标
+  - TODO 标题栏添加可以折叠对话框内容的按钮
+  - TODO dialog里面内容滚动时，可以不滚动标题栏、底部工具栏
+
 TODO coadmin-input 的tips功能
 TODO coadmin-input 的规则验证完善
 TODO coadmin-input 的textarea
@@ -37,7 +43,7 @@ TODO CROD.operate 增加选项“按grid显示”
 TODO 针对mac系统，适配一下自定义组件（比如dialog的关闭按钮放到左上角）
 TODO CoadminForm 表单配置型 Validator
 TODO CoadminOptionGroup 自定义form项的错误提示
-TODO CoadminDateSelect 可以手工输入日期、可以选择“最近7天、最近30天、本月、。。。”
+TODO CoadminDateSelect 可以手工输入日期、可以选择“最近7天、最近30天、本月、上月。。。”
 TODO CoadminTree selected和ticked，可以设置“只选parent，只选leaf”
 TODO CoadminTreeSelect 的select 模式，选择一项后，自动关闭弹出界面
 TODO CoadminDate 支持 number 类型
