@@ -4,7 +4,7 @@ module.exports = {
   /**
    * @description 网站标题
    */
-  title: '眼健康管理系统',
+  title: 'Co管理系统',
   /**
    * @description 是否显示 tagsView
    */
@@ -80,13 +80,15 @@ module.exports = {
   tableClassMobile: 'q-table--flat q-table--square',
   tableStyleMobile: '',
   /**
-   * Dialog样式
+   * Dialog样式:
+   * 使用 dialogClass 设置边框：
+   *  q-pa-sm
    * 使用 dialogClass 设置背景色：
    *  bg-teal
    * 使用 dialogStyle 设置背景色（含半透明）:
    *  background:#3d1d1d52
    */
-  dialogClass: 'q-pa-sm',
+  dialogClass: '',
   dialogStyle: '',
   dialogClassMobile: '',
   dialogStyleMobile: '',

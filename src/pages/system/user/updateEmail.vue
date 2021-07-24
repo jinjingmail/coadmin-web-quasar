@@ -1,29 +1,29 @@
 <template>
-  <coadmin-dialog
+  <co-dialog
     ref="dialog"
     title="修改密码"
     no-max
     card-style="width:400px; max-width:95vw;"
     :loading="loading"
   >
-    <coadmin-form
+    <co-form
       ref="form"
       label-width="small"
       label-align="right"
       class="q-pa-md row q-col-gutter-x-xl q-col-gutter-y-md">
-        <coadmin-input class="col-12" form-label="新邮箱" v-model="form.email" key="email"/>
-        <coadmin-input class="col-12" form-label="验证码" v-model="form.code" key="code">
+        <co-input dense class="col-12" form-label="新邮箱" v-model="form.email" key="email"/>
+        <co-input dense class="col-12" form-label="验证码" v-model="form.code" key="code">
           <template v-slot:after>
             <q-btn flat dense label="获取验证码"/>
           </template>
-        </coadmin-input>
-        <coadmin-input class="col-12" form-label="当前密码" type="password" v-model="form.pass" key="pass"/>
-    </coadmin-form>
+        </co-input>
+        <co-input dense class="col-12" form-label="当前密码" type="password" v-model="form.pass" key="pass"/>
+    </co-form>
     <q-card-actions class="q-pa-md" align="right">
       <q-btn label="取消" flat v-close-popup/>
       <q-btn label="确认" icon="check" color="primary" @click="doSubmit"/>
     </q-card-actions>
-  </coadmin-dialog>
+  </co-dialog>
 
 </template>
 

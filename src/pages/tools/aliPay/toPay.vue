@@ -1,23 +1,23 @@
 <template>
   <div>
-    <coadmin-form
+    <co-form
       ref="form"
       label-width="small"
       label-align="right"
       class="q-pa-md row q-col-gutter-x-xl q-col-gutter-y-md">
-      <coadmin-input class="col-12" form-label="商品名称" v-model="form.subject" :rules="[
+      <co-input dense class="col-12" form-label="商品名称" v-model="form.subject" :rules="[
         val => (!!val) || '必填'
         ]"/>
-      <coadmin-input class="col-12" form-label="商品价格" v-model="form.totalAmount" :rules="[
+      <co-input dense class="col-12" form-label="商品价格" v-model="form.totalAmount" :rules="[
         val => (!!val) || '必填'
         ]"/>
-      <coadmin-input class="col-12" form-label="商品描述" v-model="form.body" :rules="[
+      <co-input dense class="col-12" form-label="商品描述" v-model="form.body" :rules="[
         val => (!!val) || '必填'
         ]"/>
-      <coadmin-form-item class="col-12" form-label=" ">
+      <co-form-item class="col-12" form-label=" ">
         <q-btn :loading="loading" dense label="去支付" icon="check" color="primary" @click="doSubmit"/>
-      </coadmin-form-item>
-    </coadmin-form>
+      </co-form-item>
+    </co-form>
   </div>
 </template>
 

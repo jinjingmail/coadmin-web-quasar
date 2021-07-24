@@ -3,10 +3,10 @@
 -->
 <template>
   <div >
-    <coadmin-dialog title="查找" no-max seamless ref="search" @before-hide="filterTable=''">
+    <co-dialog title="查找" no-max seamless ref="search" @before-hide="filterTable=''">
       <q-input placeholder="在当前页查找" dense outlined v-model="filterTable" clearable class="q-mx-sm q-mt-none q-mb-sm"/>
-    </coadmin-dialog>
-    <coadmin-dialog
+    </co-dialog>
+    <co-dialog
       ref="formDialog"
       :value="crud.status.cu > 0"
       :title="crud.status.title"
@@ -16,21 +16,22 @@
       :loading="crud.status.cu === crud.STATUS_PROCESSING"
       :loading-delay="300"
     >
-      <coadmin-form
+      <co-form
         ref="form"
         label-width="small"
         label-align="right"
         class="q-pa-md row q-col-gutter-x-xl q-col-gutter-y-md">
-          <coadmin-form-item class="col-12" form-label="ID" v-if="form.id">
-            <div class="q-pt-xs">{{form.id}}</div>
-          </coadmin-form-item>
-          <coadmin-input class="col-12" form-label="角色名称" v-model="form.name" :disable="!!crud.status.view" :rules="[
+          <co-form-item dense class="col-12" form-label="ID" v-if="form.id">
+            <div class="q-pt-sm">{{form.id}}</div>
+          </co-form-item>
+          <co-input dense class="col-12" form-label="角色名称" v-model="form.name" :disable="!!crud.status.view" :rules="[
               val => (!!val) || '必填'
               ]"/>
-          <coadmin-input class="col-12" form-label="级别" v-model.number="form.level" type="number" :disable="!!crud.status.view" :rules="[
+          <co-input dense class="col-12" form-label="级别" v-model.number="form.level" type="number" :disable="!!crud.status.view" :rules="[
               val => (!!val) || '必填'
               ]"/>
-          <coadmin-option-group
+          <co-option-group
+            dense
             class="col-12"
             form-label="数据范围"
             v-model="form.dataScope"
@@ -39,15 +40,15 @@
             :options="[{label: '全部', value: '全部'}, { label: '本级', value: '本级'}, { label: '自定义', value: '自定义' }]"
             type="radio"
           />
-          <coadmin-input class="col-12" form-label="描述" v-model="form.description" :disable="!!crud.status.view"/>
+          <co-input dense class="col-12" form-label="描述" v-model="form.description" :disable="!!crud.status.view"/>
 
-      </coadmin-form>
+      </co-form>
       <q-card-actions class="q-pa-md" align="right">
         <q-btn label="取消" flat v-close-popup/>
         <q-btn label="保存" icon="check" color="primary" v-if="!crud.status.view" @click="crud.submitCU"
           :loading="crud.status.cu === crud.STATUS_PROCESSING" :disable="crud.status.cu === crud.STATUS_PROCESSING"/>
       </q-card-actions>
-    </coadmin-dialog>
+    </co-dialog>
 
     <q-splitter
       v-model="splitter"
@@ -56,7 +57,7 @@
       separator-style="background-color: transparent"
     >
       <template v-slot:before>
-        <coadmin-table
+        <co-table
           ref="table"
           row-key="id"
           dense
@@ -74,7 +75,7 @@
         >
           <template v-slot:top-right="props">
             <div class='row q-col-gutter-x-sm q-col-gutter-y-xs q-pa-xs full-width'>
-              <coadmin-input class='col-auto'
+              <co-input dense class='col-auto'
                 placeholder="ID、名称、描述"
                 v-model="query.blurry" content-style="width:180px"
                 clearable
@@ -85,7 +86,7 @@
                 <q-btn dense padding="xs sm" color="primary" icon="search" @click="crud.toQuery()" />
               </div>
               <q-space/>
-              <crud-operation :permission="permission" />
+              <crud-operation dense :permission="permission" />
               <div class="col-auto">
                 <q-btn-dropdown dense color="primary" class="btn-dropdown-hide-droparrow" icon="apps" auto-close>
                   <crud-more :tableSlotTopProps="props">
@@ -101,7 +102,7 @@
 
           <template v-slot:body-cell-action="props">
             <q-td :props="props">
-              <crud-row
+              <crud-row dense
                 flat
                 :type="$q.screen.gt.xs?'button':'menu'"
                 :data="props.row"
@@ -112,17 +113,17 @@
           </template>
 
           <template v-slot:pagination>
-            <crud-pagination />
+            <crud-pagination dense/>
           </template>
 
-        </coadmin-table>
+        </co-table>
       </template>
       <template v-if="$q.screen.xs" v-slot:separator>
         <q-avatar color="primary" text-color="white" size="35px" icon="height" />
       </template>
 
       <template v-slot:after>
-        <coadmin-tree
+        <co-tree
           ref="tree"
           :class="$q.screen.gt.xs?'q-ml-sm':''"
           accordion
@@ -143,7 +144,7 @@
             </q-btn>
             <q-btn class="q-my-sm q-ml-sm " color="primary" padding="xs md" dense @click="_saveRoleMenu()" v-if="checkPermission(['admin', 'roles:edit','roles:add'])" label="保存"/>
           </template>
-        </coadmin-tree>
+        </co-tree>
       </template>
     </q-splitter>
   </div>
@@ -152,10 +153,10 @@
 <script>
 import { mapGetters } from 'vuex'
 import CRUD, { presenter, header, form, crud } from '@crud/crud'
-import crudOperation from '@crud/CRUD.operation'
-import crudPagination from '@crud/CRUD.pagination'
-import crudRow from '@crud/CRUD.row'
-import crudMore from '@crud/CRUD.more'
+import CrudOperation from '@crud/crud-operation'
+import CrudPagination from '@crud/crud-pagination'
+import CrudRow from '@crud/crud-row'
+import CrudMore from '@crud/crud-more'
 
 import crudRoles from '@/api/system/role'
 import { getMenus } from '@/api/system/menu'
@@ -175,7 +176,7 @@ const columns = [
 
 export default {
   name: 'Role',
-  components: { crudOperation, crudMore, crudPagination, crudRow },
+  components: { CrudOperation, CrudMore, CrudPagination, CrudRow },
   cruds() {
     return CRUD({ columns, visibleColumns, idField: 'id', sort: ['name,asc'], title: '角色', url: 'api/roles', crudMethod: { ...crudRoles } })
   },

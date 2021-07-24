@@ -6,10 +6,10 @@
     <preview ref="preview"/>
     <config ref="config" :dicts="dicts" :menuDatas="menuDatas"/>
 
-    <coadmin-dialog title="查找" no-max seamless ref="search" @before-hide="filterTable=''">
+    <co-dialog title="查找" no-max seamless ref="search" @before-hide="filterTable=''">
       <q-input placeholder="在当前页查找" dense outlined v-model="filterTable" clearable class="q-mx-sm q-mt-none q-mb-sm"/>
-    </coadmin-dialog>
-    <coadmin-dialog
+    </co-dialog>
+    <co-dialog
       ref="formDialog"
       :value="crud.status.cu > 0"
       :title="crud.status.title"
@@ -17,20 +17,20 @@
       @before-hide="crud.cancelCU"
       card-style="width:600px; max-width:95vw;"
     >
-      <coadmin-form
+      <co-form
         ref="form"
         label-width="small"
         label-align="right"
         class="q-pa-md row q-col-gutter-x-xl q-col-gutter-y-md">
-      </coadmin-form>
+      </co-form>
       <q-card-actions class="q-pa-md" align="right">
         <q-btn label="取消" flat v-close-popup/>
         <q-btn label="保存" icon="check" color="primary" v-if="!crud.status.view" @click="crud.submitCU"
           :loading="crud.status.cu === crud.STATUS_PROCESSING" :disable="crud.status.cu === crud.STATUS_PROCESSING"/>
       </q-card-actions>
-    </coadmin-dialog>
+    </co-dialog>
 
-    <coadmin-table
+    <co-table
       ref="table"
       row-key="tableName"
       dense
@@ -45,7 +45,7 @@
     >
       <template v-slot:top-right="props">
         <div class='row q-col-gutter-x-sm q-col-gutter-y-xs q-px-xs q-py-xs full-width'>
-          <coadmin-input class='col-auto'
+          <co-input dense class='col-auto'
             placeholder="表名"
             v-model="query.name" content-style="width:180px"
             clearable
@@ -91,17 +91,17 @@
       </template>
 
       <template v-slot:pagination>
-        <crud-pagination />
+        <crud-pagination dense/>
       </template>
 
-    </coadmin-table>
+    </co-table>
   </div>
 </template>
 
 <script>
 import CRUD, { presenter, header } from '@crud/crud'
-import crudPagination from '@crud/CRUD.pagination'
-import crudMore from '@crud/CRUD.more'
+import CrudPagination from '@crud/crud-pagination'
+import CrudMore from '@crud/crud-more'
 import Preview from './preview'
 import Config from './config'
 import { generator, sync } from '@/api/generator/generator'
@@ -121,7 +121,7 @@ const columns = [
 
 export default {
   name: 'GeneratorIndex',
-  components: { crudMore, crudPagination, Preview, Config },
+  components: { CrudMore, CrudPagination, Preview, Config },
   cruds() {
     return CRUD({ columns, visibleColumns, idField: 'tableName', title: '代码生成', url: 'api/generator/tables' })
   },

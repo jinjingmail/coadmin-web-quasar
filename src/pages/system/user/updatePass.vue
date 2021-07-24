@@ -1,31 +1,31 @@
 <template>
-  <coadmin-dialog
+  <co-dialog
     ref="dialog"
     title="修改密码"
     no-max
     card-style="width:400px; max-width:95vw;"
     :loading="loading"
   >
-    <coadmin-form
+    <co-form
       ref="form"
       label-width="small"
       label-align="right"
       class="q-pa-md row q-col-gutter-x-xl q-col-gutter-y-md">
-        <coadmin-input class="col-12" form-label="旧密码" type="password" v-model="form.oldPass" :rules="[
+        <co-input dense class="col-12" form-label="旧密码" type="password" v-model="form.oldPass" :rules="[
               val => (!!val) || '必填'
               ]"/>
-        <coadmin-input class="col-12" form-label="新密码" type="password" v-model="form.newPass" :rules="[
+        <co-input dense class="col-12" form-label="新密码" type="password" v-model="form.newPass" :rules="[
               val => (!!val && val.length >= 6) || '长度不少于6个字符'
               ]"/>
-        <coadmin-input class="col-12" form-label="确认密码" type="password" v-model="form.confirmPass" :rules="[
+        <co-input dense class="col-12" form-label="确认密码" type="password" v-model="form.confirmPass" :rules="[
               val => (!!val && val.length >= 6) || '长度不少于6个字符'
               ]"/>
-    </coadmin-form>
+    </co-form>
     <q-card-actions class="q-pa-md" align="right">
       <q-btn label="取消" flat v-close-popup/>
       <q-btn label="确认" icon="check" color="primary" @click="doSubmit"/>
     </q-card-actions>
-  </coadmin-dialog>
+  </co-dialog>
 </template>
 
 <script>

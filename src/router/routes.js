@@ -1,7 +1,7 @@
 /* Layout */
-import MainLayout from 'layouts/MainLayout.vue'
-import LoginLayout from 'layouts/LoginLayout.vue'
-// import BlankLayout from 'layouts/BlankLayout.vue'
+import MainLayout from 'layouts/main-layout.vue'
+import LoginLayout from 'layouts/login-layout.vue'
+// import BlankLayout from 'layouts/blank-layout.vue'
 
 /**
  * Detail see: https://panjiachen.github.io/vue-element-admin-site/guide/essentials/router-and-nav.html

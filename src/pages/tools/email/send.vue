@@ -1,23 +1,23 @@
 <template>
   <div>
-    <coadmin-form
+    <co-form
       ref="form"
       label-width="small"
       label-align="right"
       class="q-pa-md row q-col-gutter-x-xl q-col-gutter-y-md">
-      <coadmin-input class="col-12" form-label="邮件标题" v-model="form.subject" :rules="[
+      <co-input dense class="col-12" form-label="邮件标题" v-model="form.subject" :rules="[
         val => (!!val) || '必填'
         ]"/>
-      <coadmin-input class="col-12" form-label="收件人" v-model="form.tos[0]" :rules="[
+      <co-input dense class="col-12" form-label="收件人" v-model="form.tos[0]" :rules="[
         val => (!!val) || '必填'
         ]"/>
-      <coadmin-input class="col-12" form-label="内容" v-model="form.content" :rules="[
+      <co-input dense class="col-12" form-label="内容" v-model="form.content" :rules="[
         val => (!!val) || '必填'
         ]"/>
-      <coadmin-form-item class="col-12" form-label=" ">
+      <co-form-item class="col-12" form-label=" ">
         <q-btn dense :loading="loading" label="发送邮件" icon="check" color="primary" @click="doSubmit"/>
-      </coadmin-form-item>
-    </coadmin-form>
+      </co-form-item>
+    </co-form>
   </div>
 </template>
 

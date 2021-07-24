@@ -3,10 +3,10 @@
 -->
 <template>
   <div >
-    <coadmin-dialog title="查找" no-max seamless ref="search" @before-hide="crud.props.filterTable=''">
+    <co-dialog title="查找" no-max seamless ref="search" @before-hide="crud.props.filterTable=''">
       <q-input style="width:180px" placeholder="在当前页查找" dense outlined v-model="crud.props.filterTable" clearable class="q-mx-sm q-mt-none q-mb-sm"/>
-    </coadmin-dialog>
-    <coadmin-dialog
+    </co-dialog>
+    <co-dialog
       ref="formDialog"
       :value="crud.status.cu > 0"
       :title="crud.status.title"
@@ -14,22 +14,23 @@
       @before-hide="crud.cancelCU"
       card-style="width:600px; max-width:95vw;"
     >
-      <coadmin-form
+      <co-form
         ref="form"
         label-width="small"
         label-align="right"
         class="q-pa-md row q-col-gutter-x-xl q-col-gutter-y-md">
-          <coadmin-form-item class="col-12" form-label="ID" v-if="form.id">
-            <div class="q-pt-xs">{{form.id}}</div>
-          </coadmin-form-item>
-          <coadmin-input class="col-12" form-label="岗位名称" v-model="form.name" :disable="!!crud.status.view" :rules="[
+          <co-form-item dense class="col-12" form-label="ID" v-if="form.id">
+            <div class="q-pt-sm">{{form.id}}</div>
+          </co-form-item>
+          <co-input dense class="col-12" form-label="岗位名称" v-model="form.name" :disable="!!crud.status.view" :rules="[
               val => (!!val) || '必填'
               ]"/>
-          <coadmin-input class="col-12" form-label="排序" v-model.number="form.sort" type="number" :disable="!!crud.status.view" :rules="[
+          <co-input dense class="col-12" form-label="排序" v-model.number="form.sort" type="number" :disable="!!crud.status.view" :rules="[
               val => (!!val) || '必填'
               ]"/>
-          <coadmin-option-group
+          <co-option-group
             class="col-12"
+            dense
             form-label="状态"
             v-model="form.enabled"
             value-to-string
@@ -38,15 +39,15 @@
             :options="dict.dept_status"
             type="radio"
           />
-      </coadmin-form>
+      </co-form>
       <q-card-actions class="q-pa-md" align="right">
         <q-btn label="取消" flat v-close-popup/>
         <q-btn label="保存" icon="check" color="primary" v-if="!crud.status.view" @click="crud.submitCU"
           :loading="crud.status.cu === crud.STATUS_PROCESSING" :disable="crud.status.cu === crud.STATUS_PROCESSING"/>
       </q-card-actions>
-    </coadmin-dialog>
+    </co-dialog>
 
-    <coadmin-table
+    <co-table
       ref="table"
       row-key="id"
       dense
@@ -62,15 +63,12 @@
     >
       <template v-slot:top-right="props">
         <div class='row q-col-gutter-x-sm q-col-gutter-y-xs q-pa-xs full-width'>
-          <coadmin-select
+          <co-select
             v-model="query.enabled"
+            dense
             placeholder="状态"
             content-style="width:100px"
-            outlined
             no-filter
-            use-input
-            fill-input
-            hide-selected
             :options="dict.job_status"
             @input="crud.toQuery()"
             clearable
@@ -82,7 +80,7 @@
           </div>
           <q-space/>
 
-          <crud-operation :permission="permission" />
+          <crud-operation dense :permission="permission" />
           <div>
             <q-btn-dropdown dense color="primary" class="btn-dropdown-hide-droparrow" icon="apps" auto-close>
               <crud-more :tableSlotTopProps="props">
@@ -105,6 +103,7 @@
       <template v-slot:body-cell-action="props">
         <q-td key="action" :props="props">
           <crud-row
+            dense
             flat
             :type="$q.screen.gt.xs?'button':'menu'"
             :data="props.row"
@@ -115,20 +114,20 @@
       </template>
 
       <template v-slot:pagination>
-        <crud-pagination />
+        <crud-pagination dense/>
       </template>
 
-    </coadmin-table>
+    </co-table>
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 import CRUD, { presenter, header, form, crud } from '@crud/crud'
-import crudOperation from '@crud/CRUD.operation'
-import crudPagination from '@crud/CRUD.pagination'
-import crudRow from '@crud/CRUD.row'
-import crudMore from '@crud/CRUD.more'
+import CrudOperation from '@crud/crud-operation'
+import CrudPagination from '@crud/crud-pagination'
+import CrudRow from '@crud/crud-row'
+import CrudMore from '@crud/crud-more'
 import crudJob from '@/api/system/job'
 
 const defaultForm = { id: null, name: null, sort: 10, enabled: true }
@@ -143,7 +142,7 @@ const columns = [
 
 export default {
   name: 'Job',
-  components: { crudOperation, crudMore, crudPagination, crudRow },
+  components: { CrudOperation, CrudMore, CrudPagination, CrudRow },
   cruds() {
     return CRUD({ columns, visibleColumns, idField: 'id', sort: ['sort,asc', 'id,desc'], title: '岗位', url: 'api/job', crudMethod: { ...crudJob } })
   },

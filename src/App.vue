@@ -10,38 +10,38 @@ import drag from './utils/vue-dragdrag'
 Vue.directive('drag', drag)
 
 // 权限指令
-import permission from './components/Permission'
+import permission from './components/permission'
 Vue.use(permission)
 
-import CoadminTable from './components/CoadminTable'
-import CoadminDialog from './components/CoadminDialog'
-import CoadminCard from './components/CoadminCard'
-import CoadminTree from './components/CoadminTree'
+import CoTable from 'components/co-table'
+import CoDialog from 'components/co-dialog'
+import CoCard from 'components/co-card'
+import CoTree from 'components/co-tree'
 
-import CoadminField from 'components/form/CoadminField.vue'
-import CoadminInput from 'components/form/CoadminInput.vue'
-import CoadminDate from 'components/form/CoadminDate.vue'
-import CoadminOptionGroup from 'components/form/CoadminOptionGroup.vue'
-import CoadminSelect from 'components/form/CoadminSelect.vue'
-import CoadminFormItem from 'components/form/CoadminFormItem.vue'
-import CoadminForm from 'components/form/CoadminForm.vue'
-import CoadminDateSelect from 'components/form/CoadminDateSelect.vue'
-import CoadminTreeSelect from 'components/form/CoadminTreeSelect.vue'
+import CoField from 'components/form/co-field.vue'
+import CoInput from 'components/form/co-input.vue'
+import CoDate from 'components/form/co-date.vue'
+import CoSelect from 'components/form/co-select.vue'
+import CoForm from 'components/form/co-form.vue'
+import CoFormItem from 'components/form/co-form-item.vue'
+import CoDateSelect from 'components/form/co-date-select.vue'
+import CoTreeSelect from 'components/form/co-tree-select.vue'
+import CoOptionGroup from 'components/form/co-option-group.vue'
 
-Vue.component(CoadminTable.name, CoadminTable)
-Vue.component(CoadminDialog.name, CoadminDialog)
-Vue.component(CoadminCard.name, CoadminCard)
-Vue.component(CoadminTree.name, CoadminTree)
+Vue.component(CoTable.name, CoTable)
+Vue.component(CoDialog.name, CoDialog)
+Vue.component(CoCard.name, CoCard)
+Vue.component(CoTree.name, CoTree)
 
-Vue.component(CoadminField.name, CoadminField)
-Vue.component(CoadminInput.name, CoadminInput)
-Vue.component(CoadminDate.name, CoadminDate)
-Vue.component(CoadminOptionGroup.name, CoadminOptionGroup)
-Vue.component(CoadminSelect.name, CoadminSelect)
-Vue.component(CoadminFormItem.name, CoadminFormItem)
-Vue.component(CoadminForm.name, CoadminForm)
-Vue.component(CoadminDateSelect.name, CoadminDateSelect)
-Vue.component(CoadminTreeSelect.name, CoadminTreeSelect)
+Vue.component(CoField.name, CoField)
+Vue.component(CoInput.name, CoInput)
+Vue.component(CoDate.name, CoDate)
+Vue.component(CoOptionGroup.name, CoOptionGroup)
+Vue.component(CoSelect.name, CoSelect)
+Vue.component(CoFormItem.name, CoFormItem)
+Vue.component(CoForm.name, CoForm)
+Vue.component(CoDateSelect.name, CoDateSelect)
+Vue.component(CoTreeSelect.name, CoTreeSelect)
 
 export default {
   name: 'App'

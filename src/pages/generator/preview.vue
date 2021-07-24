@@ -1,5 +1,5 @@
 <template>
-  <coadmin-dialog
+  <co-dialog
     ref="dialog"
     :title="tableName"
     card-style="width:95vw; max-width:95vw; height:95vh; max-height:95vh"
@@ -21,7 +21,7 @@
         <pre>{{item.content}}</pre>
       </q-tab-panel>
     </q-tab-panels>
-  </coadmin-dialog>
+  </co-dialog>
 </template>
 
 <script>

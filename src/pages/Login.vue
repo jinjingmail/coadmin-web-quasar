@@ -1,6 +1,6 @@
 <template>
   <q-page class="row items-center justify-center">
-    <coadmin-card
+    <co-card
       class="login-wrapper shadow-24"
       :bordered="false"
     >
@@ -23,29 +23,30 @@
             </q-avatar>
           </div>
           <div class="text-h5 text-primary q-mb-xs">登录</div>
-          <coadmin-form
+          <co-form
             ref="loginForm"
             class="login-form my-form q-mt-lg"
           >
-            <coadmin-input
+            <co-input
               class="q-mb-md"
-              outlined
               dense
               no-error-icon
               v-model.trim="loginForm.username"
               placeholder="账号 demo"
               :rules="[ val => val && val.length > 0 || '请输入用户账号']"
             />
-            <coadmin-input
+            <co-input
               class="q-mb-md"
+              dense
               no-error-icon
               type="password"
               v-model.trim="loginForm.password"
               placeholder="密码 123456"
               :rules="[ val => val && val.length > 0 || '请输入登录密码']"
             />
-            <coadmin-input
+            <co-input
               class="q-mb-md"
+              dense
               no-error-icon
               v-model.trim="loginForm.code"
               placeholder="验证码"
@@ -54,7 +55,7 @@
               <template v-slot:after>
                 <img :src="codeUrl" @click="getCode" style="width:94px; min-width:80px" alt="验证码"/>
               </template>
-            </coadmin-input>
+            </co-input>
             <div class="column q-gutter-y-sm q-mt-none">
               <q-checkbox
                 v-model="loginForm.rememberMe"
@@ -78,7 +79,7 @@
               </div>
               -->
             </div>
-          </coadmin-form>
+          </co-form>
 
           <q-toolbar class="no-padding">
             <q-toggle :value="$q.dark.isActive" :val="true" label="DARK" @click.native="changeSetting({key:'darkMode', value: !$q.dark.isActive})"/>
@@ -95,13 +96,13 @@
           color="primary"
         />
       </q-inner-loading>
-    </coadmin-card>
+    </co-card>
   </q-page>
 </template>
 
 <script>
 import { mapActions } from 'vuex'
-import BrandColor from 'components/BrandColor.vue'
+import BrandColor from 'pages/components/brand-color.vue'
 import { random } from '@/utils/index'
 import { encrypt } from '@/utils/rsaEncrypt'
 import { getCodeImg } from '@/api/login'

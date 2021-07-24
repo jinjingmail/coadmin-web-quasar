@@ -1,5 +1,5 @@
 import constantRouterMap from '@/router/routes'
-import MainLayout from '@/layouts/MainLayout'
+import MainLayout from '@/layouts/main-layout'
 import { getDictMapAll } from '@/api/system/dictDetail'
 import Vue from 'vue'
 

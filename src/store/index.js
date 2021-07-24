@@ -33,7 +33,6 @@ const Store = new Vuex.Store({
   // enable strict mode (adds overhead!)
   // for dev mode only
   strict: process.env.NODE_ENV !== 'production'
-  // strict: false
 })
 
 export default function (/* { ssrContext } */) {

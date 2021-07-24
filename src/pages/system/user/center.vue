@@ -73,7 +73,7 @@
       </template>
 
       <template v-slot:after>
-        <coadmin-table
+        <co-table
           title="用户操作日志"
           ref="table"
           row-key="id"
@@ -90,9 +90,9 @@
           </template>
 
           <template v-slot:pagination>
-            <crud-pagination />
+            <crud-pagination dense/>
           </template>
-        </coadmin-table>
+        </co-table>
       </template>
     </q-splitter>
   </div>
@@ -108,7 +108,7 @@ import updateEmail from './updateEmail'
 //import { editUser } from '@/api/system/user'
 
 import CRUD, { presenter, header } from '@crud/crud'
-import crudPagination from '@crud/CRUD.pagination'
+import CrudPagination from '@crud/crud-pagination'
 import Avatar from '@/assets/boy-avatar.jpg'
 
 const columns = [
@@ -122,7 +122,7 @@ const columns = [
 
 export default {
   name: 'Center',
-  components: { crudPagination, myUpload, updatePass, updateEmail },
+  components: { CrudPagination, myUpload, updatePass, updateEmail },
   cruds() {
     return CRUD({ columns, idField: 'id', title: '用户设置', url: 'api/logs/user' })
   },

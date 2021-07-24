@@ -3,7 +3,7 @@
 </template>
 <script>
 import { mapState } from 'vuex'
-import MyIframe from 'components/Iframe'
+import MyIframe from 'components/iframe'
 export default {
   name: 'Sql',
   components: { MyIframe },

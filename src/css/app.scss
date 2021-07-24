@@ -52,34 +52,69 @@ input:-ms-input-placeholder {
 /****** 输入框placeholder 颜色变浅一点 end *******/
 
 /* 修改全局样式 BEGIN */
-.coadmin-input,
-.coadmin-select,
-.coadmin-field,
-.coadmin-option-group,
-.coadmin-form-item {
+.co-input,
+.co-select,
+.co-field,
+.co-option-group,
+.co-form-item {
   .q-field__input {
     min-height: auto;
   }
-  // 按钮高度缩小
+  &.q-textarea .q-field__control {
+    min-height: 45px;
+    height: auto;
+  }
+  &.q-textarea.q-field--dense .q-field__control {
+    min-height: 34px;
+    height: auto;
+  }
+  &.q-textarea.q-field--dense .q-field__native {
+    padding-top: 7px;
+  }
+  &.q-textarea .q-field__native {
+    padding-top: 13px;
+  }
+
+  // 高度缩小
   .q-field__control,
   .q-field__marginal {
     height: 45px;
   }
   &.q-field--dense .q-field__control, 
   &.q-field--dense .q-field__marginal {
-    height: 33px;
+    height: 34px;
   }
+
   &.q-field--auto-height .q-field__control,
   &.q-field--auto-height .q-field__native {
-    // min-height: 45px;
-    min-height: auto;
+    min-height: 45px;
   }
+  &.q-field--auto-height .q-field__control {
+    height: auto;
+  }
+  &.q-field--auto-height.q-field--labeled .q-field__control-container {
+    padding-top: 0;
+  }
+  &.q-field--auto-height.q-field--labeled .q-field__native,
+  &.q-field--auto-height.q-field--labeled .q-field__prefix,
+  &.q-field--auto-height.q-field--labeled .q-field__suffix {
+    padding-top:20px;
+  }
+  &.q-field--auto-height.q-field--dense.q-field--labeled .q-field__native,
+  &.q-field--auto-height.q-field--dense.q-field--labeled .q-field__prefix,
+  &.q-field--auto-height.q-field--dense.q-field--labeled .q-field__suffix {
+    padding-top:14px;
+  }
+
   &.q-field--auto-height.q-field--dense .q-field__control,
   &.q-field--auto-height.q-field--dense .q-field__native {
-    // min-height: 35px;
-    min-height: auto;
+    min-height: 34px;
   }
-  &.q-field__label {
+  &.q-field--auto-height.q-field--dense .q-field__control {
+    height: auto;
+  }
+
+  .q-field__label {
     top: 15px;
   }
   &.q-field--dense .q-field__label {
@@ -87,13 +122,13 @@ input:-ms-input-placeholder {
   }
 }
 
-.coadmin-header,
-.coadmin-footer,
-.coadmin-page,
-.coadmin-form,
-.coadmin-card,
-.coadmin-popup,
-.coadmin-dialog {
+.co-header,
+.co-footer,
+.co-page,
+.co-form,
+.co-card,
+.co-popup,
+.co-dialog {
   .q-tab {
     padding: 0 5px 0 12px;
   }
@@ -101,7 +136,6 @@ input:-ms-input-placeholder {
     min-height: 32px;
   }
 }
-
 /* 修改全局样式 END */
 
 .custom-page-bg {
@@ -114,7 +148,7 @@ input:-ms-input-placeholder {
   background-color: var(--q-color-other-bg) ;
 }
 
-.coadmin-sidebar {
+.co-sidebar {
   &-menu-active {
     background-color: var(--q-color-menu-bg-active);
   }
@@ -135,13 +169,13 @@ input:-ms-input-placeholder {
   }
 }
 
-.coadmin-header {
+.co-header {
   .q-tab__content {
     min-width: auto !important;
   }
 }
 
-.coadmin-sidebar {
+.co-sidebar {
   .q-item__section--avatar {
     min-width:40px;
   }
@@ -155,10 +189,10 @@ input:-ms-input-placeholder {
   }
 }
 
-.coadmin-page {
+.co-page {
 }
 
-.coadmin-table {
+.co-table {
   /*
   // 表格slot：top 里面
   .q-table__top {
@@ -204,15 +238,13 @@ input:-ms-input-placeholder {
 
 }
 
-.coadmin-popup {
+.co-popup {
   &.q-dark,
   .q-dark {
-    //background-color: #2d2d2d;  // $grey-9;
     background-color: var(--q-color-other-bg);
   }
   /* 使用v-drag，会导致对话框在小屏幕占满左右两边，这里增加一点空隙 */
   .q-dialog__inner--minimized {
-    // margin: 10px;
     padding: 10px 24px;
   }
   /* 改成16px以便跟 q-card__section 有相同的边距好对齐 */
@@ -221,7 +253,7 @@ input:-ms-input-placeholder {
   }
 }
 
-.coadmin-form {
+.co-form {
   /* 验证失败样式 begin */
   .q-field {
     &__bottom--animated {
@@ -260,11 +292,11 @@ input:-ms-input-placeholder {
 
   /* 当组件剩余空间很富裕时，上方对齐，默认是居中 */
   .q-field > .q-field__inner {
-    justify-content: flex-start;
+    //justify-content: flex-start;
   }
 }
 
-.coadmin-table-sticky-header {
+.co-table-sticky-header {
   /* 表格头部锁定 begin */
   &.q-dark .q-table__top,
   &.q-dark .q-table__bottom,
@@ -294,7 +326,7 @@ input:-ms-input-placeholder {
   /* 表格头部锁定 end */
 }
 
-.coadmin-table-sticky-first-column {
+.co-table-sticky-first-column {
   &.q-dark td:first-child,
   &.q-dark thead tr:first-child th:first-child {
     /* bg color is important for th; just specify one */
@@ -315,7 +347,7 @@ input:-ms-input-placeholder {
   }
 }
 
-.coadmin-table-sticky-last-column {
+.co-table-sticky-last-column {
   &.q-dark td:last-child,
   &.q-dark thead tr:last-child th:last-child {
     /* bg color is important for th; just specify one */
@@ -341,7 +373,7 @@ input:-ms-input-placeholder {
   }
 }
 
-.coadmin-table-sticky-first-and-last-column {
+.co-table-sticky-first-and-last-column {
   &.q-dark td:first-child,
   &.q-dark thead tr:first-child th:first-child {
     /* bg color is important for th; just specify one */
@@ -386,7 +418,7 @@ input:-ms-input-placeholder {
   }
 }
 
-.coadmin-table-sticky-header-and-first-column {
+.co-table-sticky-header-and-first-column {
   &.q-dark td:first-child,
   &.q-dark tr th {
     /* bg color is important for td; just specify one */
@@ -428,7 +460,7 @@ input:-ms-input-placeholder {
     left: 0;
   }
 }
-.coadmin-table-sticky-header-and-last-column {
+.co-table-sticky-header-and-last-column {
   td:last-child,
   th:last-child {
     padding-right: 6px !important;
@@ -480,7 +512,7 @@ input:-ms-input-placeholder {
     right: 0;
   }
 }
-.coadmin-table-sticky-header-and-first-last-column {
+.co-table-sticky-header-and-first-last-column {
   td:last-child,
   th:last-child {
     padding-right: 6px !important;

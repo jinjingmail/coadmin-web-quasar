@@ -3,10 +3,10 @@
 -->
 <template>
   <div >
-    <coadmin-dialog title="查找" no-max seamless ref="search" @before-hide="filterTable=''">
+    <co-dialog title="查找" no-max seamless ref="search" @before-hide="filterTable=''">
       <q-input placeholder="在当前页查找" dense outlined v-model="filterTable" clearable class="q-mx-sm q-mt-none q-mb-sm"/>
-    </coadmin-dialog>
-    <coadmin-dialog
+    </co-dialog>
+    <co-dialog
       ref="formDialog"
       :value="crud.status.cu > 0"
       :title="crud.status.title"
@@ -14,22 +14,23 @@
       @before-hide="crud.cancelCU"
       card-style="width:600px; max-width:95vw;"
     >
-      <coadmin-form
+      <co-form
         ref="form"
-        label-width="small"
+        label-width="medium"
         label-align="right"
         class="q-pa-md row q-col-gutter-x-xl q-col-gutter-y-md">
-          <coadmin-form-item class="col-12" form-label="ID" v-if="form.id">
-            <div class="q-pt-xs">{{form.id}}</div>
-          </coadmin-form-item>
-          <coadmin-input class="col-12" form-label="机构名称" v-model="form.name" :disable="!!crud.status.view" :rules="[
+          <co-form-item dense class="col-12" form-label="ID" v-if="form.id">
+            <div class="q-pt-sm">{{form.id}}</div>
+          </co-form-item>
+          <co-input dense class="col-12" form-label="机构名称" v-model="form.name" :disable="!!crud.status.view" :rules="[
               val => (!!val) || '必填'
               ]"/>
-          <coadmin-input class="col-12" form-label="排序" v-model.number="form.sort" type="number" :disable="!!crud.status.view" :rules="[
+          <co-input dense class="col-12" form-label="排序" v-model.number="form.sort" type="number" :disable="!!crud.status.view" :rules="[
               val => (!!val) || '必填'
               ]"/>
-          <coadmin-option-group
+          <co-option-group
             class="col-12"
+            dense
             form-label="状态"
             v-model="form.enabled"
             value-to-string
@@ -38,8 +39,9 @@
             :options="dict.dept_status"
             type="radio"
           />
-          <coadmin-tree-select
+          <co-tree-select
             class="col-12"
+            dense
             tree-class="q-pa-sm"
             form-label="选择上级机构"
             :selected.sync="form.pid"
@@ -54,13 +56,13 @@
             clearable
             :disable="!!crud.status.view"
           />
-      </coadmin-form>
+      </co-form>
       <q-card-actions class="q-pa-md" align="right">
         <q-btn label="取消" flat v-close-popup/>
         <q-btn label="保存" icon="check" color="primary" v-if="!crud.status.view" @click="crud.submitCU"
           :loading="crud.status.cu === crud.STATUS_PROCESSING" :disable="crud.status.cu === crud.STATUS_PROCESSING"/>
       </q-card-actions>
-    </coadmin-dialog>
+    </co-dialog>
 
     <q-splitter
       v-model="splitter"
@@ -68,7 +70,7 @@
       :horizontal="$q.screen.xs"
     >
       <template v-slot:before>
-        <coadmin-tree
+        <co-tree
           ref="tree"
           :class="$q.screen.gt.xs?'q-mr-sm':''"
           node-key="id"
@@ -92,7 +94,7 @@
               <q-tooltip :delay="800">刷新列表</q-tooltip>
             </q-btn>
           </template>
-        </coadmin-tree>
+        </co-tree>
       </template>
 
       <template v-if="$q.screen.xs" v-slot:separator>
@@ -100,7 +102,7 @@
       </template>
 
       <template v-slot:after>
-        <coadmin-table
+        <co-table
           ref="table"
           row-key="id"
           :class="$q.screen.gt.xs?'q-ml-sm':''"
@@ -122,13 +124,14 @@
         >
           <template v-slot:top-right="props">
             <div class='row q-col-gutter-x-sm q-col-gutter-y-xs q-pa-xs full-width'>
-              <coadmin-select
+              <co-select
                 v-model="query.enabled"
+                dense
+                options-dense
                 class="col-auto"
-                form-label="状态"
+                label="状态"
                 form-label-style="margin-top:10px"
                 content-style="width:120px"
-                outlined
                 :options="dict.dept_status"
                 no-filter
                 @input="crud.toQuery()"
@@ -137,7 +140,7 @@
                 map-options
               />
               <q-space/>
-              <crud-operation :permission="permission" />
+              <crud-operation dense :permission="permission" />
               <div class="col-auto">
                 <q-btn-dropdown dense color="primary" class="btn-dropdown-hide-droparrow" icon="apps" auto-close>
                   <crud-more :tableSlotTopProps="props">
@@ -159,7 +162,7 @@
 
           <template v-slot:body-cell-action="props">
             <q-td key="action" :props="props">
-              <crud-row
+              <crud-row dense
                 flat
                 :type="$q.screen.gt.xs?'button':'menu'"
                 :data="props.row"
@@ -174,7 +177,7 @@
               no-page-if-only-one-page/>
           </template>
 
-        </coadmin-table>
+        </co-table>
       </template>
     </q-splitter>
   </div>
@@ -183,10 +186,10 @@
 <script>
 import { mapGetters } from 'vuex'
 import CRUD, { presenter, header, form, crud } from '@crud/crud'
-import crudOperation from '@crud/CRUD.operation'
-import crudPagination from '@crud/CRUD.pagination'
-import crudRow from '@crud/CRUD.row'
-import crudMore from '@crud/CRUD.more'
+import CrudOperation from '@crud/crud-operation'
+import CrudPagination from '@crud/crud-pagination'
+import CrudRow from '@crud/crud-row'
+import CrudMore from '@crud/crud-more'
 import crudDept, { getDepts } from '@/api/system/dept'
 
 const defaultForm = { id: null, name: null, isTop: '0', pid: null, sort: 10, enabled: true }
@@ -203,7 +206,7 @@ const columns = [
 
 export default {
   name: 'Dept',
-  components: { crudOperation, crudMore, crudRow, crudPagination },
+  components: { CrudOperation, CrudMore, CrudRow, CrudPagination },
   cruds() {
     return CRUD({ columns, visibleColumns, idField: 'id', title: '机构', sort: ['sort,desc'], query: { pid: null }, url: 'api/dept', crudMethod: { ...crudDept } })
   },

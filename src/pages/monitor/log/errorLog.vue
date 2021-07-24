@@ -3,10 +3,10 @@
 -->
 <template>
   <div >
-    <coadmin-dialog title="查找" no-max seamless ref="search" @before-hide="filterTable=''">
+    <co-dialog title="查找" no-max seamless ref="search" @before-hide="filterTable=''">
       <q-input placeholder="在当前页查找" dense outlined v-model="filterTable" clearable class="q-mx-sm q-mt-none q-mb-sm"/>
-    </coadmin-dialog>
-    <coadmin-dialog
+    </co-dialog>
+    <co-dialog
       ref="detailDialog"
       card-style="width: 90vw; max-width: 95vw;"
     >
@@ -22,9 +22,9 @@
         <b>异常详情：</b>
         <pre><q-btn v-if="!logExceptionDetail" dense flat label="点击加载" color="primary" :loading="loadExceptionDetailLoading" @click="loadExceptionDetail(logId)"/><template v-else>{{logExceptionDetail}}</template></pre>
       </div>
-    </coadmin-dialog>
+    </co-dialog>
 
-    <coadmin-table
+    <co-table
       ref="table"
       row-key="id"
       dense
@@ -40,7 +40,8 @@
     >
       <template v-slot:top-right="props">
         <div class='row q-col-gutter-x-sm q-col-gutter-y-xs q-pa-xs full-width'>
-          <coadmin-input
+          <co-input
+            dense
             v-model="query.blurry"
             placeholder="用户名、描述、地址、IP、请求方法、参数"
             content-style="width:300px"
@@ -48,7 +49,8 @@
             @keyup.enter.native="crud.toQuery()"
             @clear="crud.toQuery()"
           />
-          <coadmin-date-select
+          <co-date-select
+            dense
             class="col-auto"
             placeholder="创建时间"
             v-model="query.createTime"
@@ -64,7 +66,7 @@
           <div class='col-auto'>
             <q-btn dense label="清空日志" color="negative" :loading="crud.delAllLoading">
               <q-popup-proxy>
-                <coadmin-card style="min-width: 160px;">
+                <co-card style="min-width: 160px;">
                   <q-card-section class="bg-primary text-white">
                     <div class="text-subtitle1 text-no-wrap">
                       确认要删除全部异常日志？
@@ -75,7 +77,7 @@
                     <q-btn v-close-popup flat>取消</q-btn>
                     <q-btn v-close-popup color="primary" icon="check" @click="doDeleteAllLog">是的</q-btn>
                   </q-card-actions>
-                </coadmin-card>
+                </co-card>
               </q-popup-proxy>
             </q-btn>
           </div>
@@ -105,17 +107,17 @@
       </template>
 
       <template v-slot:pagination>
-        <crud-pagination />
+        <crud-pagination dense/>
       </template>
 
-    </coadmin-table>
+    </co-table>
   </div>
 </template>
 
 <script>
 import CRUD, { presenter, header } from '@crud/crud'
-import crudPagination from '@crud/CRUD.pagination'
-import crudMore from '@crud/CRUD.more'
+import CrudPagination from '@crud/crud-pagination'
+import CrudMore from '@crud/crud-more'
 import { getErrDetail, delAllError } from '@/api/monitor/log'
 
 const visibleColumns = ['expand', 'username', 'requestIp', 'description', 'browser', 'time', 'createTime']
@@ -133,7 +135,7 @@ const columns = [
 
 export default {
   name: 'ErrorLog',
-  components: { crudMore, crudPagination },
+  components: { CrudMore, CrudPagination },
   cruds() {
     return CRUD({ columns, visibleColumns, idField: 'id', title: '异常日志', url: 'api/logs/error' })
   },

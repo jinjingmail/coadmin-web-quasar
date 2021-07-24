@@ -1,12 +1,12 @@
 <template>
-  <coadmin-dialog
+  <co-dialog
     ref="dialog"
     :title="tableName"
     no-backdrop-dismiss
     card-style="width:90vw; max-width:95vw; height:95vh"
     @show="_dialogShow"
   >
-    <coadmin-table
+    <co-table
       ref="table"
       row-key="columnName"
       dense
@@ -27,7 +27,7 @@
             {{props.row.columnType}}
           </q-td>
           <q-td key="remark" :props="props">
-            <coadmin-input v-model="props.row.remark"/>
+            <co-input dense v-model="props.row.remark"/>
           </q-td>
           <q-td key="notNull" :props="props">
             <q-checkbox v-model="props.row.notNull" dense/>
@@ -39,8 +39,11 @@
             <q-checkbox v-model="props.row.formShow" dense/>
           </q-td>
           <q-td key="formType" :props="props">
-            <coadmin-select
+            <co-select
               v-model="props.row.formType"
+              dense
+              options-dense
+              borderless
               emit-value
               map-options
               :options="[
@@ -56,8 +59,11 @@
             />
           </q-td>
           <q-td key="queryType" :props="props">
-            <coadmin-select
+            <co-select
               v-model="props.row.queryType"
+              dense
+              options-dense
+              borderless
               emit-value
               map-options
               :options="[
@@ -72,8 +78,11 @@
             />
           </q-td>
           <q-td key="dateAnnotation" :props="props">
-            <coadmin-select
+            <co-select
               v-model="props.row.dateAnnotation"
+              dense
+              options-dense
+              borderless
               emit-value
               map-options
               :options="[
@@ -83,8 +92,11 @@
             />
           </q-td>
           <q-td key="dictName" :props="props">
-            <coadmin-select
+            <co-select
               v-model="props.row.dictName"
+              dense
+              options-dense
+              borderless
               option-value="name"
               option-label="description"
               emit-value
@@ -111,55 +123,56 @@
             @click="doSaveAndGen"/>
         </div>
       </template>
-    </coadmin-table>
+    </co-table>
 
-    <coadmin-card bordered rounded>
+    <co-card bordered rounded>
       <q-card-actions class="q-pa-md" >
         <div class="text-h6">生成配置</div>
         <q-space/>
         <q-btn dense label="保存" color="primary" padding="xs md" @click="saveTableConfig"/>
       </q-card-actions>
-      <coadmin-form
+      <co-form
         ref="form"
         label-width="medium"
         :label-align="$q.screen.gt.xs?'right':'auto'"
         :label-top="!$q.screen.gt.xs"
         class="q-pa-md row q-col-gutter-x-sm q-col-gutter-y-md">
-        <coadmin-input class="col-12 col-sm-6" form-label="作者" v-model="formTable.author" :rules="[
+        <co-input dense class="col-12 col-sm-6" form-label="作者" v-model="formTable.author" :rules="[
           val => (!!val) || '必填'
           ]"/>
-        <coadmin-form-item class="col-12 col-sm-6" ><div class="q-pt-xs">类上面的作者名称</div></coadmin-form-item>
+        <co-form-item class="col-12 col-sm-6" ><div class="q-pt-xs">类上面的作者名称</div></co-form-item>
 
-        <coadmin-input class="col-12 col-sm-6" form-label="模块名称" v-model="formTable.moduleName" :rules="[
+        <co-input dense class="col-12 col-sm-6" form-label="模块名称" v-model="formTable.moduleName" :rules="[
           val => (!!val) || '必填'
           ]"/>
-        <coadmin-form-item class="col-12 col-sm-6" ><div class="q-pt-xs">Java模块的名称，请选择项目中已存在的模块</div></coadmin-form-item>
+        <co-form-item class="col-12 col-sm-6" ><div class="q-pt-xs">Java模块的名称，请选择项目中已存在的模块</div></co-form-item>
 
-        <coadmin-input class="col-12 col-sm-6" form-label="至于包下" v-model="formTable.pack" :rules="[
+        <co-input dense class="col-12 col-sm-6" form-label="至于包下" v-model="formTable.pack" :rules="[
           val => (!!val) || '必填'
           ]"/>
-        <coadmin-form-item class="col-12 col-sm-6" ><div class="q-pt-xs">Java项目包的名称，生成的代码放到哪个包里面</div></coadmin-form-item>
+        <co-form-item class="col-12 col-sm-6" ><div class="q-pt-xs">Java项目包的名称，生成的代码放到哪个包里面</div></co-form-item>
 
-        <coadmin-input class="col-12 col-sm-6" form-label="接口名称" v-model="formTable.apiAlias" :rules="[
+        <co-input dense class="col-12 col-sm-6" form-label="接口名称" v-model="formTable.apiAlias" :rules="[
           val => (!!val) || '必填'
           ]"/>
-        <coadmin-form-item class="col-12 col-sm-6" ><div class="q-pt-xs">接口的名称，用于控制器与接口文档中</div></coadmin-form-item>
+        <co-form-item class="col-12 col-sm-6" ><div class="q-pt-xs">接口的名称，用于控制器与接口文档中</div></co-form-item>
 
-        <coadmin-input class="col-12 col-sm-6" form-label="前端Vue存放路径" v-model="formTable.path" :rules="[
+        <co-input dense class="col-12 col-sm-6" form-label="前端Vue存放路径" v-model="formTable.path" :rules="[
           val => (!!val) || '必填'
           ]"/>
-        <coadmin-form-item class="col-12 col-sm-6" ><div class="q-pt-xs">示例[d:\src\pages]，不存在会自动创建</div></coadmin-form-item>
+        <co-form-item class="col-12 col-sm-6" ><div class="q-pt-xs">示例[d:\src\pages]，不存在会自动创建</div></co-form-item>
 
-        <coadmin-input class="col-12 col-sm-6" form-label="前端Api接口目录" v-model="formTable.apiPath" :rules="[
+        <co-input dense class="col-12 col-sm-6" form-label="前端Api接口目录" v-model="formTable.apiPath" :rules="[
           val => (!!val) || '必填'
           ]"/>
-        <coadmin-form-item class="col-12 col-sm-6" ><div class="q-pt-xs">示例[d:\src\api\]，不存在会自动创建</div></coadmin-form-item>
+        <co-form-item class="col-12 col-sm-6" ><div class="q-pt-xs">示例[d:\src\api\]，不存在会自动创建</div></co-form-item>
 
-        <coadmin-input class="col-12 col-sm-6" form-label="去表前缀" v-model="formTable.menuPid" />
-        <coadmin-form-item class="col-12 col-sm-6" ><div class="q-pt-xs">留空不去除表前缀</div></coadmin-form-item>
+        <co-input dense class="col-12 col-sm-6" form-label="去表前缀" v-model="formTable.menuPid" />
+        <co-form-item class="col-12 col-sm-6" ><div class="q-pt-xs">留空不去除表前缀</div></co-form-item>
 
-        <coadmin-tree-select
+        <co-tree-select
           ref="menu"
+          dense
           class="col-12 col-sm-6"
           tree-class="q-pa-sm"
           form-label="上级菜单"
@@ -175,20 +188,20 @@
           selectable
         >
           <template v-slot:append><q-icon name="keyboard_arrow_down"/></template>
-        </coadmin-tree-select>
-        <coadmin-form-item class="col-12 col-sm-6" ><div class="q-pt-xs">用于得到创建菜单的sql，请在XxxController.java中查看sql</div></coadmin-form-item>
+        </co-tree-select>
+        <co-form-item class="col-12 col-sm-6" ><div class="q-pt-xs">用于得到创建菜单的sql，请在XxxController.java中查看sql</div></co-form-item>
 
-        <coadmin-option-group class="col-12 col-sm-6" form-label="是否覆盖" v-model="formTable.cover" inline
+        <co-option-group class="col-12 col-sm-6" form-label="是否覆盖" v-model="formTable.cover" inline
           :options="[
             {label: '是', value: true},
             {label: '否', value: false}
           ]"
         />
-        <coadmin-form-item class="col-12 col-sm-6" ><div class="q-pt-xs">谨防误操作，请慎重选择</div></coadmin-form-item>
+        <co-form-item class="col-12 col-sm-6" ><div class="q-pt-xs">谨防误操作，请慎重选择</div></co-form-item>
 
-      </coadmin-form>
-    </coadmin-card>
-  </coadmin-dialog>
+      </co-form>
+    </co-card>
+  </co-dialog>
 </template>
 
 <script>

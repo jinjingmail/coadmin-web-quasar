@@ -2,12 +2,12 @@
   定时任务日志
 -->
 <template>
-  <coadmin-dialog
+  <co-dialog
     ref="dialog"
     :title="crud.title"
     card-style="width:80vw; max-width:95vw;"
   >
-    <coadmin-table
+    <co-table
       ref="table"
       row-key="id"
       dense
@@ -19,16 +19,18 @@
     >
       <template v-slot:top-right>
         <div class='row q-col-gutter-x-sm q-col-gutter-y-xs q-pa-xs full-width'>
-          <coadmin-input
+          <co-input
             v-model="query.blurry"
+            dense
             placeholder="ID、任务名、执行方法"
             content-style="width:250px"
             clearable
             @keyup.enter.native="crud.toQuery()"
             @clear="crud.toQuery()"
           />
-          <coadmin-date-select
+          <co-date-select
             class="col-auto"
+            dense
             placeholder="创建时间"
             v-model="query.createTime"
             content-style="width:200px"
@@ -37,14 +39,14 @@
             @input="crud.toQuery()"
             range
           />
-          <coadmin-select
+          <co-select
             class="col-auto"
+            dense
             placeholder="执行结果"
-            content-style="width:150px"
+            content-style="width:90px"
             use-input
             hide-selected
             fill-input
-            outlined
             v-model="query.isSuccess"
             no-filter
             :options="[{label: '成功', value: true}, {label: '失败', value: false}]"
@@ -61,10 +63,10 @@
 
       <template v-slot:body-cell-exceptionDetail="props">
         <q-td key="exceptionDetail" :props="props">
-          <q-btn v-if="!props.row.isSuccess" label="查看" padding="xs md" dense color="primary"
+          <q-btn v-if="!props.row.isSuccess" label="查看" padding="xs sm" dense color="primary"
             @click="$refs.exceptionLogDialog.show()"
           >
-            <coadmin-dialog
+            <co-dialog
               ref="exceptionLogDialog"
               title="异常详情"
               card-style="width:1100px; max-width:95vw;"
@@ -75,7 +77,7 @@
               <q-card-actions align="right">
                 <q-btn dense label="关闭" flat v-close-popup />
               </q-card-actions>
-            </coadmin-dialog>
+            </co-dialog>
 
           </q-btn>
         </q-td>
@@ -91,13 +93,13 @@
         <crud-pagination no-persistence-page-size/>
       </template>
 
-    </coadmin-table>
-  </coadmin-dialog>
+    </co-table>
+  </co-dialog>
 </template>
 
 <script>
 import CRUD, { presenter, header, crud } from '@crud/crud'
-import crudPagination from '@crud/CRUD.pagination'
+import CrudPagination from '@crud/crud-pagination'
 
 const visibleColumns = ['id', 'jobName', 'beanName', 'methodName', 'cronExpression', 'exceptionDetail', 'time', 'isSuccess', 'params', 'createTime']
 const columns = [
@@ -115,7 +117,7 @@ const columns = [
 
 export default {
   name: 'TimingLogs',
-  components: { crudPagination },
+  components: { CrudPagination },
   cruds() {
     return CRUD({ columns, visibleColumns, title: '定时任务运行日志', url: 'api/jobs/logs' })
   },

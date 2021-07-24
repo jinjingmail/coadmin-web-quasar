@@ -3,7 +3,7 @@
 -->
 <template>
   <div >
-    <coadmin-dialog
+    <co-dialog
       ref="formDialog"
       :value="crud.status.cu > 0"
       :title="crud.status.title"
@@ -11,30 +11,30 @@
       @before-hide="crud.cancelCU"
       card-style="width:600px; max-width:95vw;"
     >
-      <coadmin-form
+      <co-form
         ref="form"
         label-width="small"
         label-align="right"
         class="q-pa-md row q-col-gutter-x-xl q-col-gutter-y-md">
-          <coadmin-form-item class="col-12" form-label="ID" v-if="form.id">
-            <div class="q-pt-xs">{{form.id}}</div>
-          </coadmin-form-item>
-          <coadmin-input class="col-12" form-label="标签" v-model="form.label" :disable="!!crud.status.view" :rules="[
+          <co-form-item dense class="col-12" form-label="ID" v-if="form.id">
+            <div class="q-pt-sm">{{form.id}}</div>
+          </co-form-item>
+          <co-input dense outlined class="col-12" form-label="标签" v-model="form.label" :disable="!!crud.status.view" :rules="[
               val => (!!val) || '必填'
               ]"/>
-          <coadmin-input class="col-12" form-label="值" v-model="form.value" :disable="!!crud.status.view" :rules="[
+          <co-input dense outlined class="col-12" form-label="值" v-model="form.value" :disable="!!crud.status.view" :rules="[
               val => (!!val) || '必填'
               ]"/>
-          <coadmin-input class="col-12" form-label="排序" v-model="form.sort" :disable="!!crud.status.view" />
-      </coadmin-form>
+          <co-input dense outlined class="col-12" form-label="排序" v-model="form.sort" :disable="!!crud.status.view" />
+      </co-form>
       <q-card-actions class="q-pa-md" align="right">
         <q-btn label="取消" flat v-close-popup/>
         <q-btn label="保存" icon="check" color="primary" v-if="!crud.status.view" @click="crud.submitCU"
           :loading="crud.status.cu === crud.STATUS_PROCESSING" :disable="crud.status.cu === crud.STATUS_PROCESSING"/>
       </q-card-actions>
-    </coadmin-dialog>
+    </co-dialog>
 
-    <coadmin-table
+    <co-table
       ref="table"
       row-key="id"
       dense
@@ -50,12 +50,12 @@
     >
       <template v-slot:top-right="props">
         <div class='row q-col-gutter-x-sm q-col-gutter-y-xs q-pa-xs full-width'>
-          <coadmin-input class='col-auto' placeholder="ID、标签、值" v-model="query.blurry" content-style="width:140px" clearable @keyup.enter.native="crud.toQuery"/>
+          <co-input dense class='col-auto' placeholder="ID、标签、值" v-model="query.blurry" content-style="width:140px" clearable @keyup.enter.native="crud.toQuery"/>
           <div class='col-auto'>
             <q-btn dense padding="xs sm" color="primary" icon="search" @click="crud.toQuery" />
           </div>
           <q-space/>
-          <crud-operation :permission="permission" v-if="dictId" no-view no-edit no-label/>
+          <crud-operation dense :permission="permission" v-if="dictId" no-view no-edit no-label/>
           <div class="col-auto">
             <q-btn-dropdown dense color="primary" class="btn-dropdown-hide-droparrow" icon="apps" auto-close>
               <crud-more :tableSlotTopProps="props" />
@@ -66,7 +66,7 @@
 
       <template v-slot:body-cell-action="props">
         <q-td :props="props">
-          <crud-row :data="props.row" :data-add="{sort: props.row.sort+10}"  flat :permission="permission" :type="$q.screen.gt.xs?'button':'menu'"/>
+          <crud-row dense :data="props.row" :data-add="{sort: props.row.sort+10}"  flat :permission="permission" :type="$q.screen.gt.xs?'button':'menu'"/>
         </q-td>
       </template>
 
@@ -76,16 +76,16 @@
           no-page-if-only-one-page/>
       </template>
 
-    </coadmin-table>
+    </co-table>
   </div>
 </template>
 
 <script>
 import CRUD, { presenter, header, form } from '@crud/crud'
-import crudOperation from '@crud/CRUD.operation'
-import crudPagination from '@crud/CRUD.pagination'
-import crudRow from '@crud/CRUD.row'
-import crudMore from '@crud/CRUD.more'
+import CrudOperation from '@crud/crud-operation'
+import CrudPagination from '@crud/crud-pagination'
+import CrudRow from '@crud/crud-row'
+import CrudMore from '@crud/crud-more'
 import crudDictDetail from '@/api/system/dictDetail'
 
 const defaultForm = { id: null, label: null, value: null, sort: 10 }
@@ -107,7 +107,7 @@ const columns = [
 
 export default {
   name: 'DictDetail',
-  components: { crudOperation, crudMore, crudPagination, crudRow },
+  components: { CrudOperation, CrudMore, CrudPagination, CrudRow },
   cruds() {
     return CRUD({
       columns,
