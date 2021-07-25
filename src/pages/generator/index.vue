@@ -140,15 +140,15 @@ export default {
   },
   methods: {
     getDicts () {
-      getDicts().then(data => {
-        this.dicts = data
+      getDicts().then(res => {
+        this.dicts = res.data
       })
     },
     getMenuDatas() {
       const sort = 'sort,asc'
       const params = { sort: sort }
       getMenus(params).then(res => {
-        this.menuDatas = res.content
+        this.menuDatas = res.data.content
       }).catch(err => {
         this.menuDatas = []
         console.log('getMenuDatas', err)

@@ -265,7 +265,7 @@ export default {
       const sort = 'sort,asc'
       const params = { sort: sort }
       getMenus(params).then(res => {
-        this.menuDatas = res.content
+        this.menuDatas = res.data.content
       }).catch(err => {
         console.log('getMenuDatas', err)
       })

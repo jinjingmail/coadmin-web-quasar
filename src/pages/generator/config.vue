@@ -44,6 +44,7 @@
               dense
               options-dense
               borderless
+              clearable
               emit-value
               map-options
               :options="[
@@ -64,6 +65,7 @@
               dense
               options-dense
               borderless
+              clearable
               emit-value
               map-options
               :options="[
@@ -83,6 +85,7 @@
               dense
               options-dense
               borderless
+              clearable
               emit-value
               map-options
               :options="[
@@ -97,6 +100,7 @@
               dense
               options-dense
               borderless
+              clearable
               option-value="name"
               option-label="description"
               emit-value
@@ -165,9 +169,9 @@
         <co-input dense class="col-12 col-sm-6" form-label="前端Api接口目录" v-model="formTable.apiPath" :rules="[
           val => (!!val) || '必填'
           ]"/>
-        <co-form-item class="col-12 col-sm-6" ><div class="q-pt-xs">示例[d:\src\api\]，不存在会自动创建</div></co-form-item>
+        <co-form-item class="col-12 col-sm-6" ><div class="q-pt-xs">示例[d:\src\api]，不存在会自动创建</div></co-form-item>
 
-        <co-input dense class="col-12 col-sm-6" form-label="去表前缀" v-model="formTable.menuPid" />
+        <co-input dense class="col-12 col-sm-6" form-label="去表前缀" v-model="formTable.prefix" />
         <co-form-item class="col-12 col-sm-6" ><div class="q-pt-xs">留空不去除表前缀</div></co-form-item>
 
         <co-tree-select

@@ -9,7 +9,6 @@
     :dense="level!==1"
     :default-opened="false"
     :duration="150"
-    @input="expansionItemInput"
   >
     <template v-slot:header>
       <q-item-section avatar v-if="item.icon">
@@ -181,9 +180,6 @@ export default {
       } else {
         return this.colorMenuText
       }
-    },
-    expansionItemInput (value) {
-      console.log(value)
     }
   }
 }

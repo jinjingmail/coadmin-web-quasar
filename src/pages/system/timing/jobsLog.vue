@@ -63,7 +63,7 @@
 
       <template v-slot:body-cell-exceptionDetail="props">
         <q-td key="exceptionDetail" :props="props">
-          <q-btn v-if="!props.row.isSuccess" label="查看" padding="xs sm" dense color="primary"
+          <q-btn v-if="!props.row.isSuccess" label="查看" padding="xs sm" size="sm" dense color="primary"
             @click="$refs.exceptionLogDialog.show()"
           >
             <co-dialog
@@ -90,7 +90,7 @@
       </template>
 
       <template v-slot:pagination>
-        <crud-pagination no-persistence-page-size/>
+        <crud-pagination dense no-persistence-page-size/>
       </template>
 
     </co-table>

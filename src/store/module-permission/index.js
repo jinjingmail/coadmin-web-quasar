@@ -46,7 +46,7 @@ const actions = {
   LoadDictAll({ commit }) {
     return new Promise((resolve, reject) => {
       getDictMapAll().then(res => {
-        commit('SET_DICT_ALL', res)
+        commit('SET_DICT_ALL', res.data)
         resolve(res)
       }).catch(error => {
         reject(error)

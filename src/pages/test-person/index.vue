@@ -1,7 +1,7 @@
 <template>
   <div>
     <co-dialog title="查找" no-max seamless ref="search" @before-hide="crud.props.filterTable=''">
-      <q-input style="width:180px" placeholder="在当前页查找" dense outlined v-model="crud.props.filterTable" clearable class="q-mx-sm q-mt-none q-mb-sm"/>
+      <q-input dense style="width:180px" placeholder="在当前页查找" outlined v-model="crud.props.filterTable" clearable class="q-mx-sm q-mt-none q-mb-sm"/>
     </co-dialog>
 
     <!-- 编辑表单对话框 -->
@@ -15,17 +15,17 @@
     >
       <co-form
         ref="form"
-        label-width="small"
+        label-width="medium"
         label-align="right"
         class="q-pa-md row q-col-gutter-x-xl q-col-gutter-y-md">
-        <co-form-item dense class="col-12" form-label="ID">
-          <div class="q-pt-sm">{{form.id}}</div>
-        </co-form-item>
+        <co-field dense class="col-12" form-label="ID" readonly>
+          <template v-slot:control>{{form.id}}</template>
+        </co-field>
         <co-input dense class="col-12" form-label="姓名" v-model="form.name" :disable="!!crud.status.view"
               :rules="[ val => (!!val) || '必填' ]"/>
         <co-option-group
-            class="col-12"
             dense
+            class="col-12"
             form-label="性别"
             v-model="form.gender"
             value-to-string
@@ -35,34 +35,46 @@
             type="radio"
             />
         <co-date-select
-            class="col-12"
             dense
+            class="col-12"
             form-label="出生日期"
-            :value="parseTime(form.birthday, '{y}-{m}-{d}')"
+            :value="form.birthday"
+            @input="val => form.birthday=val"
             clearable
             :disable="!!crud.status.view"
-            @input="val => form.birthday=val"
             >
           <template v-slot:append>
             <q-icon name="event" />
           </template>
         </co-date-select>
-        <co-form-item class="col-12" form-label="创建人">
-          <div class="q-pt-xs">{{form.createBy}}</div>
-        </co-form-item>
-        <co-form-item class="col-12" form-label="修改时间">
-          <div class="q-pt-xs">{{parseTime(form.updateTime)}}</div>
-        </co-form-item>
-        <co-form-item class="col-12" form-label="修改人">
-          <div class="q-pt-xs">{{form.updateBy}}</div>
-        </co-form-item>
-        <co-form-item class="col-12" form-label="备注">
-          <div class="q-pt-xs">{{form.remarks}}</div>
-        </co-form-item>
+        <co-date-select
+            dense
+            class="col-12"
+            form-label="创建时间"
+            :value="form.createTime"
+            @input="val => form.createTime=val"
+            clearable
+            :disable="!!crud.status.view"
+           :rules="[ val => (!!val) || '必填' ]" >
+          <template v-slot:append>
+            <q-icon name="event" />
+          </template>
+        </co-date-select>
+        <co-field dense class="col-12" form-label="创建人" readonly>
+          <template v-slot:control>{{form.createBy}}</template>
+        </co-field>
+        <co-field dense class="col-12" form-label="修改时间" readonly>
+          <template v-slot:control>{{parseTime(form.updateTime)}}</template>
+        </co-field>
+        <co-field dense class="col-12" form-label="修改人" readonly>
+          <template v-slot:control>{{form.updateBy}}</template>
+        </co-field>
+        <co-input dense class="col-12" form-label="备注" v-model="form.remarks" :disable="!!crud.status.view" autogrow
+              />
       </co-form>
       <q-card-actions class="q-pa-md" align="right">
-        <q-btn label="取消" flat v-close-popup/>
-        <q-btn label="保存" icon="check" color="primary" v-if="!crud.status.view" @click="crud.submitCU"
+        <q-btn label="取消" dense flat v-close-popup/>
+        <q-btn label="保存" dense color="primary" v-if="!crud.status.view" @click="crud.submitCU"
                :loading="crud.status.cu === crud.STATUS_PROCESSING" :disable="crud.status.cu === crud.STATUS_PROCESSING"/>
       </q-card-actions>
     </co-dialog>
@@ -81,20 +93,22 @@
         :filter="crud.props.filterTable"
         @row-click="(evt, row, index) => crud.selections = [row]"
     >
-      <template v-slot:top-right="props">
+      <template v-slot:top-left>
         <div class='row q-col-gutter-x-sm q-col-gutter-y-xs q-pa-xs full-width'>
-
           <co-input
-              dense
               v-model="query.id"
-              placeholder="ID"
+              dense
+              standout
+              label="ID"
               content-style="width:120px"
           />
 
           <co-select
               v-model="query.gender"
               dense
-              placeholder="性别"
+              options-dense
+              standout
+              label="性别"
               content-style="width:120px"
               no-filter
               use-input
@@ -110,26 +124,36 @@
           <co-date-select
               v-model="query.birthday"
               dense
-              placeholder="出生日期"
+              standout
+              label="出生日期"
               content-style="width:120px"
               @input="crud.toQuery()"
               clearable
           />
 
-          <co-date-select
-              v-model="query.createTime"
-              dense
-              placeholder="创建时间"
-              content-style="width:200px"
-              range
-              :default-time="[' 00:00:00', ' 23:59:59']"
-              @input="crud.toQuery()"
-              clearable
-          />
+          <template v-if="crud.props.queryMore">
+            <co-date-select
+                v-model="query.createTime"
+                dense
+                standout
+                placeholder="创建时间"
+                content-style="width:200px"
+                range
+                :default-time="[' 00:00:00', ' 23:59:59']"
+                @input="crud.toQuery()"
+                clearable
+            />
+          </template>
           <div>
-            <q-btn dense padding="xs sm" color="primary" icon="search" @click="crud.toQuery()" />
+            <q-btn dense label="查找" padding="xs sm" color="primary" @click="crud.toQuery()" />
+            <q-btn dense label="重置" flat @click="crud.resetQuery()" />
+            <q-btn dense :label="crud.props.queryMore?'«更少':'更多»'" flat @click="crud.props.queryMore = !crud.props.queryMore"/>
           </div>
-          <q-space/>
+        </div>
+      </template>
+      <template v-slot:top-right="props">
+        <div class='row q-col-gutter-x-sm q-col-gutter-y-xs q-pa-xs full-width'>
+
           <!--如果想在工具栏加入更多按钮，可以使用插槽方式， 'start' or 'end'-->
           <crud-operation dense :permission="permission" />
           <div>
@@ -150,26 +174,12 @@
           {{dict.label.gender[props.row.gender]}}
         </q-td>
       </template>
-      <template v-slot:body-cell-birthday="props">
-        <q-td key="birthday" :props="props">
-          {{formatTime(props.row.birthday, '{y}-{m}-{d}')}}
-        </q-td>
-      </template>
-      <template v-slot:body-cell-createTime="props">
-        <q-td key="createTime" :props="props">
-          {{formatTime(props.row.createTime)}}
-        </q-td>
-      </template>
-      <template v-slot:body-cell-updateTime="props">
-        <q-td key="updateTime" :props="props">
-          {{formatTime(props.row.updateTime)}}
-        </q-td>
-      </template>
 
       <template v-slot:body-cell-action="props">
         <q-td key="action" :props="props">
-          <crud-row dense
+          <crud-row
               flat
+              dense
               :type="$q.screen.gt.xs?'button':'menu'"
               :data="props.row"
               :permission="permission"
@@ -179,7 +189,7 @@
       </template>
 
       <template v-slot:pagination>
-        <crud-pagination dense/>
+        <crud-pagination dense />
       </template>
 
     </co-table>
@@ -188,12 +198,13 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import { formatTime } from '@/utils/index'
 import CRUD, { presenter, header, form, crud } from '@crud/crud'
 import CrudOperation from '@crud/crud-operation'
 import CrudPagination from '@crud/crud-pagination'
 import CrudRow from '@crud/crud-row'
 import CrudMore from '@crud/crud-more'
-import crudTestPerson from '@/api/testPerson'
+import CrudTestPerson from '@/api/test-person'
 
 const defaultForm = { id: null, name: null, gender: null, birthday: null, createTime: null, createBy: null, updateTime: null, updateBy: null, remarks: null }
 
@@ -203,10 +214,10 @@ const columns = [
   { name: 'id', field: 'id', label: 'ID', align: 'left' },
   { name: 'name', field: 'name', label: '姓名', align: 'left' },
   { name: 'gender', field: 'gender', label: '性别', align: 'left' },
-  { name: 'birthday', field: 'birthday', label: '出生日期', align: 'left' },
-  { name: 'createTime', field: 'createTime', label: '创建时间', align: 'left' },
+  { name: 'birthday', field: 'birthday', label: '出生日期', align: 'left', format: val => formatTime(val) },
+  { name: 'createTime', field: 'createTime', label: '创建时间', align: 'left', format: val => formatTime(val) },
   { name: 'createBy', field: 'createBy', label: '创建人', align: 'left' },
-  { name: 'updateTime', field: 'updateTime', label: '修改时间', align: 'left' },
+  { name: 'updateTime', field: 'updateTime', label: '修改时间', align: 'left', format: val => formatTime(val) },
   { name: 'updateBy', field: 'updateBy', label: '修改人', align: 'left' },
   { name: 'remarks', field: 'remarks', label: '备注', align: 'left' },
   { name: 'action', label: '操作', align: 'center', required: false, sortable: false }
@@ -216,7 +227,7 @@ export default {
   name: 'TestPerson',
   components: { CrudOperation, CrudMore, CrudPagination, CrudRow },
   cruds() {
-    return CRUD({ columns, visibleColumns, title: '演示', idField: 'id', sort: ['id,desc'], url: 'api/testPerson', crudMethod: { ...crudTestPerson } })
+    return CRUD({ columns, visibleColumns, title: '演示', idField: 'id', sort: ['id,desc'], url: 'api/test-person', crudMethod: { ...CrudTestPerson } })
   },
   mixins: [presenter(), header(), form(defaultForm), crud()],
   data () {
@@ -234,6 +245,7 @@ export default {
         ]
       },*/
       permission: {
+        view: ['admin', 'testPerson:list'],
         add: ['admin', 'testPerson:add'],
         edit: ['admin', 'testPerson:edit'],
         del: ['admin', 'testPerson:del']
@@ -244,6 +256,9 @@ export default {
     ...mapGetters('permission', [
       'dict'
     ])
+  },
+  created () {
+    this.crud.updateProp('queryMore', false)
   },
   methods: {
   }

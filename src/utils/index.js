@@ -54,6 +54,12 @@ export function parseTime(time, cFormat) {
  * @returns {string}
  */
 export function formatTime(time, option) {
+  if (time === null || typeof time === 'undefined') {
+    return ''
+  }
+  if (option) {
+    return parseTime(time, option)
+  }
   if (('' + time).length === 10) {
     time = parseInt(time) * 1000
   } else {
@@ -75,22 +81,6 @@ export function formatTime(time, option) {
     return '1天前'
   }
   return parseTime(time, option)
-  /*
-  if (option) {
-    return parseTime(time, option)
-  } else {
-    return (
-      d.getMonth() +
-      1 +
-      '月' +
-      d.getDate() +
-      '日' +
-      d.getHours() +
-      '时' +
-      d.getMinutes() +
-      '分'
-    )
-  }*/
 }
 
 /**

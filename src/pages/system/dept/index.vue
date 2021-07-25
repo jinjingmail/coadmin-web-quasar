@@ -240,7 +240,7 @@ export default {
       const sort = 'sort,asc'
       const params = { sort: sort }
       getDepts(params).then(res => {
-        this.treeDatas = res.content
+        this.treeDatas = res.data.content
       }).catch(err => {
         console.log('getDepts', err)
       })

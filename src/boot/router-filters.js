@@ -54,7 +54,7 @@ export default ({ app, router, store, Vue }) => {
   const loadMenus = (next, to) => {
     buildMenus().then(res => {
       store.dispatch('permission/LoadDictAll')
-      const asyncRouter = filterAsyncRouter(res)
+      const asyncRouter = filterAsyncRouter(res.data)
       asyncRouter.push({ path: '*', redirect: '/404', hidden: true })
       store.dispatch('permission/GenerateRoutes', asyncRouter).then(() => { // 存储路由
         router.addRoutes(asyncRouter) // 动态添加可访问路由表

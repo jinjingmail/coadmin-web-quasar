@@ -313,14 +313,14 @@ export default {
     },
     getRoleLevel() {
       getLevel().then(res => {
-        this.level = res
+        this.level = res.data
       }).catch(err => {
         console.error('getRoleLevel:', err)
       })
     },
     getRoleDatas () {
       getAll().then(res => {
-        this.roleDatas = res
+        this.roleDatas = res.data
       }).catch(err => {
         console.error('getRoleDatas:', err)
         this.crud.notifyError('获取角色失败：', err)
@@ -328,7 +328,7 @@ export default {
     },
     getJobDatas () {
       getAllJob().then(res => {
-        this.jobDatas = res.content
+        this.jobDatas = res.data.content
       }).catch(err => {
         console.error('getJobDatas:', err)
         this.crud.notifyError('获取岗位失败：', err)
@@ -338,7 +338,7 @@ export default {
       const sort = 'sort,asc'
       const params = { sort: sort }
       getDepts(params).then(res => {
-        this.deptDatas = res.content
+        this.deptDatas = res.data.content
       }).catch(err => {
         console.error('getDeptDatas:', err)
         this.crud.notifyError('获取部门失败：', err)
