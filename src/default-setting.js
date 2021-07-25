@@ -4,7 +4,7 @@ module.exports = {
   /**
    * @description 网站标题
    */
-  title: 'Co管理系统',
+  title: 'Coadmin管理系统',
   /**
    * @description 是否显示 tagsView
    */

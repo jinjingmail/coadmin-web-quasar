@@ -18,27 +18,20 @@ Quasar相比ElementUI，胜在可定制性上比较强，同时官网文档也�
 
 ```bash
 TODO co-dialog
-  - TODO 标题栏紧凑一点
   - TODO 可移动的dialog的标题栏图标显示移动图标
   - TODO 标题栏添加可以折叠对话框内容的按钮
   - TODO dialog里面内容滚动时，可以不滚动标题栏、底部工具栏
 TODO 页面增加字段选择的存储
 TODO 页面增加表格大小选择（存储）
 TODO 页面增加表格是否换行选择（存储）
-TODO 页面总的增删改查工具栏，可以配置为变灰还是消失
 TODO 如果不显示 Tab 栏，则所有页面都不 keep-alive（不缓存）
 TODO 加快图标页加载速度
 TODO 菜单caption 附加文字颜色，改为灰色
-TODO 当左侧菜单不到顶的时候，菜单项有点考上了
-TODO 菜单再紧凑一些（做成配置项）
 TODO 在右侧打开外部url（iframe或其他方案）
-TODO 增加“个人设置”页面
-TODO 升级 quasar 到最新v1版
 TODO 菜单增加“new”标签支持
 
 TODO co-input 的tips功能
 TODO co-input 的规则验证完善
-TODO co-input 的textarea
 TODO co-table 的expand功能
 TODO option-group/select 组件string和number类型互相能识别（单选、多选）
 TODO 优化一下tree-table查找expand列的代码，只在列显示发生变化时确定
@@ -46,7 +39,7 @@ TODO 菜单crud的rules
 TODO PageTagView 的选中状态颜色，根据父对象的背景色自动计算
 TODO PageTagView 增加右键菜单：关闭全部、关闭其他、关闭右边
 TODO 为 co-tree 添加 tree-class / tree-style tree-class-mobile tree-style-mobile
-TODO co-co-select、co-tree-select 等的 $emit 加入是否需要的判断
+TODO co-select、co-tree-select 等的 $emit 加入是否需要的判断
 TODO 树表懒加载
 TODO 树表增加图标显示
 TODO “在当前页查找”支持ESC键盘按键
@@ -63,8 +56,6 @@ TODO CoadminDate 支持 number 类型
 
 TODO BUG 不能将一个子菜单，修改为顶级菜单
 TODO BUG 在iphone上，输入框也要小一些
-TODO BUG table和card会丢失阴影的问题
-TODO BUG CoadminSelect use-input的时候，会出现下拉列出的选项空白行的问题
 TODO BUG CoadminInput 在popup-proxy 里面时，有时候prepend、append、before、after 的slot会失效
 TODO BUG 对话框最大化后，取消拖动
 TODO BUG 图表dark模式文字颜色
