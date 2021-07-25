@@ -38,6 +38,8 @@
     <q-splitter
       v-model="splitter"
       unit="px"
+      before-class="q-pa-xs"
+      after-class="q-pa-xs"
       :horizontal="$q.screen.xs"
       emit-immediately
     >
@@ -47,7 +49,6 @@
           row-key="id"
           dense
           :class="$q.screen.gt.xs?'q-mr-sm':''"
-          style="margin-bottom:3px; margin-left:3px;"
           :data="crud.data"
           :columns="crud.columns"
           :visible-columns="crud.visibleColumns"
@@ -59,7 +60,8 @@
           <template v-slot:top-right="props">
             <div class='row q-col-gutter-x-sm q-col-gutter-y-xs q-pa-xs full-width'>
               <co-input dense class='col-auto'
-                placeholder="ID、名称、描述"
+                label="ID、名称、描述"
+                filled
                 v-model="query.blurry"
                 content-style="width:140px"
                 clearable

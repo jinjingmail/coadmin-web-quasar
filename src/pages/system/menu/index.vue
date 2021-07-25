@@ -106,6 +106,8 @@
     <q-splitter
       v-model="splitter"
       unit="px"
+      before-class="q-pa-xs"
+      after-class="q-pa-xs"
       :horizontal="$q.screen.xs"
       emit-immediately
     >

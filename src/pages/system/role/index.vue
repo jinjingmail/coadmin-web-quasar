@@ -53,8 +53,9 @@
     <q-splitter
       v-model="splitter"
       unit="%"
+      before-class="q-pa-xs"
+      after-class="q-pa-xs"
       :horizontal="$q.screen.xs"
-      separator-style="background-color: transparent"
     >
       <template v-slot:before>
         <co-table
@@ -76,7 +77,8 @@
           <template v-slot:top-right="props">
             <div class='row q-col-gutter-x-sm q-col-gutter-y-xs q-pa-xs full-width'>
               <co-input dense class='col-auto'
-                placeholder="ID、名称、描述"
+                label="ID、名称、描述"
+                filled
                 v-model="query.blurry" content-style="width:180px"
                 clearable
                 @keyup.enter.native="crud.toQuery()"

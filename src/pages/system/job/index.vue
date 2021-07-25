@@ -66,7 +66,8 @@
           <co-select
             v-model="query.enabled"
             dense
-            placeholder="状态"
+            label="状态"
+            standout
             content-style="width:100px"
             no-filter
             :options="dict.job_status"

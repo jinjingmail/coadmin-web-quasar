@@ -67,6 +67,8 @@
     <q-splitter
       v-model="splitter"
       unit="px"
+      before-class="q-pa-xs"
+      after-class="q-pa-xs"
       :horizontal="$q.screen.xs"
     >
       <template v-slot:before>
@@ -130,7 +132,7 @@
                 options-dense
                 class="col-auto"
                 label="状态"
-                form-label-style="margin-top:10px"
+                filled
                 content-style="width:120px"
                 :options="dict.dept_status"
                 no-filter

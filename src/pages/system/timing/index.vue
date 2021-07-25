@@ -89,7 +89,8 @@
           <co-select
             class="col-auto"
             dense
-            placeholder="状态"
+            label="状态"
+            filled
             content-style="width:120px"
             v-model="query.isPause"
             no-filter
@@ -102,7 +103,8 @@
           <co-input
             v-model="query.blurry"
             dense
-            placeholder="ID、任务名、执行方法"
+            label="ID、任务名、执行方法"
+            filled
             content-style="width:200px"
             clearable
             @keyup.enter.native="crud.toQuery()"

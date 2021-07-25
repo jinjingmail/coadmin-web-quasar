@@ -38,7 +38,6 @@
       ref="table"
       row-key="id"
       dense
-      style="margin-bottom:3px; margin-right:3px;"
       :data="crud.data"
       :columns="crud.columns"
       :visible-columns="crud.visibleColumns"
@@ -50,7 +49,7 @@
     >
       <template v-slot:top-right="props">
         <div class='row q-col-gutter-x-sm q-col-gutter-y-xs q-pa-xs full-width'>
-          <co-input dense class='col-auto' placeholder="ID、标签、值" v-model="query.blurry" content-style="width:140px" clearable @keyup.enter.native="crud.toQuery"/>
+          <co-input dense class='col-auto' label="ID、标签、值" filled v-model="query.blurry" content-style="width:140px" clearable @keyup.enter.native="crud.toQuery"/>
           <div class='col-auto'>
             <q-btn dense padding="xs sm" color="primary" icon="search" @click="crud.toQuery" />
           </div>

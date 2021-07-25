@@ -115,6 +115,8 @@
     <q-splitter
       v-model="splitter"
       unit="px"
+      before-class="q-pa-xs"
+      after-class="q-pa-xs"
       :horizontal="$q.screen.xs"
     >
       <template v-slot:before>
@@ -168,19 +170,23 @@
           <template v-slot:top-right="props">
             <div class='row q-col-gutter-x-sm q-col-gutter-y-xs q-pa-xs full-width'>
               <co-input dense class='col-auto'
-                placeholder="ID、用户名、电话、邮箱"
-                outlined
+                label-slot
+                filled
                 v-model="query.blurry" content-style="width:200px"
                 clearable
                 @keyup.enter.native="crud.toQuery()"
                 @clear="crud.toQuery()"
-                />
+              >
+                <template v-slot:label>
+                  <span style="color: var(--q-color-primary)">ID、用户名、电话、邮箱</span>
+                </template>
+              </co-input>
               <co-select
                 class="col-auto"
                 dense
                 options-dense
-                outlined
-                placeholder="状态"
+                filled
+                label-slot
                 form-label-style="margin-top:10px"
                 content-style="width:120px"
                 v-model="query.enabled"
@@ -193,7 +199,11 @@
                 clearable
                 emit-value
                 map-options
-              />
+              >
+                <template v-slot:label>
+                  <span style="color: var(--q-color-primary)">状态</span>
+                </template>
+              </co-select>
               <div class='col-auto'>
                 <q-btn dense padding="xs sm" color="primary" icon="search" @click="crud.toQuery()" />
               </div>

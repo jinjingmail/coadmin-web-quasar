@@ -18,9 +18,7 @@
         label-width="medium"
         label-align="right"
         class="q-pa-md row q-col-gutter-x-xl q-col-gutter-y-md">
-        <co-field dense class="col-12" form-label="ID" readonly>
-          <template v-slot:control>{{form.id}}</template>
-        </co-field>
+        <co-input dense class="col-12" form-label="ID" :value="form.id" readonly borderless/>
         <co-input dense class="col-12" form-label="姓名" v-model="form.name" :disable="!!crud.status.view"
               :rules="[ val => (!!val) || '必填' ]"/>
         <co-option-group
@@ -38,7 +36,7 @@
             dense
             class="col-12"
             form-label="出生日期"
-            :value="form.birthday"
+            :value="formatTime(form.birthday, '{y}-{m}-{d}')"
             @input="val => form.birthday=val"
             clearable
             :disable="!!crud.status.view"
@@ -47,35 +45,20 @@
             <q-icon name="event" />
           </template>
         </co-date-select>
-        <co-date-select
-            dense
-            class="col-12"
-            form-label="创建时间"
-            :value="form.createTime"
-            @input="val => form.createTime=val"
-            clearable
-            :disable="!!crud.status.view"
-           :rules="[ val => (!!val) || '必填' ]" >
-          <template v-slot:append>
-            <q-icon name="event" />
-          </template>
-        </co-date-select>
-        <co-field dense class="col-12" form-label="创建人" readonly>
-          <template v-slot:control>{{form.createBy}}</template>
-        </co-field>
-        <co-field dense class="col-12" form-label="修改时间" readonly>
-          <template v-slot:control>{{parseTime(form.updateTime)}}</template>
-        </co-field>
-        <co-field dense class="col-12" form-label="修改人" readonly>
-          <template v-slot:control>{{form.updateBy}}</template>
-        </co-field>
+        <co-input dense class="col-12" form-label="创建时间" :value="parseTime(form.createTime, '{y}-{m}-{d} {h}:{i}:{s}')" readonly borderless/>
+        <co-input dense class="col-12" form-label="创建人" :value="form.createBy" readonly borderless/>
+        <co-input dense class="col-12" form-label="修改时间" :value="parseTime(form.updateTime, '{y}-{m}-{d} {h}:{i}:{s}')" readonly borderless/>
+        <co-input dense class="col-12" form-label="修改人" :value="form.updateBy" readonly borderless/>
         <co-input dense class="col-12" form-label="备注" v-model="form.remarks" :disable="!!crud.status.view" autogrow
               />
       </co-form>
       <q-card-actions class="q-pa-md" align="right">
-        <q-btn label="取消" dense flat v-close-popup/>
-        <q-btn label="保存" dense color="primary" v-if="!crud.status.view" @click="crud.submitCU"
-               :loading="crud.status.cu === crud.STATUS_PROCESSING" :disable="crud.status.cu === crud.STATUS_PROCESSING"/>
+        <q-btn dense label="取消" flat v-close-popup/>
+        <q-btn dense label="保存" color="primary"
+                v-if="!crud.status.view"
+                @click="crud.submitCU"
+               :loading="crud.status.cu === crud.STATUS_PROCESSING"
+               :disable="crud.status.cu === crud.STATUS_PROCESSING"/>
       </q-card-actions>
     </co-dialog>
 
@@ -98,16 +81,15 @@
           <co-input
               v-model="query.id"
               dense
-              standout
+              filled
               label="ID"
               content-style="width:120px"
           />
-
           <co-select
               v-model="query.gender"
               dense
+              filled
               options-dense
-              standout
               label="性别"
               content-style="width:120px"
               no-filter
@@ -120,40 +102,39 @@
               emit-value
               map-options
           />
-
           <co-date-select
               v-model="query.birthday"
               dense
-              standout
+              filled
               label="出生日期"
               content-style="width:120px"
               @input="crud.toQuery()"
               clearable
           />
-
+          <co-date-select
+              v-model="query.createTime"
+              dense
+              filled
+              label="创建时间"
+              content-style="width:200px"
+              range
+              :default-time="[' 00:00:00', ' 23:59:59']"
+              @input="crud.toQuery()"
+              clearable
+          />
+          <!-- 点击“更多..”才显示的搜索项 -->
           <template v-if="crud.props.queryMore">
-            <co-date-select
-                v-model="query.createTime"
-                dense
-                standout
-                placeholder="创建时间"
-                content-style="width:200px"
-                range
-                :default-time="[' 00:00:00', ' 23:59:59']"
-                @input="crud.toQuery()"
-                clearable
-            />
           </template>
           <div>
-            <q-btn dense label="查找" padding="xs sm" color="primary" @click="crud.toQuery()" />
+            <q-btn dense label="查询" padding="xs sm" color="primary" @click="crud.toQuery()" />
             <q-btn dense label="重置" flat @click="crud.resetQuery()" />
-            <q-btn dense :label="crud.props.queryMore?'«更少':'更多»'" flat @click="crud.props.queryMore = !crud.props.queryMore"/>
+            <q-btn dense :label="crud.props.queryMore?'更少«':'更多»'" flat @click="crud.props.queryMore = !crud.props.queryMore"/>
           </div>
+          <q-space/>
         </div>
       </template>
       <template v-slot:top-right="props">
         <div class='row q-col-gutter-x-sm q-col-gutter-y-xs q-pa-xs full-width'>
-
           <!--如果想在工具栏加入更多按钮，可以使用插槽方式， 'start' or 'end'-->
           <crud-operation dense :permission="permission" />
           <div>
@@ -184,6 +165,7 @@
               :data="props.row"
               :permission="permission"
               no-add
+              no-icon
           />
         </q-td>
       </template>
@@ -260,7 +242,12 @@ export default {
   created () {
     this.crud.updateProp('queryMore', false)
   },
+  mounted () {
+  },
   methods: {
+    [CRUD.HOOK.beforeRefresh] () {
+      console.log('testPerson CRUD.HOOK.beforeRefresh')
+    }
   }
 }
 </script>

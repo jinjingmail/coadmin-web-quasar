@@ -3,13 +3,12 @@
     start
     end
   属性：
-    dense
     icon-prev
     icon-next
     input
     max-pages
     no-persistence-page-size  不持久存储pagesize到浏览器缓存
-    no-page-if-only-one-page  拢共只有一页时就不显示分页栏了
+    no-page-if-only-one-page  所有数据只有一页时就不显示分页栏了
 -->
 <template>
   <div class="row">
@@ -30,7 +29,10 @@
       :icon-prev="iconPrevPage"
       :icon-next="iconNextPage"
       :max-pages="$q.screen.gt.xs?maxPages:5"
-      :size="dense?'13px':'16px'"
+      :size="size?size:(dense?'13px':'16px')"
+      :dense="dense"
+      v-bind="$attrs"
+      v-on="$listeners"
     >
     </q-pagination>
     <co-select v-if="!computedNoPageIfOnlyOnePage"
@@ -42,9 +44,9 @@
       :options="sizePerPageOptions"
       emit-value
       map-options
+      borderless
       @input="pageSizeChange"
       :hide-dropdown-icon="!$q.screen.gt.xs"
-      borderless
     />
     <slot name="end" />
   </div>
@@ -57,9 +59,8 @@ import { pagination } from './crud'
 export default {
   mixins: [pagination()],
   props: {
-    dense: {
-      type: Boolean
-    },
+    dense: Boolean,
+    size: String,
     iconPrevPage: {
       type: String,
       default: 'chevron_left'
@@ -84,10 +85,7 @@ export default {
         { label: '3 条/页', value: 3 },
         { label: '5 条/页', value: 5 },
         { label: '10 条/页', value: 10 },
-        { label: '12 条/页', value: 12 },
-        { label: '14 条/页', value: 14 },
-        { label: '16 条/页', value: 16 },
-        { label: '18 条/页', value: 18 },
+        { label: '15 条/页', value: 15 },
         { label: '20 条/页', value: 20 },
         { label: '25 条/页', value: 25 },
         { label: '30 条/页', value: 30 },

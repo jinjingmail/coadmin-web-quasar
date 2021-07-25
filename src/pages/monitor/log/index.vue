@@ -107,7 +107,7 @@
       </template>
 
       <template v-slot:pagination>
-        <crud-pagination dense/>
+        <crud-pagination dense outline/>
       </template>
 
     </co-table>
