@@ -16,7 +16,7 @@ const state = {
   // Sql 监控
   sqlApi: baseUrl + '/druid/index.html',
   // swagger
-  swaggerApi: baseUrl + '/swagger-ui/index.html',
+  swaggerApi: baseUrl + '/doc.html',
   // 文件上传
   fileUploadApi: baseUrl + '/api/localStorage'
 }
