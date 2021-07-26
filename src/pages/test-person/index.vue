@@ -111,24 +111,24 @@
               @input="crud.toQuery()"
               clearable
           />
-          <co-date-select
-              v-model="query.createTime"
-              dense
-              filled
-              label="创建时间"
-              content-style="width:200px"
-              range
-              :default-time="[' 00:00:00', ' 23:59:59']"
-              @input="crud.toQuery()"
-              clearable
-          />
           <!-- 点击“更多..”才显示的搜索项 -->
           <template v-if="crud.props.queryMore">
+            <co-date-select
+                v-model="query.createTime"
+                dense
+                filled
+                label="创建时间"
+                content-style="width:200px"
+                range
+                :default-time="[' 00:00:00', ' 23:59:59']"
+                @input="crud.toQuery()"
+                clearable
+            />
           </template>
           <div>
             <q-btn dense label="查询" padding="xs sm" color="primary" @click="crud.toQuery()" />
             <q-btn dense label="重置" flat @click="crud.resetQuery()" />
-            <q-btn dense :label="crud.props.queryMore?'更少«':'更多»'" flat @click="crud.props.queryMore = !crud.props.queryMore"/>
+            <q-btn dense :label="crud.props.queryMore?'«更少':'更多»'" flat @click="crud.props.queryMore = !crud.props.queryMore"/>
           </div>
           <q-space/>
         </div>
@@ -139,9 +139,9 @@
           <crud-operation dense :permission="permission" />
           <div>
             <q-btn-dropdown dense color="primary" class="btn-dropdown-hide-droparrow" icon="apps" auto-close>
-              <crud-more :tableSlotTopProps="props">
+              <crud-more dense :tableSlotTopProps="props">
                 <template v-slot:start>
-                  <q-btn flat align="left" label="在当前页查找" icon="find_in_page" @click.native="$refs.search.show()" />
+                  <q-btn dense flat align="left" label="在当前页查找" icon="find_in_page" @click.native="$refs.search.show()" />
                   <q-separator/>
                 </template>
               </crud-more>
@@ -158,14 +158,11 @@
 
       <template v-slot:body-cell-action="props">
         <q-td key="action" :props="props">
-          <crud-row
-              flat
-              dense
+          <crud-row dense flat no-icon
               :type="$q.screen.gt.xs?'button':'menu'"
               :data="props.row"
               :permission="permission"
               no-add
-              no-icon
           />
         </q-td>
       </template>
@@ -214,7 +211,6 @@ export default {
   mixins: [presenter(), header(), form(defaultForm), crud()],
   data () {
     return {
-      /*
       rules: {
         id: [
           { required: true, message: 'ID不能为空', trigger: 'blur' }
@@ -225,7 +221,7 @@ export default {
         createTime: [
           { required: true, message: '创建时间不能为空', trigger: 'blur' }
         ]
-      },*/
+      },
       permission: {
         view: ['admin', 'testPerson:list'],
         add: ['admin', 'testPerson:add'],

@@ -4,7 +4,7 @@
 <template>
   <div >
     <co-dialog title="查找" no-max seamless ref="search" @before-hide="filterTable=''">
-      <q-input placeholder="在当前页查找" dense outlined v-model="filterTable" clearable class="q-mx-sm q-mt-none q-mb-sm"/>
+      <q-input dense style="width:180px" placeholder="在当前页查找" outlined v-model="filterTable" clearable class="q-mx-sm q-mt-none q-mb-sm"/>
     </co-dialog>
     <co-dialog
       ref="formDialog"
@@ -211,21 +211,15 @@
               <crud-operation dense :permission="permission" />
               <div class="col-auto">
                 <q-btn-dropdown dense color="primary" class="btn-dropdown-hide-droparrow" icon="apps" auto-close>
-                  <crud-more :tableSlotTopProps="props">
+                  <crud-more dense :tableSlotTopProps="props">
                     <template v-slot:start>
-                      <q-btn flat align="left" label="在当前页查找" icon="find_in_page" @click.native="$refs.search.show()" />
+                      <q-btn dense flat align="left" label="在当前页查找" icon="find_in_page" @click.native="$refs.search.show()" />
                       <q-separator/>
                     </template>
                   </crud-more>
                 </q-btn-dropdown>
               </div>
             </div>
-          </template>
-
-          <template v-slot:body-cell-enabled="props">
-            <q-td key="enabled" :props="props">
-              {{dict.label.user_status[props.row.enabled]}}
-            </q-td>
           </template>
 
           <template v-slot:body-cell-createTime="props">
@@ -236,8 +230,7 @@
 
           <template v-slot:body-cell-action="props">
             <q-td key="action" :props="props">
-              <crud-row dense
-                flat
+              <crud-row dense flat no-icon
                 :type="$q.screen.gt.xs?'button':'menu'"
                 :data="props.row"
                 no-add
@@ -269,13 +262,19 @@ import { getDepts } from '@/api/system/dept'
 import { getAll, getLevel } from '@/api/system/role'
 import { getAllJob } from '@/api/system/job'
 
+import { Store } from '@/store'
+const gDict = Store.getters['permission/dict']
+function getDictLabel(dict, value) {
+  return gDict.label[dict][value]
+}
+
 const defaultForm = { id: null, username: null, nickName: null, gender: null, email: null, phone: null, enabled: 'false', roles: [], jobs: [], depts: [] }
 const visibleColumns = ['username', 'gender', 'enabled', 'createTime', 'action']
 const columns = [
   { name: 'id', field: 'id', label: 'ID' },
   { name: 'username', field: 'username', label: '用户名', required: true, align: 'left' },
   { name: 'gender', field: 'gender', label: '性别', align: 'center' },
-  { name: 'enabled', field: 'enabled', label: '状态', align: 'center' },
+  { name: 'enabled', field: 'enabled', label: '状态', align: 'center', format: val => getDictLabel('user_status', val) },
   { name: 'phone', field: 'phone', label: '电话', align: 'left' },
   { name: 'email', field: 'email', label: '邮箱', align: 'left' },
   { name: 'createTime', field: 'createTime', label: '创建时间', align: 'left' },

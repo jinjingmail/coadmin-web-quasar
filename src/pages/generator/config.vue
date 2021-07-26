@@ -137,7 +137,7 @@
       </q-card-actions>
       <co-form
         ref="form"
-        label-width="medium"
+        label-width="xlarge"
         :label-align="$q.screen.gt.xs?'right':'auto'"
         :label-top="!$q.screen.gt.xs"
         class="q-pa-md row q-col-gutter-x-sm q-col-gutter-y-md">

@@ -16,7 +16,7 @@
     >
       <co-form
         ref="form"
-        label-width="small"
+        label-width="medium"
         label-align="right"
         class="q-pa-md row q-col-gutter-x-xl q-col-gutter-y-md">
           <co-form-item dense class="col-12" form-label="ID" v-if="form.id">
@@ -122,9 +122,9 @@
           </crud-operation>
           <div>
             <q-btn-dropdown dense color="primary" class="btn-dropdown-hide-droparrow" icon="apps" auto-close>
-              <crud-more :tableSlotTopProps="props">
+              <crud-more dense :tableSlotTopProps="props">
                 <template v-slot:start>
-                  <q-btn flat align="left" label="在当前页查找" icon="find_in_page" @click.native="$refs.search.show()" />
+                  <q-btn dense flat align="left" label="在当前页查找" icon="find_in_page" @click.native="$refs.search.show()" />
                   <q-separator/>
                 </template>
               </crud-more>
@@ -141,8 +141,7 @@
 
       <template v-slot:body-cell-action="props">
         <q-td :props="props">
-          <crud-row dense
-            flat
+          <crud-row dense flat no-icon
             no-add
             :type="$q.screen.gt.xs?'button':'menu'"
             :data="props.row"

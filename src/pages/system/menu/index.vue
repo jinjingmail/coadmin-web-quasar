@@ -167,9 +167,9 @@
               <crud-operation dense :permission="permission" />
               <div class="col-auto">
                 <q-btn-dropdown dense color="primary" class="btn-dropdown-hide-droparrow" icon="apps" auto-close>
-                  <crud-more :tableSlotTopProps="props">
+                  <crud-more dense :tableSlotTopProps="props">
                     <template v-slot:start>
-                      <q-btn flat align="left" label="在当前页查找" icon="find_in_page" @click.native="$refs.search.show()" />
+                      <q-btn dense flat align="left" label="在当前页查找" icon="find_in_page" @click.native="$refs.search.show()" />
                       <q-separator/>
                     </template>
                   </crud-more>
@@ -186,8 +186,7 @@
 
           <template v-slot:body-cell-action="props">
             <q-td key="action" :props="props">
-              <crud-row dense
-                flat
+              <crud-row dense flat no-icon
                 :type="$q.screen.gt.xs?'button':'menu'"
                 :data="props.row"
                 :data-add="{pid: props.row.pid, sort: props.row.sort+10}"

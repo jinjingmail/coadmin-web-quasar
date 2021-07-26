@@ -57,7 +57,7 @@
           <crud-operation dense :permission="permission" v-if="dictId" no-view no-edit no-label/>
           <div class="col-auto">
             <q-btn-dropdown dense color="primary" class="btn-dropdown-hide-droparrow" icon="apps" auto-close>
-              <crud-more :tableSlotTopProps="props" />
+              <crud-more dense :tableSlotTopProps="props" />
             </q-btn-dropdown>
           </div>
         </div>
@@ -65,7 +65,7 @@
 
       <template v-slot:body-cell-action="props">
         <q-td :props="props">
-          <crud-row dense :data="props.row" :data-add="{sort: props.row.sort+10}"  flat :permission="permission" :type="$q.screen.gt.xs?'button':'menu'"/>
+          <crud-row dense flat no-icon :data="props.row" :data-add="{sort: props.row.sort+10}"  :permission="permission" :type="$q.screen.gt.xs?'button':'menu'"/>
         </q-td>
       </template>
 
