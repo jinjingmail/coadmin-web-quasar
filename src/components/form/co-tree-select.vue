@@ -10,6 +10,7 @@
     ref="input"
     v-on="listenersOfInput"
     v-bind="$attrs"
+    autogrow
     :value="computedInputValue"
     :readonly="readonly"
     :disable="disable"
@@ -137,9 +138,6 @@ export default {
     this.popupTreeTicked = this.ticked
   },
   mounted () {
-    /*
-     * 调用 popupTree.show() 触发一次事件发送
-     */
     if ((this.selectable && this.selected != null) || (Array.isArray(this.ticked) && this.ticked.length > 0)) {
       this.__refreshTextInputDisplay()
     }
@@ -150,7 +148,7 @@ export default {
       handler (newVal, oldVal) {
         if (!this.disable) {
           this.popupTreeSelected = newVal
-          this.__refreshTextInputDisplay()
+          //this.__refreshTextInputDisplay()
         }
       }
     },
@@ -159,7 +157,7 @@ export default {
       handler (newVal, oldVal) {
         if (!this.disable) {
           this.popupTreeTicked = newVal
-          this.__refreshTextInputDisplay()
+          //this.__refreshTextInputDisplay()
         }
       }
     },
