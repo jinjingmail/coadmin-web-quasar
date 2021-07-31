@@ -29,8 +29,8 @@
           </co-input>
       </co-form>
       <q-card-actions class="q-pa-md" align="right">
-        <q-btn label="取消" flat v-close-popup/>
-        <q-btn label="保存" icon="check" color="primary" v-if="!crud.status.view" @click="crud.submitCU"
+        <q-btn dense label="取消" flat v-close-popup/>
+        <q-btn dense label="保存" color="primary" v-if="!crud.status.view" @click="crud.submitCU"
           :loading="crud.status.cu === crud.STATUS_PROCESSING" :disable="crud.status.cu === crud.STATUS_PROCESSING"/>
       </q-card-actions>
     </co-dialog>
@@ -48,7 +48,7 @@
           ref="table"
           row-key="id"
           dense
-          :class="$q.screen.gt.xs?'q-mr-sm':''"
+          :class="$q.screen.gt.xs?'q-mr-xs':''"
           :data="crud.data"
           :columns="crud.columns"
           :visible-columns="crud.visibleColumns"
@@ -99,7 +99,7 @@
 
       <template v-slot:after>
         <dict-detail ref="dictDetail"
-          :class="$q.screen.gt.xs?'q-ml-sm':''"/>
+          :class="$q.screen.gt.xs?'q-ml-xs':''"/>
       </template>
     </q-splitter>
   </div>

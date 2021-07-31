@@ -17,7 +17,7 @@
         <q-btn dense label="关闭" flat v-close-popup />
       </q-card-actions>
     </co-dialog>
-    <q-header :reveal="!fixedHeader" :elevated="false" :reveal-offset="60" bordered class="co-header" :style="headerStyles">
+    <q-header :reveal="!fixedHeader" :reveal-offset="60" :elevated="elevatedHeader" :bordered="!elevatedHeader" class="co-header" :style="headerStyles">
       <q-toolbar>
         <template v-if="!sidebarTop || !$q.screen.gt.xs">
           <q-avatar class="q-logo" @click="leftDrawerOpen = !leftDrawerOpen">
@@ -46,7 +46,7 @@
           @click="leftDrawerOpen = !leftDrawerOpen"
         />
 
-        <breadcrumb mobile-less />
+        <breadcrumb mobile-less/>
 
         <!-- 右侧工具栏 -->
         <q-space/>
@@ -187,10 +187,11 @@
               <q-toggle :value="tagsView" :val="true" label="Tab栏显示" @click.native="changeSetting({key:'tagsView', value: !tagsView})"/>
               <q-toggle :value="tagsViewTop" :val="true" label="Tab栏顶部显示" @click.native="changeSetting({key:'tagsViewTop', value: !tagsViewTop})"/>
               <q-toggle :value="fixedHeader" :val="true" label="顶部锁定" @click.native="changeSetting({key:'fixedHeader', value: !fixedHeader})"/>
+              <q-toggle :value="elevatedHeader" :val="true" label="顶部阴影" @click.native="changeSetting({key:'elevatedHeader', value: !elevatedHeader})"/>
               <q-toggle :value="sidebarTop" :val="true" label="左侧菜单到顶" @click.native="changeSetting({key:'sidebarTop', value: !sidebarTop})" v-if="$q.screen.gt.xs"/>
-              <q-toggle :value="sidebarMini" :val="true" label="左侧菜单折叠（刷新页面生效）" @click.native="changeSetting({key:'sidebarMini', value: !sidebarMini})" v-if="$q.screen.gt.xs"/>
+              <q-toggle :value="sidebarMini" :val="true" label="左侧菜单折叠（需刷新页面）" @click.native="changeSetting({key:'sidebarMini', value: !sidebarMini})" v-if="$q.screen.gt.xs"/>
               <q-toggle :value="uniqueOpened" :val="true" label="左侧菜单只展开一个" @click.native="changeSetting({key:'uniqueOpened', value: !uniqueOpened})"/>
-              <co-input label="左侧菜单宽度" style="width:100px" :value="sidebarWidth" @input="val => changeSetting({key:'sidebarWidth', value: val})" type="number"/>
+              <co-input filled dense label="左侧菜单宽度" style="width:100px" :value="sidebarWidth" @input="val => changeSetting({key:'sidebarWidth', value: val})" type="number"/>
 
               <q-separator inset class="q-mt-md" />
 
@@ -282,7 +283,7 @@
               </div>
 
               <q-toolbar class="no-padding">
-                  <div class="text-subtitle1 ">页面<q-icon name="help_outline"><q-tooltip>请在PageCrudDict页面查看效果，分页设置为5条/页</q-tooltip></q-icon></div>
+                  <div class="text-subtitle1 ">页面<q-icon name="help_outline"><q-tooltip>修改页面背景色</q-tooltip></q-icon></div>
                   <q-space/>
                   <q-btn icon="restore" flat round color="primary">
                     <q-tooltip :delay="550" content-class="bg-amber text-black shadow-4">
@@ -346,7 +347,7 @@
           <q-list>
             <template v-if="sidebarTop || !$q.screen.gt.xs">
               <q-item>
-                <q-item-section avatar>
+                <q-item-section avatar v-if="sidebarLogo">
                   <q-avatar class="q-logo">
                     <img src="~assets/logo.svg" />
                   </q-avatar>
@@ -393,12 +394,12 @@
 
         <!-- place QPageSticky at end of page -->
         <q-page-sticky expand position="top" v-if="tagsView && tagsViewTop" style="z-index:5;">
-          <page-tag-views :class="$q.dark.isActive ? 'pagetagviews-dark' : 'pagetagviews-normal'"/>
+          <page-tag-views :style="'background-color:'+colorPageBg"/>
           <q-separator/>
         </q-page-sticky>
         <q-page-sticky expand position="bottom" v-if="tagsView && !tagsViewTop" style='z-index:5;'>
           <q-separator/>
-          <page-tag-views switch-indicator :class="$q.dark.isActive ? 'pagetagviews-dark' : 'pagetagviews-normal'"/>
+          <page-tag-views :style="'background-color:'+colorPageBg" switch-indicator/>
         </q-page-sticky>
         <!-- place QPageScroller at end of page -->
         <q-page-scroller position="bottom" :scroll-offset="150" :offset="fabPos" style="z-index:6;">
@@ -500,8 +501,10 @@ export default {
       'tagsView',
       'tagsViewTop',
       'fixedHeader',
+      'elevatedHeader',
       'uniqueOpened',
       'sidebarTop',
+      'sidebarLogo',
       'sidebarWidth',
       'sidebarMini',
       'darkMode',
@@ -635,14 +638,14 @@ export default {
   background-size: cover !important;
   background-repeat: no-repeat;
 }
-.pagetagviews-normal {
+.xpagetagviews-normal {
   background-color: #eeeeee;  // $grey-3
   color: var(--q-color-primary);
   ::v-deep .q-tab--active {
     background-color: white;
   }
 }
-.pagetagviews-dark {
+.xpagetagviews-dark {
   background-color: #212121; // $grey-10
   color: var(--q-color-primary);
   // color: $grey-2;

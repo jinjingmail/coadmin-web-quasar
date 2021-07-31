@@ -3,8 +3,8 @@
 -->
 <template>
   <div >
-    <co-dialog title="查找" no-max seamless ref="search" @before-hide="filterTable=''">
-      <q-input dense style="width:180px" placeholder="在当前页查找" outlined v-model="filterTable" clearable class="q-mx-sm q-mt-none q-mb-sm"/>
+    <co-dialog title="查找" no-max ref="search" @before-hide="filterTable=''" @show="$refs.findInCurrentPage.focus()">
+      <co-input ref="findInCurrentPage" dense style="width:180px" placeholder="在当前页查找" outlined v-model="filterTable" clearable class="q-mx-sm q-mt-none q-mb-sm"/>
     </co-dialog>
     <co-dialog
       ref="formDialog"
@@ -12,7 +12,7 @@
       :title="crud.status.title"
       no-backdrop-dismiss
       @before-hide="crud.cancelCU"
-      card-style="width:700px; max-width:95vw;"
+      card-style="width:600px; max-width:95vw;"
     >
       <co-form
         ref="form"
@@ -59,6 +59,7 @@
             :options="jobDatas"
             :disable="!!crud.status.view"
             clearable
+            use-chips
             multiple
             emit-value
             map-options
@@ -92,6 +93,9 @@
             form-label="角色"
             option-value="id"
             option-label="name"
+            use-input
+            fill-input
+            use-chips
             v-model="form.roles"
             no-filter
             :options="roleDatas"
@@ -99,15 +103,14 @@
             :rules="[
               val => (!!val) || '必填'
               ]"
-            clearable
             multiple
             emit-value
             map-options
           />
       </co-form>
       <q-card-actions class="q-pa-md" align="right">
-        <q-btn label="取消" flat v-close-popup/>
-        <q-btn label="保存" icon="check" color="primary" v-if="!crud.status.view" @click="crud.submitCU"
+        <q-btn dense label="取消" flat v-close-popup/>
+        <q-btn dense label="保存" color="primary" v-if="!crud.status.view" @click="crud.submitCU"
           :loading="crud.status.cu === crud.STATUS_PROCESSING" :disable="crud.status.cu === crud.STATUS_PROCESSING"/>
       </q-card-actions>
     </co-dialog>
@@ -122,7 +125,7 @@
       <template v-slot:before>
         <co-tree
           ref="tree"
-          :class="$q.screen.gt.xs?'q-mr-sm':''"
+          :class="$q.screen.gt.xs?'q-mr-xs':''"
           node-key="id"
           label-key="label"
           :nodes="deptDatas"
@@ -155,7 +158,7 @@
         <co-table
           ref="table"
           row-key="id"
-          :class="$q.screen.gt.xs?'q-ml-sm':''"
+          :class="$q.screen.gt.xs?'q-ml-xs':''"
           dense
           :data="crud.data"
           :columns="crud.columns"
@@ -190,6 +193,8 @@
                 form-label-style="margin-top:10px"
                 content-style="width:120px"
                 v-model="query.enabled"
+                transition-show="flip-up"
+                transition-hide="flip-down"
                 use-input
                 hide-selected
                 fill-input
@@ -252,6 +257,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import { getDictLabel } from '@/utils/store'
 import CRUD, { presenter, header, form, crud } from '@crud/crud'
 import CrudOperation from '@crud/crud-operation'
 import CrudPagination from '@crud/crud-pagination'
@@ -262,11 +268,12 @@ import { getDepts } from '@/api/system/dept'
 import { getAll, getLevel } from '@/api/system/role'
 import { getAllJob } from '@/api/system/job'
 
+/*
 import { Store } from '@/store'
 const gDict = Store.getters['permission/dict']
 function getDictLabel(dict, value) {
   return gDict.label[dict][value]
-}
+}*/
 
 const defaultForm = { id: null, username: null, nickName: null, gender: null, email: null, phone: null, enabled: 'false', roles: [], jobs: [], depts: [] }
 const visibleColumns = ['username', 'gender', 'enabled', 'createTime', 'action']

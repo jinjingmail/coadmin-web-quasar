@@ -3,8 +3,8 @@
 -->
 <template>
   <div >
-    <co-dialog title="查找" no-max seamless ref="search" @before-hide="filterTable=''">
-      <q-input placeholder="在当前页查找" dense outlined v-model="filterTable" clearable class="q-mx-sm q-mt-none q-mb-sm"/>
+    <co-dialog title="查找" no-max ref="search" @before-hide="filterTable=''" @show="$refs.findInCurrentPage.focus()">
+      <co-input ref="findInCurrentPage" placeholder="在当前页查找" style="width:180px" dense outlined v-model="filterTable" clearable class="q-mx-sm q-mt-none q-mb-sm"/>
     </co-dialog>
     <co-dialog
       ref="formDialog"
@@ -40,12 +40,12 @@
             :options="[{label: '全部', value: '全部'}, { label: '本级', value: '本级'}, { label: '自定义', value: '自定义' }]"
             type="radio"
           />
-          <co-input dense class="col-12" form-label="描述" v-model="form.description" :disable="!!crud.status.view"/>
+          <co-input dense autogrow class="col-12" form-label="描述" v-model="form.description" :disable="!!crud.status.view"/>
 
       </co-form>
       <q-card-actions class="q-pa-md" align="right">
-        <q-btn label="取消" flat v-close-popup/>
-        <q-btn label="保存" icon="check" color="primary" v-if="!crud.status.view" @click="crud.submitCU"
+        <q-btn dense label="取消" flat v-close-popup/>
+        <q-btn dense label="保存" color="primary" v-if="!crud.status.view" @click="crud.submitCU"
           :loading="crud.status.cu === crud.STATUS_PROCESSING" :disable="crud.status.cu === crud.STATUS_PROCESSING"/>
       </q-card-actions>
     </co-dialog>
@@ -62,7 +62,7 @@
           ref="table"
           row-key="id"
           dense
-          :class="$q.screen.gt.xs?'q-mr-sm':''"
+          :class="$q.screen.gt.xs?'q-mr-xs':''"
           :data="crud.data"
           :columns="crud.columns"
           :visible-columns="crud.visibleColumns"
@@ -104,7 +104,7 @@
 
           <template v-slot:body-cell-action="props">
             <q-td :props="props">
-              <crud-row dense flat no-icon no-add
+              <crud-row dense flat no-add
                 :type="$q.screen.gt.xs?'button':'menu'"
                 :data="props.row"
                 :data-add="{sort: props.row.sort+10}"
@@ -126,7 +126,7 @@
       <template v-slot:after>
         <co-tree
           ref="tree"
-          :class="$q.screen.gt.xs?'q-ml-sm':''"
+          :class="$q.screen.gt.xs?'q-ml-xs':''"
           accordion
           node-key="id"
           label-key="title"

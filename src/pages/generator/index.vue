@@ -24,8 +24,8 @@
         class="q-pa-md row q-col-gutter-x-xl q-col-gutter-y-md">
       </co-form>
       <q-card-actions class="q-pa-md" align="right">
-        <q-btn label="取消" flat v-close-popup/>
-        <q-btn label="保存" icon="check" color="primary" v-if="!crud.status.view" @click="crud.submitCU"
+        <q-btn dense label="取消" flat v-close-popup/>
+        <q-btn dense label="保存" color="primary" v-if="!crud.status.view" @click="crud.submitCU"
           :loading="crud.status.cu === crud.STATUS_PROCESSING" :disable="crud.status.cu === crud.STATUS_PROCESSING"/>
       </q-card-actions>
     </co-dialog>
@@ -83,7 +83,7 @@
 
       <template v-slot:body-cell-action="props">
         <q-td :props="props">
-          <q-btn dense label="修改" flat color="primary" @click="$refs.config.show(props.row.tableName, menuDatas)"/>
+          <q-btn dense label="修改" flat color="primary" @click="$refs.config.show(props.row.tableName)"/>
           <q-btn dense label="预览" flat color="primary" @click="$refs.preview.show(props.row.tableName)"/>
           <q-btn dense label="下载" flat color="primary" @click="toDownload(props.row.tableName)"/>
           <q-btn dense label="生成" flat color="primary" @click="toGen(props.row.tableName)"/>

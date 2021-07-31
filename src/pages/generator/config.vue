@@ -4,7 +4,6 @@
     :title="tableName"
     no-backdrop-dismiss
     card-style="width:90vw; max-width:95vw; height:95vh"
-    @show="_dialogShow"
   >
     <co-table
       ref="table"
@@ -141,57 +140,60 @@
         :label-align="$q.screen.gt.xs?'right':'auto'"
         :label-top="!$q.screen.gt.xs"
         class="q-pa-md row q-col-gutter-x-sm q-col-gutter-y-md">
-        <co-input dense class="col-12 col-sm-6" form-label="作者" v-model="formTable.author" :rules="[
+        <co-input dense outlined class="col-12 col-sm-6" form-label="作者" v-model="formTable.author" :rules="[
           val => (!!val) || '必填'
           ]"/>
         <co-form-item class="col-12 col-sm-6" ><div class="q-pt-xs">类上面的作者名称</div></co-form-item>
 
-        <co-input dense class="col-12 col-sm-6" form-label="模块名称" v-model="formTable.moduleName" :rules="[
+        <co-input dense outlined class="col-12 col-sm-6" form-label="模块名称" v-model="formTable.moduleName" :rules="[
           val => (!!val) || '必填'
           ]"/>
         <co-form-item class="col-12 col-sm-6" ><div class="q-pt-xs">Java模块的名称，请选择项目中已存在的模块</div></co-form-item>
 
-        <co-input dense class="col-12 col-sm-6" form-label="至于包下" v-model="formTable.pack" :rules="[
+        <co-input dense outlined class="col-12 col-sm-6" form-label="至于包下" v-model="formTable.pack" :rules="[
           val => (!!val) || '必填'
           ]"/>
         <co-form-item class="col-12 col-sm-6" ><div class="q-pt-xs">Java项目包的名称，生成的代码放到哪个包里面</div></co-form-item>
 
-        <co-input dense class="col-12 col-sm-6" form-label="接口名称" v-model="formTable.apiAlias" :rules="[
+        <co-input dense outlined class="col-12 col-sm-6" form-label="接口名称" v-model="formTable.apiAlias" :rules="[
           val => (!!val) || '必填'
           ]"/>
         <co-form-item class="col-12 col-sm-6" ><div class="q-pt-xs">接口的名称，用于控制器与接口文档中</div></co-form-item>
 
-        <co-input dense class="col-12 col-sm-6" form-label="前端Vue存放路径" v-model="formTable.path" :rules="[
+        <co-input dense outlined class="col-12 col-sm-6" form-label="前端Vue存放路径" v-model="formTable.path" :rules="[
           val => (!!val) || '必填'
           ]"/>
         <co-form-item class="col-12 col-sm-6" ><div class="q-pt-xs">示例[d:\src\pages]，不存在会自动创建</div></co-form-item>
 
-        <co-input dense class="col-12 col-sm-6" form-label="前端Api接口目录" v-model="formTable.apiPath" :rules="[
+        <co-input dense outlined class="col-12 col-sm-6" form-label="前端Api接口目录" v-model="formTable.apiPath" :rules="[
           val => (!!val) || '必填'
           ]"/>
         <co-form-item class="col-12 col-sm-6" ><div class="q-pt-xs">示例[d:\src\api]，不存在会自动创建</div></co-form-item>
 
-        <co-input dense class="col-12 col-sm-6" form-label="去表前缀" v-model="formTable.prefix" />
+        <co-input dense outlined class="col-12 col-sm-6" form-label="去表前缀" v-model="formTable.prefix" />
         <co-form-item class="col-12 col-sm-6" ><div class="q-pt-xs">留空不去除表前缀</div></co-form-item>
 
         <co-tree-select
           ref="menu"
           dense
+          outlined
           class="col-12 col-sm-6"
           tree-class="q-pa-sm"
           form-label="上级菜单"
           :nodes="menuDatas"
           :selected.sync="formTable.menuPid"
           :expanded.sync="treeSelectExpanded"
+          selectable
           node-key="id"
           label-key="title"
           filter-key-like="titleLetter"
           filter-key-equal="id"
           filter-placeholder="名称、拼音首字母"
           clearable
-          selectable
         >
+          <!--
           <template v-slot:append><q-icon name="keyboard_arrow_down"/></template>
+          -->
         </co-tree-select>
         <co-form-item class="col-12 col-sm-6" ><div class="q-pt-xs">用于得到创建菜单的sql，请在XxxController.java中查看sql</div></co-form-item>
 
@@ -257,19 +259,18 @@ export default {
         this.$q.notify('获取表Columns失败')
       })
     },
-    _dialogShow() {
-    },
     show(tableName) {
       this.tableName = tableName
       this.init()
+      this.$q.loading = true
       get(tableName).then(data => {
         this.formTable = data
+        this.$refs.dialog.show()
       }).catch(err => {
         console.log('get table config failure', err)
         this.$q.notify('获取表配置失败')
+        //this.$refs.dialog.show()
       })
-
-      this.$refs.dialog.show()
     },
     saveColumnConfig() {
       this.loading = true

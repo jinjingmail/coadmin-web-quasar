@@ -20,7 +20,7 @@
         <co-input dense class="col-12" form-label="当前密码" type="password" v-model="form.pass" key="pass"/>
     </co-form>
     <q-card-actions class="q-pa-md" align="right">
-      <q-btn label="取消" flat v-close-popup/>
+      <q-btn dense label="取消" flat v-close-popup/>
       <q-btn label="确认" icon="check" color="primary" @click="doSubmit"/>
     </q-card-actions>
   </co-dialog>

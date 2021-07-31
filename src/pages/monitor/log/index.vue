@@ -10,6 +10,7 @@
     <co-dialog
       ref="detailDialog"
       card-style="width: 90vw; max-width: 95vw;"
+      card-class="q-px-sm"
     >
       <div>
         <b>请求方法：</b>

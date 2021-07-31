@@ -18,7 +18,7 @@
       separator-style="background-color: transparent"
     >
       <template v-slot:before>
-        <q-card :class="$q.screen.gt.xs?'q-mr-sm':''">
+        <q-card :class="$q.screen.gt.xs?'q-mr-xs':''">
           <q-card-section>
             <div class="text-h6">个人信息 </div>
           </q-card-section>
@@ -78,7 +78,7 @@
           ref="table"
           row-key="id"
           dense
-          :class="$q.screen.gt.xs?'q-ml-sm':''"
+          :class="$q.screen.gt.xs?'q-ml-xs':''"
           :data="crud.data"
           :columns="crud.columns"
           :loading="crud.loading"
