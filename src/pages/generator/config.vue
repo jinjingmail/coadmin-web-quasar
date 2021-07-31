@@ -3,7 +3,7 @@
     ref="dialog"
     :title="tableName"
     no-backdrop-dismiss
-    card-style="width:90vw; max-width:95vw; height:95vh"
+    card-style="width:90vw; max-width:95vw;"
   >
     <co-table
       ref="table"

@@ -26,6 +26,10 @@ module.exports = {
    */
   uniqueOpened: true,
   /**
+   * @description 左侧菜单栏是否显示阴影
+   */
+  elevatedSidebar: true,
+  /**
    * @description 左侧菜单栏是否显示logo
    */
   sidebarLogo: true,
@@ -79,7 +83,7 @@ module.exports = {
    * 无圆角：
    *  q-table--square
    */
-  tableClass: 'q-table--flat q-table--square',
+  tableClass: 'q-table--flat q-table--square q-pa-xs',
   tableStyle: '',
   tableClassMobile: 'q-table--flat q-table--square',
   tableStyleMobile: '',

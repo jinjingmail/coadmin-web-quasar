@@ -51,10 +51,9 @@ TODO CoTree selected和ticked，可以设置“只选parent，只选leaf”
 TODO CoTreeSelect 的select 模式，选择一项后，自动关闭弹出界面
 TODO CoDate 支持 number 类型
 
-TODO BUG 不能将一个子菜单，修改为顶级菜单
 TODO BUG 在iphone上，输入框也要小一些
 TODO BUG CoInput 在popup-proxy 里面时，有时候prepend、append、before、after 的slot会失效
-TODO BUG 对话框最大化后，取消拖动
+对话框最大化后，取消拖动
 TODO BUG 图表dark模式文字颜色
 TODO BUG CoTreeSelect 的 v-model不合理
 ```
