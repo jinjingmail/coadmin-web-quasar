@@ -246,13 +246,11 @@ export default {
     }
   },
   created () {
-    console.log('tree.created')
   },
   watch: {
     selected: {
       immediate: true,
       handler  (newVal) {
-        console.log('watch:tree.selected' + this.disable + ', ' + newVal)
         if (!this.disable) {
           this.selectedSync = newVal
         }

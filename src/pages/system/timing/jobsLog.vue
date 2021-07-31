@@ -5,7 +5,7 @@
   <co-dialog
     ref="dialog"
     :title="crud.title"
-    card-style="width:80vw; max-width:95vw;"
+    card-style="width:80vw; max-width:95vw; min-height:90vh;"
   >
     <co-table
       ref="table"

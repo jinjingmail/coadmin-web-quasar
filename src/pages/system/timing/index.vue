@@ -25,7 +25,7 @@
           <co-input dense class="col-12" form-label="任务名称" v-model="form.jobName" :disable="!!crud.status.view" :rules="[
               val => (!!val) || '必填'
               ]"/>
-          <co-input dense class="col-12" form-label="任务描述" v-model="form.description" :disable="!!crud.status.view"/>
+          <co-input dense class="col-12" autogrow form-label="任务描述" v-model="form.description" :disable="!!crud.status.view"/>
           <co-input dense class="col-12" form-label="Bean名称" v-model="form.beanName" :disable="!!crud.status.view" :rules="[
               val => (!!val) || '必填'
               ]"/>
@@ -168,11 +168,12 @@ import CrudMore from '@crud/crud-more'
 import crudTiming from '@/api/system/timing'
 import JobsLog from './jobsLog.vue'
 
-const defaultForm = { id: null, jobName: null, subTask: null, beanName: null, methodName: null, params: null, cronExpression: null, pauseAfterFailure: true, isPause: false, personInCharge: null, email: null, description: null }
-const visibleColumns = ['jobName', 'beanName', 'methodName', 'cronExpression', 'isPause', 'subTask', 'params', 'action']
+const defaultForm = { id: null, jobName: null, description: null, subTask: null, beanName: null, methodName: null, params: null, cronExpression: null, pauseAfterFailure: true, isPause: false, personInCharge: null, email: null }
+const visibleColumns = ['jobName', 'beanName', 'description', 'methodName', 'cronExpression', 'isPause', 'subTask', 'params', 'action']
 const columns = [
   { name: 'id', field: 'id', label: 'ID' },
   { name: 'jobName', field: 'jobName', label: '名称', required: true, align: 'left' },
+  { name: 'description', field: 'description', label: '任务描述', align: 'left', classes: 'ellipsis', style: 'max-width:150px' },
   { name: 'beanName', field: 'beanName', label: 'Bean名称', sortable: true },
   { name: 'methodName', field: 'methodName', label: '执行方法', sortable: true },
   { name: 'cronExpression', field: 'cronExpression', label: 'Corn表达式' },
