@@ -29,16 +29,12 @@
           >
             <co-input
               class="q-mb-md"
-              dense
-              no-error-icon
               v-model.trim="loginForm.username"
               placeholder="账号 demo"
               :rules="[ val => val && val.length > 0 || '请输入用户账号']"
             />
             <co-input
               class="q-mb-md"
-              dense
-              no-error-icon
               type="password"
               v-model.trim="loginForm.password"
               placeholder="密码 123456"
@@ -46,8 +42,6 @@
             />
             <co-input
               class="q-mb-md"
-              dense
-              no-error-icon
               v-model.trim="loginForm.code"
               placeholder="验证码"
               :rules="[ val => val && val.length > 0 || '请输入验证码']"
@@ -57,14 +51,13 @@
               </template>
             </co-input>
             <div class="column q-gutter-y-sm q-mt-none">
-              <q-checkbox
+              <co-checkbox
                 v-model="loginForm.rememberMe"
                 label="记住账号"
-                dense
               />
             </div>
             <div class="q-mt-md column items-center">
-              <q-btn
+              <co-btn
                 label="登录"
                 type="submit"
                 color="primary"
@@ -82,7 +75,7 @@
           </co-form>
 
           <q-toolbar class="no-padding">
-            <q-toggle :value="$q.dark.isActive" :val="true" label="DARK" @click.native="changeSetting({key:'darkMode', value: !$q.dark.isActive})"/>
+            <co-toggle :value="$q.dark.isActive" :val="true" label="DARK" @click.native="changeSetting({key:'darkMode', value: !$q.dark.isActive})"/>
           </q-toolbar>
           <q-toolbar class="no-padding">
             <brand-color />
