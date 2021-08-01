@@ -4,23 +4,23 @@ c<template>
     label-width="medium"
     label-align="right"
     class="q-pa-md row q-col-gutter-x-xl q-col-gutter-y-md">
-    <co-input dense class="col-12" form-label="发件人邮箱" v-model="form.fromUser" :rules="[
+    <co-input class="col-12" form-label="发件人邮箱" v-model="form.fromUser" :rules="[
       val => (!!val) || '必填'
       ]"/>
-    <co-input dense class="col-12" form-label="发件用户名" v-model="form.user" :rules="[
+    <co-input class="col-12" form-label="发件用户名" v-model="form.user" :rules="[
       val => (!!val) || '必填'
       ]"/>
-    <co-input dense class="col-12" form-label="邮箱密码" v-model="form.pass" :rules="[
+    <co-input class="col-12" form-label="邮箱密码" v-model="form.pass" :rules="[
       val => (!!val) || '必填'
       ]"/>
-    <co-input dense class="col-12" form-label="SMTP地址" v-model="form.host" :rules="[
+    <co-input class="col-12" form-label="SMTP地址" v-model="form.host" :rules="[
       val => (!!val) || '必填'
       ]"/>
-    <co-input dense class="col-12" form-label="SMTP端口" v-model="form.port" :rules="[
+    <co-input class="col-12" form-label="SMTP端口" v-model="form.port" :rules="[
       val => (!!val) || '必填'
       ]"/>
     <co-form-item class="col-12" form-label=" ">
-      <q-btn :loading="loading" dense label="保存配置" icon="check" color="primary" @click="doSubmit"/>
+      <co-btn :loading="loading" label="保存配置" icon="check" color="primary" @click="doSubmit"/>
     </co-form-item>
   </co-form>
 </template>

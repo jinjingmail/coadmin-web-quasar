@@ -11,19 +11,19 @@
       label-width="small"
       label-align="right"
       class="q-pa-md row q-col-gutter-x-xl q-col-gutter-y-md">
-        <co-input dense class="col-12" form-label="旧密码" type="password" v-model="form.oldPass" :rules="[
+        <co-input class="col-12" form-label="旧密码" type="password" v-model="form.oldPass" :rules="[
               val => (!!val) || '必填'
               ]"/>
-        <co-input dense class="col-12" form-label="新密码" type="password" v-model="form.newPass" :rules="[
+        <co-input class="col-12" form-label="新密码" type="password" v-model="form.newPass" :rules="[
               val => (!!val && val.length >= 6) || '长度不少于6个字符'
               ]"/>
-        <co-input dense class="col-12" form-label="确认密码" type="password" v-model="form.confirmPass" :rules="[
+        <co-input class="col-12" form-label="确认密码" type="password" v-model="form.confirmPass" :rules="[
               val => (!!val && val.length >= 6) || '长度不少于6个字符'
               ]"/>
     </co-form>
     <q-card-actions class="q-pa-md" align="right">
-      <q-btn dense label="取消" flat v-close-popup/>
-      <q-btn label="确认" icon="check" color="primary" @click="doSubmit"/>
+      <co-btn label="取消" flat v-close-popup/>
+      <co-btn label="确认" icon="check" color="primary" @click="doSubmit"/>
     </q-card-actions>
   </co-dialog>
 </template>

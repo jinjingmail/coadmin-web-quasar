@@ -16,20 +16,20 @@
         label-width="small"
         label-align="right"
         class="q-pa-md row q-col-gutter-x-xl q-col-gutter-y-md">
-          <co-form-item dense class="col-12" form-label="ID" v-if="form.id">
+          <co-form-item class="col-12" form-label="ID" v-if="form.id">
             <div class="q-pt-sm">{{form.id}}</div>
           </co-form-item>
-          <co-input dense outlined class="col-12" form-label="标签" v-model="form.label" :disable="!!crud.status.view" :rules="[
+          <co-input class="col-12" form-label="标签" v-model="form.label" :disable="!!crud.status.view" :rules="[
               val => (!!val) || '必填'
               ]"/>
-          <co-input dense outlined class="col-12" form-label="值" v-model="form.value" :disable="!!crud.status.view" :rules="[
+          <co-input class="col-12" form-label="值" v-model="form.value" :disable="!!crud.status.view" :rules="[
               val => (!!val) || '必填'
               ]"/>
-          <co-input dense outlined class="col-12" form-label="排序" v-model="form.sort" :disable="!!crud.status.view" />
+          <co-input class="col-12" form-label="排序" v-model="form.sort" :disable="!!crud.status.view" />
       </co-form>
       <q-card-actions class="q-pa-md" align="right">
-        <q-btn dense label="取消" flat v-close-popup/>
-        <q-btn dense label="保存" color="primary" v-if="!crud.status.view" @click="crud.submitCU"
+        <co-btn label="取消" flat v-close-popup/>
+        <co-btn label="保存" color="primary" v-if="!crud.status.view" @click="crud.submitCU"
           :loading="crud.status.cu === crud.STATUS_PROCESSING" :disable="crud.status.cu === crud.STATUS_PROCESSING"/>
       </q-card-actions>
     </co-dialog>
@@ -37,7 +37,6 @@
     <co-table
       ref="table"
       row-key="id"
-      dense
       :data="crud.data"
       :columns="crud.columns"
       :visible-columns="crud.visibleColumns"
@@ -49,23 +48,23 @@
     >
       <template v-slot:top-right="props">
         <div class='row q-col-gutter-x-sm q-col-gutter-y-xs q-pa-xs full-width'>
-          <co-input dense class='col-auto' label="ID、标签、值" filled v-model="query.blurry" content-style="width:140px" clearable @keyup.enter.native="crud.toQuery"/>
+          <co-input class='col-auto' label="ID、标签、值" filled v-model="query.blurry" content-style="width:140px" clearable @keyup.enter.native="crud.toQuery"/>
           <div class='col-auto'>
-            <q-btn dense padding="xs sm" color="primary" icon="search" @click="crud.toQuery" />
+            <co-btn color="primary" icon="search" @click="crud.toQuery" />
           </div>
           <q-space/>
-          <crud-operation dense :permission="permission" v-if="dictId" no-view no-edit no-label/>
+          <crud-operation :permission="permission" v-if="dictId" no-view no-edit no-label/>
           <div class="col-auto">
-            <q-btn-dropdown dense color="primary" class="btn-dropdown-hide-droparrow" icon="apps" auto-close>
-              <crud-more dense :tableSlotTopProps="props" />
-            </q-btn-dropdown>
+            <co-btn-dropdown color="primary" class="btn-dropdown-hide-droparrow" icon="apps" auto-close>
+              <crud-more :tableSlotTopProps="props" />
+            </co-btn-dropdown>
           </div>
         </div>
       </template>
 
       <template v-slot:body-cell-action="props">
         <q-td :props="props">
-          <crud-row dense flat no-icon :data="props.row" :data-add="{sort: props.row.sort+10}"  :permission="permission" :type="$q.screen.gt.xs?'button':'menu'"/>
+          <crud-row flat no-icon :data="props.row" :data-add="{sort: props.row.sort+10}"  :permission="permission" :type="$q.screen.gt.xs?'button':'menu'"/>
         </q-td>
       </template>
 

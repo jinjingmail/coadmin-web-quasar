@@ -4,7 +4,7 @@
 <template>
   <div >
     <co-dialog title="查找" no-max seamless ref="search" @before-hide="filterTable=''">
-      <q-input placeholder="在当前页查找" dense outlined v-model="filterTable" clearable class="q-mx-sm q-mt-none q-mb-sm"/>
+      <co-input placeholder="在当前页查找" outlined v-model="filterTable" clearable class="q-mx-sm q-mt-none q-mb-sm"/>
     </co-dialog>
     <co-dialog
       ref="formDialog"
@@ -23,34 +23,33 @@
             :nodes="menuDatas"
             :selected.sync="form.pid"
             :expanded.sync="treeSelectExpanded"
-            dense
             node-key="id"
             label-key="title"
             filter-key-like="titleLetter"
             filter-key-equal="id"
             filter-placeholder="名称、拼音首字母"
             tree-class="q-pa-sm"
-            clearable
             selectable
-          >
-            <template v-slot:append><q-icon name="keyboard_arrow_down"/></template>
-          </co-tree-select>
-          <co-field dense class="col-12 col-sm-6" form-label="ID" readonly>
+          />
+          <co-field class="col-12 col-sm-6" form-label="ID" readonly>
             <template v-slot:control>{{form.id}}</template>
           </co-field>
-          <co-option-group class="col-12 col-sm-6" form-label="菜单类型" v-model="form.type" inline
-            dense
-            :disable="!!crud.status.view"
-            :options="[
-              {label: '目录', value: 0},
-              {label: '菜单', value: 1},
-              {label: '按钮', value: 2}
-            ]"
-          />
-          <co-input dense class="col-12 col-sm-6" form-label="排序" v-model.number="form.sort" type="number" :disable="!!crud.status.view" :rules="[
+          <co-field class="col-12 col-sm-6" form-label="菜单类型">
+            <template v-slot:control>
+              <co-option-group v-model="form.type" inline
+                :disable="!!crud.status.view"
+                :options="[
+                  {label: '目录', value: 0},
+                  {label: '菜单', value: 1},
+                  {label: '按钮', value: 2}
+                ]"
+              />
+            </template>
+          </co-field>
+          <co-input class="col-12 col-sm-6" form-label="排序" v-model.number="form.sort" type="number" :disable="!!crud.status.view" :rules="[
               val => (!!val) || '必填'
               ]"/>
-          <co-input dense class="col-12 col-sm-6" form-label="图标" v-model="form.icon" key="icon"
+          <co-input class="col-12 col-sm-6" form-label="图标" v-model="form.icon" key="icon"
             v-if="form.type===0 || form.type===1"
             :disable="!!crud.status.view">
             <template v-slot:prepend><q-icon :name="form.icon" /></template>
@@ -58,47 +57,56 @@
               <q-btn icon="search" dense flat />
             </template>
           </co-input>
-          <co-input dense class="col-12 col-sm-6" form-label="菜单名称" v-model="form.title" key="title"
+          <co-input class="col-12 col-sm-6" form-label="菜单名称" v-model="form.title" key="title"
             :disable="!!crud.status.view"
             :rules="[
               val => (!!val) || '必填'
               ]"/>
-          <co-option-group class="col-12 col-md-4" form-label="外链菜单" v-model="form.iframe" inline
-            v-if="form.type===0 || form.type===1"
-            dense
-            :disable="!!crud.status.view"
-            :options="[
-              {label: '是', value: true},
-              {label: '否', value: false}
-            ]"
-            />
-          <co-option-group class="col-12 col-md-4" form-label="菜单缓存" v-model="form.cache" inline
-            v-if="form.type===0 || form.type===1"
-            dense
-            :disable="!!crud.status.view"
-            :options="[
-              {label: '是', value: true},
-              {label: '否', value: false}
-            ]"
-            />
-          <co-option-group class="col-12 col-md-4" form-label="菜单可见" v-model="form.hidden" inline
-            v-if="form.type===0 || form.type===1"
-            dense
-            :disable="!!crud.status.view"
-            :options="[
-              {label: '是', value: false},
-              {label: '否', value: true}
-            ]"
-            />
-          <co-input dense class="col-12 col-sm-6" form-label="权限标识" v-model="form.permission" :disable="!!crud.status.view"/>
-          <co-input dense class="col-12 col-sm-6" form-label="路由地址" v-model="form.path" :disable="!!crud.status.view" v-if="form.type===0 || form.type===1"/>
-          <co-input dense class="col-12 col-sm-6" form-label="组件名称" v-model="form.componentName" :disable="!!crud.status.view" v-if="form.type===1"/>
-          <co-input dense class="col-12 col-sm-6" form-label="组件路径" v-model="form.component" :disable="!!crud.status.view" v-if="form.type===1"/>
+          <co-field class="col-12 col-md-4" form-label="外链菜单">
+            <template v-slot:control>
+              <co-option-group v-model="form.iframe" inline
+                v-if="form.type===0 || form.type===1"
+                :disable="!!crud.status.view"
+                :options="[
+                  {label: '是', value: true},
+                  {label: '否', value: false}
+                ]"
+                />
+            </template>
+          </co-field>
+          <co-field  class="col-12 col-md-4" form-label="菜单缓存">
+            <template v-slot:control>
+              <co-option-group v-model="form.cache" inline
+                v-if="form.type===0 || form.type===1"
+                :disable="!!crud.status.view"
+                :options="[
+                  {label: '是', value: true},
+                  {label: '否', value: false}
+                ]"
+                />
+            </template>
+          </co-field>
+          <co-field class="col-12 col-md-4" form-label="菜单可见">
+            <template v-slot:control>
+              <co-option-group v-model="form.hidden" inline
+                v-if="form.type===0 || form.type===1"
+                :disable="!!crud.status.view"
+                :options="[
+                  {label: '是', value: false},
+                  {label: '否', value: true}
+                ]"
+                />
+            </template>
+          </co-field>
+          <co-input class="col-12 col-sm-6" form-label="权限标识" v-model="form.permission" :disable="!!crud.status.view"/>
+          <co-input class="col-12 col-sm-6" form-label="路由地址" v-model="form.path" :disable="!!crud.status.view" v-if="form.type===0 || form.type===1"/>
+          <co-input class="col-12 col-sm-6" form-label="组件名称" v-model="form.componentName" :disable="!!crud.status.view" v-if="form.type===1"/>
+          <co-input class="col-12 col-sm-6" form-label="组件路径" v-model="form.component" :disable="!!crud.status.view" v-if="form.type===1"/>
 
       </co-form>
       <q-card-actions class="q-pa-md" align="right">
-        <q-btn dense label="取消" flat v-close-popup/>
-        <q-btn dense label="保存" color="primary" v-if="!crud.status.view" @click="crud.submitCU"
+        <co-btn label="取消" flat v-close-popup/>
+        <co-btn label="保存" color="primary" v-if="!crud.status.view" @click="crud.submitCU"
           :loading="crud.status.cu === crud.STATUS_PROCESSING" :disable="crud.status.cu === crud.STATUS_PROCESSING"/>
       </q-card-actions>
     </co-dialog>
@@ -147,7 +155,6 @@
         <co-table
           ref="table"
           row-key="id"
-          dense
           :class="$q.screen.gt.xs?'q-ml-xs':''"
           tree-table
           expand-key="title"
@@ -164,16 +171,16 @@
         >
           <template v-slot:top-right="props">
             <div class='row q-col-gutter-x-sm q-col-gutter-y-xs q-pa-xs full-width'>
-              <crud-operation dense :permission="permission" />
+              <crud-operation :permission="permission" />
               <div class="col-auto">
-                <q-btn-dropdown dense color="primary" class="btn-dropdown-hide-droparrow" icon="apps" auto-close>
-                  <crud-more dense :tableSlotTopProps="props">
+                <co-btn-dropdown color="primary" class="btn-dropdown-hide-droparrow" icon="apps" auto-close>
+                  <crud-more :tableSlotTopProps="props">
                     <template v-slot:start>
-                      <q-btn dense flat align="left" label="在当前页查找" icon="find_in_page" @click.native="$refs.search.show()" />
+                      <co-btn flat align="left" label="在当前页查找" icon="find_in_page" @click.native="$refs.search.show()" />
                       <q-separator/>
                     </template>
                   </crud-more>
-                </q-btn-dropdown>
+                </co-btn-dropdown>
               </div>
             </div>
           </template>
@@ -186,7 +193,7 @@
 
           <template v-slot:body-cell-action="props">
             <q-td key="action" :props="props">
-              <crud-row dense flat no-icon
+              <crud-row flat no-icon
                 :type="$q.screen.gt.xs?'button':'menu'"
                 :data="props.row"
                 :data-add="{pid: props.row.pid, sort: props.row.sort+10}"
@@ -196,7 +203,7 @@
           </template>
 
           <template v-slot:pagination>
-            <crud-pagination dense no-page-if-only-one-page />
+            <crud-pagination  no-page-if-only-one-page />
           </template>
 
         </co-table>
@@ -210,8 +217,8 @@ import { mapGetters } from 'vuex'
 import CRUD, { presenter, header, form, crud } from '@crud/crud'
 import CrudOperation from '@crud/crud-operation'
 import CrudPagination from '@crud/crud-pagination'
-import CrudRow from '@crud/crud-row'
 import CrudMore from '@crud/crud-more'
+import CrudRow from '@crud/crud-row'
 import crudMenu, { getMenus } from '@/api/system/menu'
 
 const defaultForm = { id: null, title: null, sort: 10, path: null, component: null, componentName: null, roles: [], pid: null, icon: null, iframe: false, cache: false, hidden: false, type: 0, permission: null }
@@ -232,7 +239,7 @@ const columns = [
 
 export default {
   name: 'Menu',
-  components: { CrudOperation, CrudMore, CrudPagination, CrudRow },
+  components: { CrudOperation, CrudMore, CrudRow, CrudPagination },
   cruds() {
     return CRUD({ columns, visibleColumns, idField: 'id', query: { pid: null }, sort: ['sort,asc'], title: '菜单', url: 'api/menu', crudMethod: { ...crudMenu } })
   },

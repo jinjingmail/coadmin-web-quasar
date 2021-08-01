@@ -58,8 +58,8 @@
                 <q-item-section>安全设置</q-item-section>
                 <q-item-section side>
                   <div class="row">
-                    <q-btn flat dense class="col-auto" label="修改密码" color="primary" @click="$refs.updatePass.show()"/>
-                    <q-btn flat dense class="col-auto" label="修改邮箱" color="primary" @click="$refs.updateEmail.show(user.email)"/>
+                    <co-btn flat class="col-auto" label="修改密码" color="primary" @click="$refs.updatePass.show()"/>
+                    <co-btn flat class="col-auto" label="修改邮箱" color="primary" @click="$refs.updateEmail.show(user.email)"/>
                   </div>
                 </q-item-section>
               </q-item>
@@ -77,7 +77,6 @@
           title="用户操作日志"
           ref="table"
           row-key="id"
-          dense
           :class="$q.screen.gt.xs?'q-ml-xs':''"
           :data="crud.data"
           :columns="crud.columns"
@@ -90,7 +89,7 @@
           </template>
 
           <template v-slot:pagination>
-            <crud-pagination dense/>
+            <crud-pagination />
           </template>
         </co-table>
       </template>

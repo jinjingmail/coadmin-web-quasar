@@ -11,17 +11,17 @@
       label-width="small"
       label-align="right"
       class="q-pa-md row q-col-gutter-x-xl q-col-gutter-y-md">
-        <co-input dense class="col-12" form-label="新邮箱" v-model="form.email" key="email"/>
-        <co-input dense class="col-12" form-label="验证码" v-model="form.code" key="code">
+        <co-input class="col-12" form-label="新邮箱" v-model="form.email" key="email"/>
+        <co-input class="col-12" form-label="验证码" v-model="form.code" key="code">
           <template v-slot:after>
-            <q-btn flat dense label="获取验证码"/>
+            <co-btn flat label="获取验证码"/>
           </template>
         </co-input>
-        <co-input dense class="col-12" form-label="当前密码" type="password" v-model="form.pass" key="pass"/>
+        <co-input class="col-12" form-label="当前密码" type="password" v-mosl="form.pass" key="pass"/>
     </co-form>
     <q-card-actions class="q-pa-md" align="right">
-      <q-btn dense label="取消" flat v-close-popup/>
-      <q-btn label="确认" icon="check" color="primary" @click="doSubmit"/>
+      <co-btn label="取消" flat v-close-popup/>
+      <co-btn label="确认" icon="check" color="primary" @click="doSubmit"/>
     </q-card-actions>
   </co-dialog>
 

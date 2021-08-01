@@ -4,7 +4,7 @@
 <template>
   <div >
     <co-dialog title="查找" no-max seamless ref="search" @before-hide="crud.props.filterTable=''">
-      <q-input style="width:180px" placeholder="在当前页查找" dense outlined v-model="crud.props.filterTable" clearable class="q-mx-sm q-mt-none q-mb-sm"/>
+      <co-input style="width:180px" placeholder="在当前页查找" dense outlined v-model="crud.props.filterTable" clearable class="q-mx-sm q-mt-none q-mb-sm"/>
     </co-dialog>
     <co-dialog
       ref="formDialog"
@@ -22,27 +22,28 @@
           <co-form-item dense class="col-12" form-label="ID" v-if="form.id">
             <div class="q-pt-sm">{{form.id}}</div>
           </co-form-item>
-          <co-input dense class="col-12" form-label="岗位名称" v-model="form.name" :disable="!!crud.status.view" :rules="[
+          <co-input class="col-12" form-label="岗位名称" v-model="form.name" :disable="!!crud.status.view" :rules="[
               val => (!!val) || '必填'
               ]"/>
-          <co-input dense class="col-12" form-label="排序" v-model.number="form.sort" type="number" :disable="!!crud.status.view" :rules="[
+          <co-input class="col-12" form-label="排序" v-model.number="form.sort" type="number" :disable="!!crud.status.view" :rules="[
               val => (!!val) || '必填'
               ]"/>
-          <co-option-group
-            class="col-12"
-            dense
-            form-label="状态"
-            v-model="form.enabled"
-            value-to-string
-            :disable="!!crud.status.view"
-            inline
-            :options="dict.dept_status"
-            type="radio"
-          />
+          <co-field class="col-12" form-label="状态">
+            <template v-slot:control>
+              <co-option-group
+                v-model="form.enabled"
+                value-to-string
+                :disable="!!crud.status.view"
+                inline
+                :options="dict.dept_status"
+                type="radio"
+              />
+            </template>
+          </co-field>
       </co-form>
       <q-card-actions class="q-pa-md" align="right">
-        <q-btn dense label="取消" flat v-close-popup/>
-        <q-btn dense label="保存" color="primary" v-if="!crud.status.view" @click="crud.submitCU"
+        <co-btn label="取消" flat v-close-popup/>
+        <co-btn label="保存" color="primary" v-if="!crud.status.view" @click="crud.submitCU"
           :loading="crud.status.cu === crud.STATUS_PROCESSING" :disable="crud.status.cu === crud.STATUS_PROCESSING"/>
       </q-card-actions>
     </co-dialog>
@@ -50,7 +51,6 @@
     <co-table
       ref="table"
       row-key="id"
-      dense
       :data="crud.data"
       :columns="crud.columns"
       :visible-columns="crud.visibleColumns"
@@ -65,7 +65,6 @@
         <div class='row q-col-gutter-x-sm q-col-gutter-y-xs q-pa-xs full-width'>
           <co-select
             v-model="query.enabled"
-            dense
             label="状态"
             standout
             content-style="width:100px"
@@ -77,20 +76,20 @@
             map-options
           />
           <div>
-            <q-btn dense padding="xs sm" color="primary" icon="search" @click="crud.toQuery()" />
+            <co-btn color="primary" icon="search" @click="crud.toQuery()" />
           </div>
           <q-space/>
 
-          <crud-operation dense :permission="permission" />
+          <crud-operation :permission="permission" />
           <div>
-            <q-btn-dropdown dense color="primary" class="btn-dropdown-hide-droparrow" icon="apps" auto-close>
-              <crud-more dense :tableSlotTopProps="props">
+            <co-btn-dropdown color="primary" class="btn-dropdown-hide-droparrow" icon="apps" auto-close>
+              <crud-more :tableSlotTopProps="props">
                 <template v-slot:start>
-                  <q-btn dense flat align="left" label="在当前页查找" icon="find_in_page" @click.native="$refs.search.show()" />
+                  <co-btn flat align="left" label="在当前页查找" icon="find_in_page" @click.native="$refs.search.show()" />
                   <q-separator/>
                 </template>
               </crud-more>
-            </q-btn-dropdown>
+            </co-btn-dropdown>
           </div>
         </div>
       </template>
@@ -103,7 +102,7 @@
 
       <template v-slot:body-cell-action="props">
         <q-td key="action" :props="props">
-          <crud-row dense flat no-icon
+          <crud-row flat no-icon
             :type="$q.screen.gt.xs?'button':'menu'"
             :data="props.row"
             :data-add="{sort: props.row.sort+10}"
@@ -113,7 +112,7 @@
       </template>
 
       <template v-slot:pagination>
-        <crud-pagination dense/>
+        <crud-pagination />
       </template>
 
     </co-table>

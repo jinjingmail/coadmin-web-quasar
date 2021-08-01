@@ -8,7 +8,6 @@
     <co-table
       ref="table"
       row-key="columnName"
-      dense
       :flat="false"
       title="字段配置"
       :data="dataColumn"
@@ -26,22 +25,20 @@
             {{props.row.columnType}}
           </q-td>
           <q-td key="remark" :props="props">
-            <co-input dense v-model="props.row.remark"/>
+            <co-input v-model="props.row.remark"/>
           </q-td>
           <q-td key="notNull" :props="props">
-            <q-checkbox v-model="props.row.notNull" dense/>
+            <q-checkbox v-model="props.row.notNull" />
           </q-td>
           <q-td key="listShow" :props="props">
-            <q-checkbox v-model="props.row.listShow" dense/>
+            <q-checkbox v-model="props.row.listShow" />
           </q-td>
           <q-td key="formShow" :props="props">
-            <q-checkbox v-model="props.row.formShow" dense/>
+            <q-checkbox v-model="props.row.formShow" />
           </q-td>
           <q-td key="formType" :props="props">
             <co-select
               v-model="props.row.formType"
-              dense
-              options-dense
               borderless
               clearable
               emit-value
@@ -61,8 +58,6 @@
           <q-td key="queryType" :props="props">
             <co-select
               v-model="props.row.queryType"
-              dense
-              options-dense
               borderless
               clearable
               emit-value
@@ -81,8 +76,6 @@
           <q-td key="dateAnnotation" :props="props">
             <co-select
               v-model="props.row.dateAnnotation"
-              dense
-              options-dense
               borderless
               clearable
               emit-value
@@ -96,8 +89,6 @@
           <q-td key="dictName" :props="props">
             <co-select
               v-model="props.row.dictName"
-              dense
-              options-dense
               borderless
               clearable
               option-value="name"
@@ -112,15 +103,15 @@
 
       <template v-slot:top-right>
         <div class='row q-gutter-sm q-pa-xs full-width'>
-          <q-btn dense label="同步" color="primary"
+          <co-btn label="同步" color="primary"
             padding="xs md"
             class='col-auto'
             @click="doSync"/>
-          <q-btn dense label="保存" color="primary"
+          <co-btn label="保存" color="primary"
             padding="xs md"
             class='col-auto'
             @click="saveColumnConfig"/>
-          <q-btn dense label="保存&生成" color="primary"
+          <co-btn label="保存&生成" color="primary"
             padding="xs md"
             class='col-auto'
             @click="doSaveAndGen"/>
@@ -132,7 +123,7 @@
       <q-card-actions class="q-pa-md" >
         <div class="text-h6">生成配置</div>
         <q-space/>
-        <q-btn dense label="保存" color="primary" padding="xs md" @click="saveTableConfig"/>
+        <co-btn label="保存" color="primary" padding="xs md" @click="saveTableConfig"/>
       </q-card-actions>
       <co-form
         ref="form"
@@ -140,43 +131,41 @@
         :label-align="$q.screen.gt.xs?'right':'auto'"
         :label-top="!$q.screen.gt.xs"
         class="q-pa-md row q-col-gutter-x-sm q-col-gutter-y-md">
-        <co-input dense outlined class="col-12 col-sm-6" form-label="作者" v-model="formTable.author" :rules="[
+        <co-input class="col-12 col-sm-6" form-label="作者" v-model="formTable.author" :rules="[
           val => (!!val) || '必填'
           ]"/>
         <co-form-item class="col-12 col-sm-6" ><div class="q-pt-xs">类上面的作者名称</div></co-form-item>
 
-        <co-input dense outlined class="col-12 col-sm-6" form-label="模块名称" v-model="formTable.moduleName" :rules="[
+        <co-input class="col-12 col-sm-6" form-label="模块名称" v-model="formTable.moduleName" :rules="[
           val => (!!val) || '必填'
           ]"/>
         <co-form-item class="col-12 col-sm-6" ><div class="q-pt-xs">Java模块的名称，请选择项目中已存在的模块</div></co-form-item>
 
-        <co-input dense outlined class="col-12 col-sm-6" form-label="至于包下" v-model="formTable.pack" :rules="[
+        <co-input class="col-12 col-sm-6" form-label="至于包下" v-model="formTable.pack" :rules="[
           val => (!!val) || '必填'
           ]"/>
         <co-form-item class="col-12 col-sm-6" ><div class="q-pt-xs">Java项目包的名称，生成的代码放到哪个包里面</div></co-form-item>
 
-        <co-input dense outlined class="col-12 col-sm-6" form-label="接口名称" v-model="formTable.apiAlias" :rules="[
+        <co-input class="col-12 col-sm-6" form-label="接口名称" v-model="formTable.apiAlias" :rules="[
           val => (!!val) || '必填'
           ]"/>
         <co-form-item class="col-12 col-sm-6" ><div class="q-pt-xs">接口的名称，用于控制器与接口文档中</div></co-form-item>
 
-        <co-input dense outlined class="col-12 col-sm-6" form-label="前端Vue存放路径" v-model="formTable.path" :rules="[
+        <co-input class="col-12 col-sm-6" form-label="前端Vue存放路径" v-model="formTable.path" :rules="[
           val => (!!val) || '必填'
           ]"/>
         <co-form-item class="col-12 col-sm-6" ><div class="q-pt-xs">示例[d:\src\pages]，不存在会自动创建</div></co-form-item>
 
-        <co-input dense outlined class="col-12 col-sm-6" form-label="前端Api接口目录" v-model="formTable.apiPath" :rules="[
+        <co-input class="col-12 col-sm-6" form-label="前端Api接口目录" v-model="formTable.apiPath" :rules="[
           val => (!!val) || '必填'
           ]"/>
         <co-form-item class="col-12 col-sm-6" ><div class="q-pt-xs">示例[d:\src\api]，不存在会自动创建</div></co-form-item>
 
-        <co-input dense outlined class="col-12 col-sm-6" form-label="去表前缀" v-model="formTable.prefix" />
+        <co-input class="col-12 col-sm-6" form-label="去表前缀" v-model="formTable.prefix" />
         <co-form-item class="col-12 col-sm-6" ><div class="q-pt-xs">留空不去除表前缀</div></co-form-item>
 
         <co-tree-select
           ref="menu"
-          dense
-          outlined
           class="col-12 col-sm-6"
           tree-class="q-pa-sm"
           form-label="上级菜单"
@@ -190,19 +179,19 @@
           filter-key-equal="id"
           filter-placeholder="名称、拼音首字母"
           clearable
-        >
-          <!--
-          <template v-slot:append><q-icon name="keyboard_arrow_down"/></template>
-          -->
-        </co-tree-select>
+        />
         <co-form-item class="col-12 col-sm-6" ><div class="q-pt-xs">用于得到创建菜单的sql，请在XxxController.java中查看sql</div></co-form-item>
 
-        <co-option-group class="col-12 col-sm-6" form-label="是否覆盖" v-model="formTable.cover" inline
-          :options="[
-            {label: '是', value: true},
-            {label: '否', value: false}
-          ]"
-        />
+        <co-field class="col-12 col-sm-6" form-label="是否覆盖">
+          <template v-slot:control>
+            <co-option-group v-model="formTable.cover" inline
+              :options="[
+                {label: '是', value: true},
+                {label: '否', value: false}
+              ]"
+            />
+          </template>
+        </co-field>
         <co-form-item class="col-12 col-sm-6" ><div class="q-pt-xs">谨防误操作，请慎重选择</div></co-form-item>
 
       </co-form>

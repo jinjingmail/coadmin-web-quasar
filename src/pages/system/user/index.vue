@@ -4,7 +4,7 @@
 <template>
   <div >
     <co-dialog title="查找" no-max ref="search" @before-hide="filterTable=''" @show="$refs.findInCurrentPage.focus()">
-      <co-input ref="findInCurrentPage" dense style="width:180px" placeholder="在当前页查找" outlined v-model="filterTable" clearable class="q-mx-sm q-mt-none q-mb-sm"/>
+      <co-input ref="findInCurrentPage" style="width:180px" placeholder="在当前页查找" outlined v-model="filterTable" clearable class="q-mx-sm q-mt-none q-mb-sm"/>
     </co-dialog>
     <co-dialog
       ref="formDialog"
@@ -19,38 +19,41 @@
         label-width="small"
         label-align="right"
         class="q-pa-md row q-col-gutter-x-xl q-col-gutter-y-md">
-          <co-form-item dense class="col-12" form-label="ID" v-if="form.id">
-            <div class="q-pt-sm">{{form.id}}</div>
-          </co-form-item>
-          <co-input dense class="col-12" form-label="用户名" v-model="form.username" :disable="!!crud.status.view" :rules="[
+          <co-field class="col-12" form-label="ID" borderless v-if="form.id">
+            <template v-slot:control>{{form.id}}</template>
+          </co-field>
+          <co-input class="col-12" form-label="用户名" v-model="form.username" :disable="!!crud.status.view" :rules="[
               val => (!!val) || '必填'
               ]"/>
-          <co-input dense class="col-12 col-sm-6" form-label="电话" v-model.number="form.phone" :disable="!!crud.status.view"/>
-          <co-input dense class="col-12 col-sm-6" form-label="邮箱" v-model.number="form.email" :disable="!!crud.status.view"/>
-          <co-option-group
-            class="col-12 col-sm-6"
-            dense
-            form-label="性别"
-            v-model="form.gender"
-            :options="dict.gender"
-            :disable="!!crud.status.view"
-            inline
-            type="radio"
-          />
-          <co-option-group
-            class="col-12 col-sm-6"
-            dense
-            form-label="状态"
-            v-model="form.enabled"
-            value-to-string
-            :options="dict.user_status"
-            :disable="!!crud.status.view"
-            inline
-            type="radio"
-          />
+          <co-input class="col-12 col-sm-6" form-label="电话" v-model.number="form.phone" :disable="!!crud.status.view"/>
+          <co-input class="col-12 col-sm-6" form-label="邮箱" v-model.number="form.email" :disable="!!crud.status.view"/>
+          <co-field class="col-12 col-sm-6" form-label="性别">
+            <template v-slot:control>
+              <co-option-group
+                v-model="form.gender"
+                :options="dict.gender"
+                :disable="!!crud.status.view"
+                inline
+                type="radio"
+              />
+            </template>
+          </co-field>
+
+          <co-field class="col-12 col-sm-6" form-label="状态">
+            <template v-slot:control>
+              <co-option-group
+                v-model="form.enabled"
+                value-to-string
+                :options="dict.user_status"
+                :disable="!!crud.status.view"
+                inline
+                type="radio"
+              />
+            </template>
+          </co-field>
+
           <co-select
             class="col-12"
-            dense
             form-label="岗位"
             option-value="id"
             option-label="name"
@@ -58,7 +61,6 @@
             no-filter
             :options="jobDatas"
             :disable="!!crud.status.view"
-            clearable
             use-chips
             multiple
             emit-value
@@ -69,7 +71,6 @@
           />
           <co-tree-select
             class="col-12"
-            dense
             tree-class="q-pa-sm"
             form-label="机构"
             :nodes="deptDatas"
@@ -81,7 +82,6 @@
             filter-key-like="nameLetter"
             filter-key-equal="id"
             filter-placeholder="名称、拼音首字母"
-            clearable
             :disable="!!crud.status.view"
             :rules="[
               val => (!!val) || '必填'
@@ -89,7 +89,6 @@
           />
           <co-select
             class="col-12"
-            dense
             form-label="角色"
             option-value="id"
             option-label="name"
@@ -109,8 +108,8 @@
           />
       </co-form>
       <q-card-actions class="q-pa-md" align="right">
-        <q-btn dense label="取消" flat v-close-popup/>
-        <q-btn dense label="保存" color="primary" v-if="!crud.status.view" @click="crud.submitCU"
+        <co-btn label="取消" flat v-close-popup/>
+        <co-btn label="保存" color="primary" v-if="!crud.status.view" @click="crud.submitCU"
           :loading="crud.status.cu === crud.STATUS_PROCESSING" :disable="crud.status.cu === crud.STATUS_PROCESSING"/>
       </q-card-actions>
     </co-dialog>
@@ -159,7 +158,6 @@
           ref="table"
           row-key="id"
           :class="$q.screen.gt.xs?'q-ml-xs':''"
-          dense
           :data="crud.data"
           :columns="crud.columns"
           :visible-columns="crud.visibleColumns"
@@ -172,7 +170,7 @@
         >
           <template v-slot:top-right="props">
             <div class='row q-col-gutter-x-sm q-col-gutter-y-xs q-pa-xs full-width'>
-              <co-input dense class='col-auto'
+              <co-input class='col-auto'
                 label-slot
                 filled
                 v-model="query.blurry" content-style="width:200px"
@@ -186,8 +184,6 @@
               </co-input>
               <co-select
                 class="col-auto"
-                dense
-                options-dense
                 filled
                 label-slot
                 form-label-style="margin-top:10px"
@@ -210,19 +206,19 @@
                 </template>
               </co-select>
               <div class='col-auto'>
-                <q-btn dense padding="xs sm" color="primary" icon="search" @click="crud.toQuery()" />
+                <co-btn color="primary" icon="search" @click="crud.toQuery()" />
               </div>
               <q-space/>
-              <crud-operation dense :permission="permission" />
+              <crud-operation :permission="permission" no-label/>
               <div class="col-auto">
-                <q-btn-dropdown dense color="primary" class="btn-dropdown-hide-droparrow" icon="apps" auto-close>
-                  <crud-more dense :tableSlotTopProps="props">
+                <co-btn-dropdown color="primary" class="btn-dropdown-hide-droparrow" icon="apps" auto-close>
+                  <crud-more :tableSlotTopProps="props">
                     <template v-slot:start>
-                      <q-btn dense flat align="left" label="在当前页查找" icon="find_in_page" @click.native="$refs.search.show()" />
+                      <co-btn flat align="left" label="在当前页查找" icon="find_in_page" @click.native="$refs.search.show()" />
                       <q-separator/>
                     </template>
                   </crud-more>
-                </q-btn-dropdown>
+                </co-btn-dropdown>
               </div>
             </div>
           </template>
@@ -235,7 +231,7 @@
 
           <template v-slot:body-cell-action="props">
             <q-td key="action" :props="props">
-              <crud-row dense flat no-icon
+              <crud-row flat no-icon
                 :type="$q.screen.gt.xs?'button':'menu'"
                 :data="props.row"
                 no-add
@@ -268,12 +264,7 @@ import { getDepts } from '@/api/system/dept'
 import { getAll, getLevel } from '@/api/system/role'
 import { getAllJob } from '@/api/system/job'
 
-/*
-import { Store } from '@/store'
-const gDict = Store.getters['permission/dict']
-function getDictLabel(dict, value) {
-  return gDict.label[dict][value]
-}*/
+import { setDenseMode } from '@/default-setting'
 
 const defaultForm = { id: null, username: null, nickName: null, gender: null, email: null, phone: null, enabled: 'false', roles: [], jobs: [], depts: [] }
 const visibleColumns = ['username', 'gender', 'enabled', 'createTime', 'action']
@@ -320,6 +311,7 @@ export default {
     ])
   },
   methods: {
+    setDenseMode,
     init () {
       // TODO 这些数据只有修改或新增用户才用到，所以考虑延迟加载或异步加载
       this.getDeptDatas()

@@ -4,7 +4,7 @@
 <template>
   <div >
     <co-dialog title="查找" no-max seamless ref="search" @before-hide="filterTable=''">
-      <q-input placeholder="在当前页查找" dense outlined v-model="filterTable" clearable class="q-mx-sm q-mt-none q-mb-sm"/>
+      <co-input placeholder="在当前页查找" outlined v-model="filterTable" clearable class="q-mx-sm q-mt-none q-mb-sm"/>
     </co-dialog>
 
     <co-table
@@ -35,21 +35,21 @@
             @clear="crud.toQuery()"
           />
           <div>
-            <q-btn dense padding="xs sm" color="primary" icon="search" @click="crud.toQuery()" />
+            <co-btn color="primary" icon="search" @click="crud.toQuery()" />
           </div>
 
           <q-space/>
-          <crud-operation dense :permission="permission" no-add no-view no-edit label-del="强退" icon-del="exit_to_app"
+          <crud-operation :permission="permission" no-add no-view no-edit label-del="强退" icon-del="exit_to_app"
             msg-del="强制退出登录这些用户？"/>
           <div>
-            <q-btn-dropdown dense color="primary" class="btn-dropdown-hide-droparrow" icon="apps" auto-close>
-              <crud-more dense :tableSlotTopProps="props">
+            <co-btn-dropdown color="primary" class="btn-dropdown-hide-droparrow" icon="apps" auto-close>
+              <crud-more :tableSlotTopProps="props">
                 <template v-slot:start>
-                  <q-btn dense flat align="left" label="在当前页查找" icon="find_in_page" @click.native="$refs.search.show()" />
+                  <co-btn flat align="left" label="在当前页查找" icon="find_in_page" @click.native="$refs.search.show()" />
                   <q-separator/>
                 </template>
               </crud-more>
-            </q-btn-dropdown>
+            </co-btn-dropdown>
           </div>
         </div>
       </template>
@@ -62,7 +62,7 @@
 
       <template v-slot:body-cell-action="props">
         <q-td key="action" :props="props">
-          <crud-row dense flat no-icon
+          <crud-row flat no-icon
             type="button"
             :data="props.row"
             no-add no-edit no-view
@@ -75,7 +75,7 @@
       </template>
 
       <template v-slot:pagination>
-        <crud-pagination dense/>
+        <crud-pagination />
       </template>
 
     </co-table>

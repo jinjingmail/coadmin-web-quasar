@@ -10,7 +10,6 @@
     <co-table
       ref="table"
       row-key="id"
-      dense
       :data="crud.data"
       :columns="crud.columns"
       :visible-columns="crud.visibleColumns"
@@ -21,7 +20,6 @@
         <div class='row q-col-gutter-x-sm q-col-gutter-y-xs q-pa-xs full-width'>
           <co-input
             v-model="query.blurry"
-            dense
             placeholder="ID、任务名、执行方法"
             content-style="width:250px"
             clearable
@@ -30,10 +28,9 @@
           />
           <co-date-select
             class="col-auto"
-            dense
             placeholder="创建时间"
             v-model="query.createTime"
-            content-style="width:200px"
+            content-style="width:240px"
             :default-time="[' 00:00:00', ' 23:59:59']"
             clearable
             @input="crud.toQuery()"
@@ -41,9 +38,8 @@
           />
           <co-select
             class="col-auto"
-            dense
             placeholder="执行结果"
-            content-style="width:90px"
+            content-style="width:120px"
             use-input
             hide-selected
             fill-input
@@ -56,14 +52,14 @@
             map-options
           />
           <div class='col-auto'>
-            <q-btn dense padding="xs sm" color="primary" icon="search" @click="crud.toQuery()" />
+            <co-btn color="primary" icon="search" @click="crud.toQuery()" />
           </div>
         </div>
       </template>
 
       <template v-slot:body-cell-exceptionDetail="props">
         <q-td key="exceptionDetail" :props="props">
-          <q-btn v-if="!props.row.isSuccess" label="查看" padding="xs sm" size="sm" dense color="primary"
+          <co-btn v-if="!props.row.isSuccess" label="查看" padding="xs sm" size="sm" color="primary"
             @click="$refs.exceptionLogDialog.show()"
           >
             <co-dialog
@@ -75,11 +71,11 @@
                 <div class="text-body2">{{props.row.exceptionDetail}}</div>
               </q-card-section>
               <q-card-actions align="right">
-                <q-btn dense label="关闭" flat v-close-popup />
+                <co-btn label="关闭" flat v-close-popup />
               </q-card-actions>
             </co-dialog>
 
-          </q-btn>
+          </co-btn>
         </q-td>
       </template>
 
@@ -90,7 +86,7 @@
       </template>
 
       <template v-slot:pagination>
-        <crud-pagination dense no-persistence-page-size/>
+        <crud-pagination  no-persistence-page-size/>
       </template>
 
     </co-table>

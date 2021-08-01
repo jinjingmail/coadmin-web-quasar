@@ -5,13 +5,13 @@
       label-width="small"
       label-align="right"
       class="q-pa-md row q-col-gutter-x-xl q-col-gutter-y-md">
-      <co-input dense class="col-12" form-label="商品名称" v-model="form.subject" :rules="[
+      <co-input class="col-12" form-label="商品名称" v-model="form.subject" :rules="[
         val => (!!val) || '必填'
         ]"/>
-      <co-input dense class="col-12" form-label="商品价格" v-model="form.totalAmount" :rules="[
+      <co-input class="col-12" form-label="商品价格" v-model="form.totalAmount" :rules="[
         val => (!!val) || '必填'
         ]"/>
-      <co-input dense class="col-12" form-label="商品描述" v-model="form.body" :rules="[
+      <co-input class="col-12" form-label="商品描述" v-model="form.body" :rules="[
         val => (!!val) || '必填'
         ]"/>
       <co-form-item class="col-12" form-label=" ">

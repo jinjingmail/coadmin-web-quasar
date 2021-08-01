@@ -4,7 +4,7 @@
 <template>
   <div >
     <co-dialog title="查找" no-max seamless ref="search" @before-hide="filterTable=''">
-      <q-input placeholder="在当前页查找" dense outlined v-model="filterTable" clearable class="q-mx-sm q-mt-none q-mb-sm"/>
+      <co-input placeholder="在当前页查找" outlined v-model="filterTable" clearable class="q-mx-sm q-mt-none q-mb-sm"/>
     </co-dialog>
 
     <co-dialog
@@ -20,36 +20,39 @@
         label-width="medium"
         label-align="right"
         class="q-pa-md row q-col-gutter-x-xl q-col-gutter-y-md">
-        <co-input dense class="col-12" form-label="Access Key" v-model="configForm.accessKey" :rules="[
+        <co-input class="col-12" form-label="Access Key" v-model="configForm.accessKey" :rules="[
           val => (!!val) || '必填'
           ]"/>
-        <co-input dense class="col-12" form-label="Secret Key" v-model="configForm.secretKey" :rules="[
+        <co-input class="col-12" form-label="Secret Key" v-model="configForm.secretKey" :rules="[
           val => (!!val) || '必填'
           ]"/>
-        <co-input dense class="col-12" form-label="空间名称" v-model="configForm.bucket" :rules="[
+        <co-input class="col-12" form-label="空间名称" v-model="configForm.bucket" :rules="[
           val => (!!val) || '必填'
           ]"/>
-        <co-input dense class="col-12" form-label="外链域名" v-model="configForm.host" :rules="[
+        <co-input class="col-12" form-label="外链域名" v-model="configForm.host" :rules="[
           val => (!!val) || '必填'
           ]"/>
         <co-select
-          dense
           class="col-12"
           form-label="存储区域"
           v-model="configForm.zone"
           no-filter
           :options="['华东', '华北', '华南', '北美', '东南亚']"
         />
-        <co-option-group dense class="col-12" form-label="空间类型" v-model="configForm.type" inline
-          :options="[
-            {label: '公开', value: '公开'},
-            {label: '私有', value: '私有'}
-          ]"
-        />
+        <co-field class="col-12" form-label="空间类型" >
+          <template v-slot:control>
+            <co-option-group v-model="configForm.type" inline
+              :options="[
+                {label: '公开', value: '公开'},
+                {label: '私有', value: '私有'}
+              ]"
+            />
+          </template>
+        </co-field>
       </co-form>
       <q-card-actions class="q-pa-md" align="right">
-        <q-btn dense label="取消" flat v-close-popup/>
-        <q-btn dense label="保存" color="primary" @click="doSaveConfig"/>
+        <co-btn label="取消" flat v-close-popup/>
+        <co-btn label="保存" color="primary" @click="doSaveConfig"/>
       </q-card-actions>
     </co-dialog>
 
@@ -78,7 +81,7 @@
         <pre class="text-negative">{{rejectedReason}}</pre>
       </div>
       <q-card-actions class="q-pa-md" align="right">
-        <q-btn dense label="取消" flat v-close-popup/>
+        <co-btn label="取消" flat v-close-popup/>
       </q-card-actions>
     </co-dialog>
 
@@ -104,8 +107,8 @@
               ]"/>
       </co-form>
       <q-card-actions class="q-pa-md" align="right">
-        <q-btn dense label="取消" flat v-close-popup/>
-        <q-btn dense label="保存" color="primary" v-if="!crud.status.view" @click="crud.submitCU"
+        <co-btn label="取消" flat v-close-popup/>
+        <co-btn label="保存" color="primary" v-if="!crud.status.view" @click="crud.submitCU"
           :loading="crud.status.cu === crud.STATUS_PROCESSING" :disable="crud.status.cu === crud.STATUS_PROCESSING"/>
       </q-card-actions>
     </co-dialog>
@@ -113,7 +116,6 @@
     <co-table
       ref="table"
       row-key="id"
-      dense
       flat
       :data="crud.data"
       :columns="crud.columns"
@@ -129,7 +131,6 @@
         <div class='row q-col-gutter-x-sm q-col-gutter-y-xs q-pa-xs full-width'>
 
           <co-input
-            dense
             v-model="query.blurry"
             placeholder="模糊搜索"
             content-style="width:200px"
@@ -138,7 +139,6 @@
             @clear="crud.toQuery()"
           />
           <co-date-select
-            dense
             class="col-auto"
             placeholder="更新时间"
             v-model="query.updateTime"
@@ -149,25 +149,25 @@
             range
           />
           <div>
-            <q-btn color="primary" icon="search" @click="crud.toQuery()" />
+            <co-btn color="primary" icon="search" @click="crud.toQuery()" />
           </div>
           <q-space/>
 
           <crud-operation :permission="permission" no-view label-add="上传" icon-add="cloud_upload">
             <template v-slot:start>
-              <q-btn color="secondary" label="同步" icon="search" @click="synchronize"/>
-              <q-btn color="secondary" label="配置" icon="search" @click="$refs.configDialog.show()"/>
+              <co-btn color="secondary" label="同步" icon="search" @click="synchronize"/>
+              <co-btn color="secondary" label="配置" icon="search" @click="$refs.configDialog.show()"/>
             </template>
           </crud-operation>
           <div>
-            <q-btn-dropdown color="primary" class="btn-dropdown-hide-droparrow" icon="apps" auto-close>
-              <crud-more dense :tableSlotTopProps="props">
+            <co-btn-dropdown color="primary" class="btn-dropdown-hide-droparrow" icon="apps" auto-close>
+              <crud-more :tableSlotTopProps="props">
                 <template v-slot:start>
-                  <q-btn dense flat align="left" label="在当前页查找" icon="find_in_page" @click.native="$refs.search.show()" />
+                  <co-btn flat align="left" label="在当前页查找" icon="find_in_page" @click.native="$refs.search.show()" />
                   <q-separator/>
                 </template>
               </crud-more>
-            </q-btn-dropdown>
+            </co-btn-dropdown>
           </div>
         </div>
       </template>
@@ -188,7 +188,7 @@
 
       <template v-slot:body-cell-action="props">
         <q-td :props="props">
-          <crud-row dense flat no-icon
+          <crud-row flat no-icon
             :type="$q.screen.gt.xs?'button':'menu'"
             :data="props.row"
             no-add
@@ -198,7 +198,7 @@
       </template>
 
       <template v-slot:pagination>
-        <crud-pagination dense/>
+        <crud-pagination />
       </template>
 
     </co-table>
