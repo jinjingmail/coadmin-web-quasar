@@ -18,7 +18,7 @@
         ref="form"
         label-width="small"
         label-align="right"
-        class="q-pa-md row q-col-gutter-x-xl q-col-gutter-y-md">
+        class="q-pa-md row q-col-gutter-x-md q-col-gutter-y-md">
           <co-field class="col-12" form-label="ID" borderless v-if="form.id">
             <template v-slot:control>{{form.id}}</template>
           </co-field>
@@ -33,8 +33,8 @@
                 v-model="form.gender"
                 :options="dict.gender"
                 :disable="!!crud.status.view"
-                inline
                 type="radio"
+                inline
               />
             </template>
           </co-field>
@@ -208,8 +208,11 @@
               <div class='col-auto'>
                 <co-btn color="primary" icon="search" @click="crud.toQuery()" />
               </div>
+              <div class="col-auto">
+                <co-btn icon="check" @click="setDenseMode(true)"/>
+              </div>
               <q-space/>
-              <crud-operation :permission="permission" no-label/>
+              <crud-operation :permission="permission" no-label no-view no-edit/>
               <div class="col-auto">
                 <co-btn-dropdown color="primary" class="btn-dropdown-hide-droparrow" icon="apps" auto-close>
                   <crud-more :tableSlotTopProps="props">
@@ -264,7 +267,7 @@ import { getDepts } from '@/api/system/dept'
 import { getAll, getLevel } from '@/api/system/role'
 import { getAllJob } from '@/api/system/job'
 
-import { setDenseMode } from '@/default-setting'
+import Setting from '@/default-setting'
 
 const defaultForm = { id: null, username: null, nickName: null, gender: null, email: null, phone: null, enabled: 'false', roles: [], jobs: [], depts: [] }
 const visibleColumns = ['username', 'gender', 'enabled', 'createTime', 'action']
@@ -311,7 +314,12 @@ export default {
     ])
   },
   methods: {
-    setDenseMode,
+    setDenseMode(mode) {
+      console.log('setDensemode:' + mode + ', ' + Setting.denseMode)
+      Setting.denseMode = mode
+      console.log('setDensemode2:' + mode + ', ' + Setting.denseMode)
+      this.$router.go(0)
+    },
     init () {
       // TODO 这些数据只有修改或新增用户才用到，所以考虑延迟加载或异步加载
       this.getDeptDatas()

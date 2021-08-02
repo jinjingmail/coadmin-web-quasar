@@ -1,4 +1,4 @@
-import { LoadingBar } from 'quasar'
+//import { LoadingBar } from 'quasar'
 import { getToken } from '@/utils/auth' // getToken from cookie
 import { buildMenus } from '@/api/system/menu'
 import { filterAsyncRouter } from '@/store/module-permission'
@@ -10,16 +10,22 @@ const whiteList = ['/login']// no redirect whitelist
 // more info on params: https://quasar.dev/quasar-cli/cli-documentation/boot-files#Anatomy-of-a-boot-file
 export default ({ app, router, store, Vue }) => {
   // Check for protected and guest routes and perform checks
+
+  const denseMode = Setting.denseMode
+  const denseStore = store.getters['settings/denseMode']
+  console.log('denseMode=' + denseMode + ', denseStore=' + denseStore)
+  Setting.denseMode = denseStore
+
   router.beforeEach((to, from, next) => {
     if (to.meta.title) {
       document.title = to.meta.title + ' - ' + Setting.title
     }
-    LoadingBar.start()
+    //LoadingBar.start()
     if (getToken()) {
       // 已登录且要跳转的页面是登录页
       if (to.path === '/login') {
         next({ path: '/' })
-        LoadingBar.stop()
+        //LoadingBar.stop()
       } else {
         if (store.getters['user/roles'].length === 0) { // 判断当前用户是否已拉取完user_info信息
           store.dispatch('user/GetInfo').then(() => { // 拉取user_info
@@ -36,17 +42,17 @@ export default ({ app, router, store, Vue }) => {
           loadMenus(next, to)
         } else {
           next()
-          LoadingBar.stop()
+          //LoadingBar.stop()
         }
       }
     } else {
       /* has no token*/
       if (whiteList.includes(to.path)) { // 在免登录白名单，直接进入
         next()
-        LoadingBar.stop()
+        //LoadingBar.stop()
       } else {
         next(`/login?redirect=${to.fullPath}`) // 否则全部重定向到登录页
-        LoadingBar.stop()
+        //LoadingBar.stop()
       }
     }
   })
@@ -59,12 +65,12 @@ export default ({ app, router, store, Vue }) => {
       store.dispatch('permission/GenerateRoutes', asyncRouter).then(() => { // 存储路由
         router.addRoutes(asyncRouter) // 动态添加可访问路由表
         next({ ...to, replace: true })
-        LoadingBar.stop()
+        //LoadingBar.stop()
       })
     })
   }
 
   router.afterEach(() => {
-    LoadingBar.stop()
+    //LoadingBar.stop()
   })
 }

@@ -158,7 +158,7 @@ module.exports = {
    * co-select/co-input/co-field/co-date-select/co-tree-select design mode：
    *    支持 → standard / standout / filled / outlined / borderless
    */
-  designMode: 'standard',
+  designMode: 'outlined',
   /**
    * 设置输入框的外观为方形直角 或 圆形大圆弧：
    *    支持 → standard / square / rounded
