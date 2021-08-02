@@ -11,11 +11,6 @@ const whiteList = ['/login']// no redirect whitelist
 export default ({ app, router, store, Vue }) => {
   // Check for protected and guest routes and perform checks
 
-  const denseMode = Setting.denseMode
-  const denseStore = store.getters['settings/denseMode']
-  console.log('denseMode=' + denseMode + ', denseStore=' + denseStore)
-  Setting.denseMode = denseStore
-
   router.beforeEach((to, from, next) => {
     if (to.meta.title) {
       document.title = to.meta.title + ' - ' + Setting.title

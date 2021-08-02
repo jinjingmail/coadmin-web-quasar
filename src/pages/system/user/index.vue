@@ -208,9 +208,6 @@
               <div class='col-auto'>
                 <co-btn color="primary" icon="search" @click="crud.toQuery()" />
               </div>
-              <div class="col-auto">
-                <co-btn icon="check" @click="setDenseMode(true)"/>
-              </div>
               <q-space/>
               <crud-operation :permission="permission" no-label no-view no-edit/>
               <div class="col-auto">
@@ -267,8 +264,6 @@ import { getDepts } from '@/api/system/dept'
 import { getAll, getLevel } from '@/api/system/role'
 import { getAllJob } from '@/api/system/job'
 
-import Setting from '@/default-setting'
-
 const defaultForm = { id: null, username: null, nickName: null, gender: null, email: null, phone: null, enabled: 'false', roles: [], jobs: [], depts: [] }
 const visibleColumns = ['username', 'gender', 'enabled', 'createTime', 'action']
 const columns = [
@@ -314,12 +309,6 @@ export default {
     ])
   },
   methods: {
-    setDenseMode(mode) {
-      console.log('setDensemode:' + mode + ', ' + Setting.denseMode)
-      Setting.denseMode = mode
-      console.log('setDensemode2:' + mode + ', ' + Setting.denseMode)
-      this.$router.go(0)
-    },
     init () {
       // TODO 这些数据只有修改或新增用户才用到，所以考虑延迟加载或异步加载
       this.getDeptDatas()
