@@ -28,12 +28,14 @@
             class="login-form my-form q-mt-lg"
           >
             <co-input
+              :dense="false"
               class="q-mb-md"
               v-model.trim="loginForm.username"
               placeholder="账号 demo"
               :rules="[ val => val && val.length > 0 || '请输入用户账号']"
             />
             <co-input
+              :dense="false"
               class="q-mb-md"
               type="password"
               v-model.trim="loginForm.password"
@@ -41,6 +43,7 @@
               :rules="[ val => val && val.length > 0 || '请输入登录密码']"
             />
             <co-input
+              :dense="false"
               class="q-mb-md"
               v-model.trim="loginForm.code"
               placeholder="验证码"
@@ -58,6 +61,7 @@
             </div>
             <div class="q-mt-md column items-center">
               <co-btn
+                :dense="false"
                 label="登录"
                 type="submit"
                 color="primary"

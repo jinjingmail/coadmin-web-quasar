@@ -27,7 +27,9 @@
               ]"/>
           <co-input class="col-12 col-sm-6" form-label="电话" v-model.number="form.phone" :disable="!!crud.status.view"/>
           <co-input class="col-12 col-sm-6" form-label="邮箱" v-model.number="form.email" :disable="!!crud.status.view"/>
-          <co-field class="col-12 col-sm-6" form-label="性别">
+          <co-field class="col-12 col-sm-6" form-label="性别" :disable="!!crud.status.view" :value="form.gender" :rules="[
+              val => (val && val.length > 0) || '必填'
+              ]">
             <template v-slot:control>
               <co-option-group
                 v-model="form.gender"
@@ -39,7 +41,9 @@
             </template>
           </co-field>
 
-          <co-field class="col-12 col-sm-6" form-label="状态">
+          <co-field class="col-12 col-sm-6" form-label="状态" :disable="!!crud.status.view" :value="form.enabled" :rules="[
+              val => (val && val.length > 0) || '必填'
+              ]">
             <template v-slot:control>
               <co-option-group
                 v-model="form.enabled"
@@ -66,7 +70,7 @@
             emit-value
             map-options
             :rules="[
-              val => (!!val) || '必填'
+              val => (val && val.length > 0) || '必填'
               ]"
           />
           <co-tree-select
@@ -100,7 +104,7 @@
             :options="roleDatas"
             :disable="!!crud.status.view"
             :rules="[
-              val => (!!val) || '必填'
+              val => (val && val.length > 0) || '必填'
               ]"
             multiple
             emit-value

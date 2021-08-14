@@ -17,6 +17,7 @@ Quasar相比ElementUI，胜在可定制性上比较强，同时官网文档也�
 - 更多特性请查阅 Quasar-admin-template 项目
 
 ```bash
+TODO 添加 co-btn、q-btn-dropdown、q-btn-group、q-btn-toggle 的 design全局配置
 TODO co-dialog
   - TODO 可移动的dialog的标题栏图标显示移动图标
   - 标题栏添加可以折叠对话框内容的按钮

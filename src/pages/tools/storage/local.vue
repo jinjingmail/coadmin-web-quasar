@@ -67,7 +67,6 @@
     <co-table
       ref="table"
       row-key="id"
-      flat
       :data="crud.data"
       :columns="crud.columns"
       :visible-columns="crud.visibleColumns"

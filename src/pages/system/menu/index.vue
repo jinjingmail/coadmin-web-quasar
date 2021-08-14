@@ -62,10 +62,9 @@
             :rules="[
               val => (!!val) || '必填'
               ]"/>
-          <co-field class="col-12 col-md-4" form-label="外链菜单" borderless>
+          <co-field class="col-12 col-md-4" form-label="外链菜单" borderless v-if="form.type===0 || form.type===1">
             <template v-slot:control>
               <co-option-group v-model="form.iframe" inline
-                v-if="form.type===0 || form.type===1"
                 :disable="!!crud.status.view"
                 :options="[
                   {label: '是', value: true},
@@ -74,10 +73,9 @@
                 />
             </template>
           </co-field>
-          <co-field  class="col-12 col-md-4" form-label="菜单缓存" borderless>
+          <co-field  class="col-12 col-md-4" form-label="菜单缓存" borderless v-if="form.type===0 || form.type===1">
             <template v-slot:control>
               <co-option-group v-model="form.cache" inline
-                v-if="form.type===0 || form.type===1"
                 :disable="!!crud.status.view"
                 :options="[
                   {label: '是', value: true},
@@ -86,10 +84,9 @@
                 />
             </template>
           </co-field>
-          <co-field class="col-12 col-md-4" form-label="菜单可见" borderless>
+          <co-field class="col-12 col-md-4" form-label="菜单可见" borderless v-if="form.type===0 || form.type===1">
             <template v-slot:control>
               <co-option-group v-model="form.hidden" inline
-                v-if="form.type===0 || form.type===1"
                 :disable="!!crud.status.view"
                 :options="[
                   {label: '是', value: false},

@@ -1,7 +1,7 @@
 <template>
   <div>
     <co-dialog title="查找" no-max ref="search" @before-hide="crud.props.filterTable=''" @show="$refs.findInCurrentPage.focus()">
-      <co-input ref="findInCurrentPage" style="width:180px" placeholder="在当前页查找" outlined v-model="crud.props.filterTable" clearable class="q-mx-sm q-mt-none q-mb-sm"/>
+      <co-input  ref="findInCurrentPage" style="width:180px" placeholder="在当前页查找" outlined v-model="crud.props.filterTable" clearable class="q-mx-sm q-mt-none q-mb-sm"/>
     </co-dialog>
 
     <!-- 编辑表单对话框 -->
@@ -15,13 +15,13 @@
     >
       <co-form
         ref="form"
-        label-width="medium"
+        label-width="small"
         label-align="right"
-        class="q-pa-md row q-col-gutter-x-xl q-col-gutter-y-md">
+        class="q-pa-md row q-col-gutter-x-md q-col-gutter-y-md">
         <co-field class="col-12" form-label="ID" :value="form.id" readonly borderless v-show="form.id"/>
         <co-input class="col-12" form-label="姓名" v-model="form.name" :disable="!!crud.status.view"
               :rules="[ val => (!!val) || '必填' ]"/>
-        <co-field class="col-12" form-label="性别">
+        <co-field class="col-12" form-label="性别" :value="form.gender" borderless :rules="[ val => (!!val) || '必填' ]">
           <template v-slot:control>
             <co-option-group
                 v-model="form.gender"
@@ -76,6 +76,7 @@
               v-model="query.id"
               label="ID"
               content-style="width:160px"
+              @keyup.enter="crud.toQuery()"
           />
           <co-select
               v-model="query.gender"
@@ -98,20 +99,22 @@
               @input="crud.toQuery()"
               clearable
           />
-          <co-date-select
-              v-model="query.createTime"
-              label="创建时间"
-              content-style="width:240px"
-              range
-              :default-time="[' 00:00:00', ' 23:59:59']"
-              @input="crud.toQuery()"
-              clearable
-          />
           <!-- 点击“更多..”才显示的搜索项 -->
           <template v-if="crud.props.queryMore">
+            <co-date-select
+                v-model="query.createTime"
+                label="创建时间"
+                content-style="width:240px"
+                range
+                :default-time="['00:00:00', '23:59:59']"
+                edit-time
+                with-seconds
+                @input="crud.toQuery()"
+                clearable
+            />
           </template>
           <div>
-            <co-btn label="查询" color="primary" @click="crud.toQuery()" />
+            <co-btn icon="search" color="primary" @click="crud.toQuery()" />
             <co-btn label="重置" flat @click="crud.resetQuery()" />
             <co-btn :label="crud.props.queryMore?'«更少':'更多»'" flat @click="crud.props.queryMore = !crud.props.queryMore"/>
           </div>
@@ -121,7 +124,7 @@
       <template v-slot:top-right="props">
         <div class='row q-col-gutter-x-sm q-col-gutter-y-xs q-pa-xs full-width'>
           <!--如果想在工具栏加入更多按钮，可以使用插槽方式， 'start' or 'end'-->
-          <crud-operation :permission="permission" />
+          <crud-operation :permission="permission" no-label no-view no-edit/>
           <div>
             <co-btn-dropdown color="primary" class="btn-dropdown-hide-droparrow" icon="apps" auto-close>
               <crud-more :tableSlotTopProps="props">
@@ -138,8 +141,7 @@
       <template v-slot:body-cell-action="props">
         <q-td key="action" :props="props">
           <crud-row
-              flat
-              :type="$q.screen.gt.xs?'button':'menu'"
+              type="btn"
               :data="props.row"
               :permission="permission"
               no-add
