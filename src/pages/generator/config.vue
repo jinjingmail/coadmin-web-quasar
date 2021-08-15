@@ -28,13 +28,13 @@
             <co-input v-model="props.row.remark"/>
           </q-td>
           <q-td key="notNull" :props="props">
-            <q-checkbox v-model="props.row.notNull" />
+            <co-checkbox v-model="props.row.notNull" />
           </q-td>
           <q-td key="listShow" :props="props">
-            <q-checkbox v-model="props.row.listShow" />
+            <co-checkbox v-model="props.row.listShow" />
           </q-td>
           <q-td key="formShow" :props="props">
-            <q-checkbox v-model="props.row.formShow" />
+            <co-checkbox v-model="props.row.formShow" />
           </q-td>
           <q-td key="formType" :props="props">
             <co-select

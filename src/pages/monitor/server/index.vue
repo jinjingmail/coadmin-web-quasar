@@ -274,11 +274,11 @@ export default {
       if (!this.show) {
         this.$q.loading.show()
       }
-      initData(this.url, {}).then(data => {
+      initData(this.url, {}).then(res => {
         if (!this.show) {
           this.$q.loading.hide()
         }
-        this.data = data
+        this.data = res.data
         this.show = true
         if (this.cpuInfo.xAxis.data.length >= 8) {
           this.cpuInfo.xAxis.data.shift()
@@ -286,10 +286,10 @@ export default {
           this.cpuInfo.series[0].data.shift()
           this.memoryInfo.series[0].data.shift()
         }
-        this.cpuInfo.xAxis.data.push(data.time)
-        this.memoryInfo.xAxis.data.push(data.time)
-        this.cpuInfo.series[0].data.push(parseFloat(data.cpu.used))
-        this.memoryInfo.series[0].data.push(parseFloat(data.memory.usageRate))
+        this.cpuInfo.xAxis.data.push(res.data.time)
+        this.memoryInfo.xAxis.data.push(res.data.time)
+        this.cpuInfo.series[0].data.push(parseFloat(res.data.cpu.used))
+        this.memoryInfo.series[0].data.push(parseFloat(res.data.memory.usageRate))
       }).catch(err => {
         if (!this.show) {
           this.$q.loading.hide()

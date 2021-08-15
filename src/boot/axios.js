@@ -11,7 +11,10 @@ function notifyError(errorMsg, timeout) {
     message: errorMsg,
     timeout,
     position: 'bottom',
-    closeBtn: 'CLOSE'
+    actions: [
+      { label: '', color: 'yellow', handler: () => { /* ... */ } },
+      { label: '关闭', color: 'yellow', handler: () => { /* ... */ } }
+    ]
   })
 }
 

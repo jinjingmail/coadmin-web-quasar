@@ -1,7 +1,7 @@
 <template>
   <div>
     <co-dialog title="查找" no-max ref="search" @before-hide="crud.props.filterTable=''" @show="$refs.findInCurrentPage.focus()">
-      <co-input  ref="findInCurrentPage" style="width:180px" placeholder="在当前页查找" outlined v-model="crud.props.filterTable" clearable class="q-mx-sm q-mt-none q-mb-sm"/>
+      <co-input ref="findInCurrentPage" style="width:180px" placeholder="在当前页查找" outlined v-model="crud.props.filterTable" clearable class="q-mx-sm q-mt-none q-mb-sm"/>
     </co-dialog>
 
     <!-- 编辑表单对话框 -->
@@ -20,8 +20,8 @@
         class="q-pa-md row q-col-gutter-x-md q-col-gutter-y-md">
         <co-field class="col-12" form-label="ID" :value="form.id" readonly borderless v-show="form.id"/>
         <co-input class="col-12" form-label="姓名" v-model="form.name" :disable="!!crud.status.view"
-              :rules="[ val => (!!val) || '必填' ]"/>
-        <co-field class="col-12" form-label="性别" :value="form.gender" borderless :rules="[ val => (!!val) || '必填' ]">
+                  :rules="[ val => (!!val) || '必填' ]"/>
+        <co-field class="col-6" form-label="性别" :disable="!!crud.status.view" :value="form.gender" >
           <template v-slot:control>
             <co-option-group
                 v-model="form.gender"
@@ -34,7 +34,7 @@
           </template>
         </co-field>
         <co-date-select
-            class="col-12"
+            class="col-6"
             form-label="出生日期"
             :value="formatTime(form.birthday, '{y}-{m}-{d}')"
             @input="val => form.birthday=val"
@@ -45,7 +45,7 @@
         <co-field class="col-12" form-label="修改时间" :value="parseTime(form.updateTime, '{y}-{m}-{d} {h}:{i}:{s}')" readonly borderless v-show="form.updateTime"/>
         <co-field class="col-12" form-label="修改人" :value="form.updateBy" readonly borderless v-show="form.updateBy"/>
         <co-input class="col-12" form-label="备注" v-model="form.remarks" :disable="!!crud.status.view" autogrow
-              />
+                  />
       </co-form>
       <q-card-actions class="q-pa-md" align="right">
         <co-btn label="取消" flat v-close-popup/>
@@ -98,20 +98,21 @@
               content-style="width:160px"
               @input="crud.toQuery()"
               clearable
+              date-mask="YYYY-MM-DD"
+          />
+          <co-date-select
+              v-model="query.createTime"
+              label="创建时间"
+              content-style="width:230px"
+              range
+              edit-time
+              :default-time="['00:00:00', '23:59:59']"
+              date-mask="YYYY-MM-DD"
+              @input="crud.toQuery()"
+              clearable
           />
           <!-- 点击“更多..”才显示的搜索项 -->
           <template v-if="crud.props.queryMore">
-            <co-date-select
-                v-model="query.createTime"
-                label="创建时间"
-                content-style="width:240px"
-                range
-                :default-time="['00:00:00', '23:59:59']"
-                edit-time
-                with-seconds
-                @input="crud.toQuery()"
-                clearable
-            />
           </template>
           <div>
             <co-btn icon="search" color="primary" @click="crud.toQuery()" />
@@ -124,7 +125,11 @@
       <template v-slot:top-right="props">
         <div class='row q-col-gutter-x-sm q-col-gutter-y-xs q-pa-xs full-width'>
           <!--如果想在工具栏加入更多按钮，可以使用插槽方式， 'start' or 'end'-->
-          <crud-operation :permission="permission" no-label no-view no-edit/>
+          <crud-operation :permission="permission" no-label no-view no-edit>
+            <template v-slot:start>
+              <co-btn icon="add"/>
+            </template>
+          </crud-operation>
           <div>
             <co-btn-dropdown color="primary" class="btn-dropdown-hide-droparrow" icon="apps" auto-close>
               <crud-more :tableSlotTopProps="props">
@@ -146,6 +151,18 @@
               :permission="permission"
               no-add
               no-icon
+              action-start-menu
+              action-start-menu-color='green'
+              :action-start="[
+                {label:'导出', click: clickExport},
+                {label:'导出2', click: clickExport}
+              ]"
+              action-end-menu
+              action-end-menu-color='red'
+              :action-end="[
+                {label:'导出3', click: clickExport},
+                {label:'导出4', click: clickExport}
+              ]"
           />
         </q-td>
       </template>
@@ -216,6 +233,9 @@ export default {
   methods: {
     [CRUD.HOOK.beforeRefresh] () {
       console.log('testPerson CRUD.HOOK.beforeRefresh')
+    },
+    clickExport() {
+      console.log('export clicked')
     }
   }
 }

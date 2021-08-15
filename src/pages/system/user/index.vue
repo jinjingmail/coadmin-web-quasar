@@ -28,7 +28,7 @@
           <co-input class="col-12 col-sm-6" form-label="电话" v-model.number="form.phone" :disable="!!crud.status.view"/>
           <co-input class="col-12 col-sm-6" form-label="邮箱" v-model.number="form.email" :disable="!!crud.status.view"/>
           <co-field class="col-12 col-sm-6" form-label="性别" :disable="!!crud.status.view" :value="form.gender" :rules="[
-              val => (val && val.length > 0) || '必填'
+              val => (!!val) || '必填'
               ]">
             <template v-slot:control>
               <co-option-group
@@ -42,7 +42,7 @@
           </co-field>
 
           <co-field class="col-12 col-sm-6" form-label="状态" :disable="!!crud.status.view" :value="form.enabled" :rules="[
-              val => (val && val.length > 0) || '必填'
+              val => (!!val) || '必填'
               ]">
             <template v-slot:control>
               <co-option-group
@@ -176,7 +176,6 @@
             <div class='row q-col-gutter-x-sm q-col-gutter-y-xs q-pa-xs full-width'>
               <co-input class='col-auto'
                 label-slot
-                filled
                 v-model="query.blurry" content-style="width:200px"
                 clearable
                 @keyup.enter.native="crud.toQuery()"
@@ -188,7 +187,6 @@
               </co-input>
               <co-select
                 class="col-auto"
-                filled
                 label-slot
                 form-label-style="margin-top:10px"
                 content-style="width:120px"

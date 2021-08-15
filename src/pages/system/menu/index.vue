@@ -19,21 +19,11 @@
         label-width="small"
         label-align="right"
         class="q-pa-md row q-col-gutter-x-xl q-col-gutter-y-md">
-          <co-field class="col-12 col-sm-6" form-label="ID" borderless>
-            <template v-slot:control>{{form.id}}</template>
-          </co-field>
-          <co-field class="col-12 col-sm-6" form-label="菜单类型" borderless>
-            <template v-slot:control>
-              <co-option-group v-model="form.type" inline
-                :disable="!!crud.status.view"
-                :options="[
-                  {label: '目录', value: 0},
-                  {label: '菜单', value: 1},
-                  {label: '按钮', value: 2}
-                ]"
-              />
-            </template>
-          </co-field>
+          <co-input class="col-12 col-sm-6" form-label="菜单名称" v-model="form.title" key="title"
+            :disable="!!crud.status.view"
+            :rules="[
+              val => (!!val) || '必填'
+              ]"/>
           <co-tree-select class="col-12 col-sm-6" form-label="上级菜单" :disable="!!crud.status.view"
             :nodes="menuDatas"
             :selected.sync="form.pid"
@@ -46,6 +36,18 @@
             tree-class="q-pa-sm"
             selectable
           />
+          <co-field class="col-12 col-sm-6" form-label="菜单类型" :disable="!!crud.status.view">
+            <template v-slot:control>
+              <co-option-group v-model="form.type" inline
+                :disable="!!crud.status.view"
+                :options="[
+                  {label: '目录', value: 0},
+                  {label: '菜单', value: 1},
+                  {label: '按钮', value: 2}
+                ]"
+              />
+            </template>
+          </co-field>
           <co-input class="col-12 col-sm-6" form-label="排序" v-model.number="form.sort" type="number" :disable="!!crud.status.view" :rules="[
               val => (!!val) || '必填'
               ]"/>
@@ -57,11 +59,7 @@
               <q-btn icon="search" dense flat />
             </template>
           </co-input>
-          <co-input class="col-12 col-sm-6" form-label="菜单名称" v-model="form.title" key="title"
-            :disable="!!crud.status.view"
-            :rules="[
-              val => (!!val) || '必填'
-              ]"/>
+          <co-field class="col-12 col-sm-6" borderless v-if="form.type===0 || form.type===1"></co-field>
           <co-field class="col-12 col-md-4" form-label="外链菜单" borderless v-if="form.type===0 || form.type===1">
             <template v-slot:control>
               <co-option-group v-model="form.iframe" inline

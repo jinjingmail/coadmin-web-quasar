@@ -50,8 +50,8 @@
             class="col-auto"
             placeholder="创建时间"
             v-model="query.createTime"
-            content-style="width:260px"
-            :default-time="[' 00:00:00', ' 23:59:59']"
+            content-style="width:230px"
+            :default-time="['00:00:00', '23:59:59']"
             clearable
             @input="crud.toQuery()"
             range

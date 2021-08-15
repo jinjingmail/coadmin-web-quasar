@@ -129,7 +129,6 @@
                 v-model="query.enabled"
                 class="col-auto"
                 label="状态"
-                filled
                 content-style="width:120px"
                 :options="dict.dept_status"
                 no-filter

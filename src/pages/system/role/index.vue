@@ -78,7 +78,6 @@
             <div class='row q-col-gutter-x-sm q-col-gutter-y-xs q-pa-xs full-width'>
               <co-input class='col-auto'
                 label="ID、名称、描述"
-                filled
                 v-model="query.blurry" content-style="width:180px"
                 clearable
                 @keyup.enter.native="crud.toQuery()"
