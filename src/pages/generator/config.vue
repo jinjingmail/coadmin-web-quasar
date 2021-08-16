@@ -39,7 +39,6 @@
           <q-td key="formType" :props="props">
             <co-select
               v-model="props.row.formType"
-              borderless
               clearable
               emit-value
               map-options
@@ -58,7 +57,6 @@
           <q-td key="queryType" :props="props">
             <co-select
               v-model="props.row.queryType"
-              borderless
               clearable
               emit-value
               map-options
@@ -76,20 +74,19 @@
           <q-td key="dateAnnotation" :props="props">
             <co-select
               v-model="props.row.dateAnnotation"
-              borderless
               clearable
               emit-value
               map-options
               :options="[
-                {label:'自动创建时间', value:'CreationTimestamp'},
-                {label:'自动更新时间', value:'UpdateTimestamp'}
+                {label:'创建时自动填充', value:'CreationTimestamp'},
+                {label:'更新时自动填充', value:'UpdateTimestamp'},
+                {label:'创建或更新时自动填充', value:'CreationUpdate'}
               ]"
             />
           </q-td>
           <q-td key="dictName" :props="props">
             <co-select
               v-model="props.row.dictName"
-              borderless
               clearable
               option-value="name"
               option-label="description"
@@ -215,7 +212,7 @@ const columns = [
   { name: 'formShow', field: 'formShow', label: '表单', align: 'center' },
   { name: 'formType', field: 'formType', label: '表单类型', align: 'left', style: 'min-width: 160px' },
   { name: 'queryType', field: 'queryType', label: '查询方式', align: 'left', style: 'min-width: 160px' },
-  { name: 'dateAnnotation', field: 'dateAnnotation', label: '日期注解', align: 'left', style: 'min-width: 160px' },
+  { name: 'dateAnnotation', field: 'dateAnnotation', label: '自动填充', align: 'left', style: 'min-width: 160px' },
   { name: 'dictName', field: 'dictName', label: '关联字典', align: 'left', style: 'min-width: 160px' }
 ]
 
