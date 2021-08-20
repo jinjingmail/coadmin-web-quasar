@@ -169,7 +169,7 @@ import CrudOperation from '@crud/crud-operation'
 import CrudPagination from '@crud/crud-pagination'
 import CrudRow from '@crud/crud-row'
 import CrudMore from '@crud/crud-more'
-import CrudTestPerson from '@/api/test-person'
+import CrudTestPerson from '@/api/test/test-person'
 
 const defaultForm = { id: null, name: null, gender: null, birthday: null, createTime: null, createBy: null, updateTime: null, updateBy: null, remarks: null }
 
@@ -192,7 +192,7 @@ export default {
   name: 'TestPerson',
   components: { CrudOperation, CrudMore, CrudPagination, CrudRow },
   cruds() {
-    return CRUD({ columns, visibleColumns, title: '演示', idField: 'id', sort: ['id,desc'], url: 'api/test-person', crudMethod: { ...CrudTestPerson } })
+    return CRUD({ columns, visibleColumns, title: '演示', idField: 'id', sort: ['id,desc'], url: 'api/test/test-person', crudMethod: { ...CrudTestPerson } })
   },
   mixins: [presenter(), header(), form(defaultForm), crud()],
   data () {

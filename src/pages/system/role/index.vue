@@ -28,7 +28,8 @@
               val => (!!val) || '必填'
               ]"/>
           <co-input class="col-12" form-label="级别" v-model.number="form.level" type="number" :disable="!!crud.status.view" :rules="[
-              val => (!!val) || '必填'
+              val => required(val) || '必填',
+              val => between(val, 1, 9) || '1-9'
               ]"/>
           <co-field class="col-12" form-label="数据范围">
             <template v-slot:control>
@@ -151,6 +152,7 @@
 </template>
 
 <script>
+import { required, integer, between } from '@/utils/vuelidate'
 import { mapGetters } from 'vuex'
 import CRUD, { presenter, header, form, crud } from '@crud/crud'
 import CrudOperation from '@crud/crud-operation'
@@ -204,6 +206,9 @@ export default {
     ])
   },
   methods: {
+    required,
+    integer,
+    between,
     checkPermission,
     init () {
       this.getMenuDatas()

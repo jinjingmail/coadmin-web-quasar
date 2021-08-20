@@ -90,7 +90,7 @@ input:-ms-input-placeholder {
 .co-field {
   .q-radio__bg {
     top:10%;
-    left:0%;
+    left:10%;
     width:80%;
     height:80%;
   }
@@ -146,7 +146,9 @@ input:-ms-input-placeholder {
   .q-field__input {
     min-height: auto;
   }
-
+  .q-field__native, .q-field__prefix, .q-field__suffix, .q-field__input {
+    line-height: initial;
+  }
   &.q-textarea .q-field__control,
   &.q-textarea .q-field__native {
     min-height: 38px;

@@ -48,6 +48,7 @@
                 {label:'单选框', value:'Radio'},
                 {label:'复选框', value:'Checkbox'},
                 {label:'下拉框', value:'Select'},
+                {label:'开关', value:'Toggle'},
                 {label:'日期框', value:'Date'},
                 {label:'日期范围', value:'DateRange'},
                 {label:'纯显示', value:'showOnly'}
@@ -133,12 +134,17 @@
           ]"/>
         <co-form-item class="col-12 col-sm-6" ><div class="q-pt-xs">类上面的作者名称</div></co-form-item>
 
-        <co-input class="col-12 col-sm-6" form-label="模块名称" v-model="formTable.moduleName" :rules="[
+        <co-input class="col-12 col-sm-6" form-label="子模块名称" v-model="formTable.subModuleName" :rules="[
+          val => (!!val) || '必填'
+          ]"/>
+        <co-form-item class="col-12 col-sm-6" ><div class="q-pt-xs">比如 api/{子模块名称}/xxx</div></co-form-item>
+
+        <co-input class="col-12 col-sm-6" form-label="JAVA模块名称" v-model="formTable.moduleName" :rules="[
           val => (!!val) || '必填'
           ]"/>
         <co-form-item class="col-12 col-sm-6" ><div class="q-pt-xs">Java模块的名称，请选择项目中已存在的模块</div></co-form-item>
 
-        <co-input class="col-12 col-sm-6" form-label="至于包下" v-model="formTable.pack" :rules="[
+        <co-input class="col-12 col-sm-6" form-label="JAVA包名" v-model="formTable.pack" :rules="[
           val => (!!val) || '必填'
           ]"/>
         <co-form-item class="col-12 col-sm-6" ><div class="q-pt-xs">Java项目包的名称，生成的代码放到哪个包里面</div></co-form-item>
