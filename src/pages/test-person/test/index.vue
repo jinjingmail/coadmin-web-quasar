@@ -77,7 +77,7 @@
               v-model="query.id"
               label="ID"
               content-style="width:160px"
-              @keyup.enter="crud.toQuery()"
+              @change="crud.toQuery()"
           />
           <co-select
               v-model="query.gender"

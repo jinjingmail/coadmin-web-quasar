@@ -134,7 +134,7 @@
             placeholder="模糊搜索"
             content-style="width:200px"
             clearable
-            @keyup.enter.native="crud.toQuery()"
+            @change="crud.toQuery()"
             @clear="crud.toQuery()"
           />
           <co-date-select

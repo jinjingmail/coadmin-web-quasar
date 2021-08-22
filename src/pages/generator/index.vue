@@ -49,7 +49,7 @@
             placeholder="表名"
             v-model="query.name" content-style="width:180px"
             clearable
-            @keyup.enter.native="crud.toQuery()"
+            @change="crud.toQuery()"
             @clear="crud.toQuery()"
             />
           <div class='col-auto'>

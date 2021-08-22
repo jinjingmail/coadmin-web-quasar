@@ -125,11 +125,11 @@ export default {
 
     colorView: {
       type: String,
-      default: 'secondary'
+      default: 'blue-grey-5'
     },
     colorAdd: {
       type: String,
-      default: 'primary'
+      default: 'secondary'
     },
     colorEdit: {
       type: String,

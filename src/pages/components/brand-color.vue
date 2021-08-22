@@ -1,7 +1,7 @@
 <template>
   <div class="q-gutter-sm q-ma-none">
-    <q-btn round style="background-color:#1976D2"
-      @click="setBrand('#1976D2')" size="7px"/>
+    <q-btn round style="background-color:#2f54eb"
+      @click="setBrand('#2f54eb')" size="7px"/>
     <q-btn round style="background-color:brown"
       @click="setBrand('brown')" size="7px"/>
     <q-btn round style="background-color:teal"

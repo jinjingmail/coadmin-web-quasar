@@ -81,7 +81,7 @@
                 label="ID、名称、描述"
                 v-model="query.blurry" content-style="width:180px"
                 clearable
-                @keyup.enter.native="crud.toQuery()"
+                @change="crud.toQuery()"
                 @clear="crud.toQuery()"
                 />
               <div class='col-auto'>
@@ -104,7 +104,7 @@
 
           <template v-slot:body-cell-action="props">
             <q-td :props="props">
-              <crud-row flat no-add
+              <crud-row no-add
                 :type="$q.screen.gt.xs?'button':'menu'"
                 :data="props.row"
                 :data-add="{sort: props.row.sort+10}"

@@ -23,7 +23,7 @@
             placeholder="ID、任务名、执行方法"
             content-style="width:250px"
             clearable
-            @keyup.enter.native="crud.toQuery()"
+            @change="crud.toQuery()"
             @clear="crud.toQuery()"
           />
           <co-date-select

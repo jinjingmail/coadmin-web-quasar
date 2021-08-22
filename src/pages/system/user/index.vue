@@ -178,7 +178,7 @@
                 label-slot
                 v-model="query.blurry" content-style="width:200px"
                 clearable
-                @keyup.enter.native="crud.toQuery()"
+                @change="crud.toQuery()"
                 @clear="crud.toQuery()"
               >
                 <template v-slot:label>

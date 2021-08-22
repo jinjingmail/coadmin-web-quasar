@@ -310,7 +310,7 @@ export default {
     },
     colorAdd: {
       type: String,
-      default: 'primary'
+      default: 'secondary'
     },
     labelMenu: {
       type: String,

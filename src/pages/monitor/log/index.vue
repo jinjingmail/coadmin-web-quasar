@@ -43,7 +43,7 @@
             placeholder="用户名、描述、地址、IP、请求方法、参数"
             content-style="width:300px"
             clearable
-            @keyup.enter.native="crud.toQuery()"
+            @change="crud.toQuery()"
             @clear="crud.toQuery()"
           />
           <co-date-select
