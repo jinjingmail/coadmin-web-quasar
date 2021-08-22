@@ -9,6 +9,7 @@
       :title="crud.status.title"
       no-backdrop-dismiss
       @before-hide="crud.cancelCU"
+      @before-show="form.dictId=dictId"
       card-style="width:600px; max-width:95vw;"
     >
       <co-form
@@ -16,13 +17,14 @@
         label-width="small"
         label-align="right"
         class="q-pa-md row q-col-gutter-x-xl q-col-gutter-y-md">
-          <co-form-item class="col-12" form-label="ID" v-if="form.id">
-            <div class="q-pt-sm">{{form.id}}</div>
-          </co-form-item>
-          <co-input class="col-12" form-label="标签" v-model="form.label" :disable="!!crud.status.view" :rules="[
+          <co-field class="col-12" form-label="ID" :value="form.id" borderless v-if="form.id">
+          </co-field>
+          <co-field class="col-12" form-label="DictId" :value="form.dictId" borderless>
+          </co-field>
+          <co-input class="col-12" form-label="值" v-model="form.value" :disable="!!crud.status.view" :rules="[
               val => (!!val) || '必填'
               ]"/>
-          <co-input class="col-12" form-label="值" v-model="form.value" :disable="!!crud.status.view" :rules="[
+          <co-input class="col-12" form-label="描述" v-model="form.label" :disable="!!crud.status.view" :rules="[
               val => (!!val) || '必填'
               ]"/>
           <co-input class="col-12" form-label="排序" v-model="form.sort" :disable="!!crud.status.view" />
@@ -64,7 +66,7 @@
 
       <template v-slot:body-cell-action="props">
         <q-td :props="props">
-          <crud-row flat no-icon :data="props.row" :data-add="{sort: props.row.sort+10}"  :permission="permission" :type="$q.screen.gt.xs?'button':'menu'"/>
+          <crud-row flat no-label :data="props.row" :data-add="{sort: props.row.sort+10}"  :permission="permission" :type="$q.screen.gt.xs?'button':'menu'"/>
         </q-td>
       </template>
 
@@ -86,19 +88,19 @@ import CrudRow from '@crud/crud-row'
 import CrudMore from '@crud/crud-more'
 import crudDictDetail from '@/api/system/dictDetail'
 
-const defaultForm = { id: null, label: null, value: null, sort: 10 }
+const defaultForm = { id: null, dictId: null, label: null, value: null, sort: 10 }
 const visibleColumns = ['label', 'value', 'sort', 'action']
 const columns = [
   { name: 'id', field: 'id', label: 'ID' },
+  { name: 'value', label: '值', field: 'value', align: 'left' },
   {
     name: 'label',
     field: 'label',
-    label: '标签',
+    label: '描述',
     required: true,
     align: 'left',
     sortable: true
   },
-  { name: 'value', label: '值', field: 'value', align: 'left' },
   { name: 'sort', label: '排序', field: 'sort', sortable: true },
   { name: 'action', label: '操作', align: 'center' }
 ]
@@ -123,7 +125,8 @@ export default {
     presenter(),
     header(),
     form(function () {
-      return Object.assign({ dict: { id: this.dictId } }, defaultForm)
+      // return Object.assign(defaultForm, { dict: { id: this.dictId } })
+      return defaultForm
     })
   ],
   data () {

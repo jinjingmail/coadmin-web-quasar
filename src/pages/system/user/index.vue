@@ -174,6 +174,7 @@
         >
           <template v-slot:top-right="props">
             <div class='row q-col-gutter-x-sm q-col-gutter-y-xs q-pa-xs full-width'>
+              <co-toggle label="状态" v-model="query.enabled" toggle-indeterminate @input="crud.toQuery()"/>
               <co-input class='col-auto'
                 label-slot
                 v-model="query.blurry" content-style="width:200px"
@@ -185,28 +186,6 @@
                   <span style="color: var(--q-color-primary)">ID、用户名、电话、邮箱</span>
                 </template>
               </co-input>
-              <co-select
-                class="col-auto"
-                label-slot
-                form-label-style="margin-top:10px"
-                content-style="width:120px"
-                v-model="query.enabled"
-                transition-show="flip-up"
-                transition-hide="flip-down"
-                use-input
-                hide-selected
-                fill-input
-                no-filter
-                :options="dict.user_status"
-                @input="crud.toQuery()"
-                clearable
-                emit-value
-                map-options
-              >
-                <template v-slot:label>
-                  <span style="color: var(--q-color-primary)">状态</span>
-                </template>
-              </co-select>
               <div class='col-auto'>
                 <co-btn color="primary" icon="search" @click="crud.toQuery()" />
               </div>
@@ -255,7 +234,6 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { getDictLabel } from '@/utils/store'
 import CRUD, { presenter, header, form, crud } from '@crud/crud'
 import CrudOperation from '@crud/crud-operation'
 import CrudPagination from '@crud/crud-pagination'
@@ -272,7 +250,7 @@ const columns = [
   { name: 'id', field: 'id', label: 'ID' },
   { name: 'username', field: 'username', label: '用户名', required: true, align: 'left' },
   { name: 'gender', field: 'gender', label: '性别', align: 'center' },
-  { name: 'enabled', field: 'enabled', label: '状态', align: 'center', format: val => getDictLabel('user_status', val) },
+  { name: 'enabled', field: 'enabled', label: '状态', align: 'center', format: val => val ? '启用' : '禁用' },
   { name: 'phone', field: 'phone', label: '电话', align: 'left' },
   { name: 'email', field: 'email', label: '邮箱', align: 'left' },
   { name: 'createTime', field: 'createTime', label: '创建时间', align: 'left' },

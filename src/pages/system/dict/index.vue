@@ -16,9 +16,8 @@
         label-width="small"
         label-align="right"
         class="q-pa-md row q-col-gutter-x-xl q-col-gutter-y-md">
-          <co-form-item class="col-12" form-label="ID" v-if="form.id">
-            <div class="q-pt-sm">{{form.id}}</div>
-          </co-form-item>
+          <co-field class="col-12" form-label="ID" :value="form.id" borderless v-if="form.id">
+          </co-field>
           <co-input class="col-12" form-label="名称" v-model="form.name" :disable="!!crud.status.view" :rules="[
               val => (!!val) || '必填'
               ]">

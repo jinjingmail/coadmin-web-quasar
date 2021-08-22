@@ -125,18 +125,7 @@
         >
           <template v-slot:top-right="props">
             <div class='row q-col-gutter-x-sm q-col-gutter-y-xs q-pa-xs full-width'>
-              <co-select
-                v-model="query.enabled"
-                class="col-auto"
-                label="状态"
-                content-style="width:120px"
-                :options="dict.dept_status"
-                no-filter
-                @input="crud.toQuery()"
-                clearable
-                emit-value
-                map-options
-              />
+              <co-toggle label="状态" v-model="query.enabled" toggle-indeterminate @input="crud.toQuery()"/>
               <q-space/>
               <crud-operation :permission="permission" />
               <div class="col-auto">
@@ -150,12 +139,6 @@
                 </co-btn-dropdown>
               </div>
             </div>
-          </template>
-
-          <template v-slot:body-cell-enabled="props">
-            <q-td key="enabled" :props="props">
-              {{dict.label.dept_status[props.row.enabled]}}
-            </q-td>
           </template>
 
           <template v-slot:body-cell-action="props">
@@ -196,7 +179,7 @@ const columns = [
   { name: 'name', field: 'name', label: '名称', required: true, align: 'left' },
   { name: 'sort', field: 'sort', label: '排序' },
   { name: 'pid', field: 'pid', label: 'PID' },
-  { name: 'enabled', field: 'enabled', label: '状态', align: 'left' },
+  { name: 'enabled', field: 'enabled', label: '状态', align: 'left', format: val => val ? '启用' : '禁用' },
   { name: 'treeNames', field: 'treeNames', label: '全部层级', align: 'left' },
   { name: 'action', label: '操作', align: 'center' }
 ]

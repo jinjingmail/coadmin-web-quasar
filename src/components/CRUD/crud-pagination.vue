@@ -30,6 +30,7 @@
       :icon-prev="iconPrevPage"
       :icon-next="iconNextPage"
       :max-pages="$q.screen.gt.xs?maxPages:5"
+      :size="size?size:(_dense()?'13px':'16px')"
       :dense="_dense()"
       v-bind="$attrs"
       v-on="$listeners"

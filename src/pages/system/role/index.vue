@@ -88,7 +88,7 @@
                 <co-btn color="primary" icon="search" @click="crud.toQuery()" />
               </div>
               <q-space/>
-              <crud-operation :permission="permission" />
+              <crud-operation :permission="permission" no-del/>
               <div class="col-auto">
                 <co-btn-dropdown color="primary" class="btn-dropdown-hide-droparrow" icon="apps" auto-close>
                   <crud-more :tableSlotTopProps="props">

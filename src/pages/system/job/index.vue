@@ -63,21 +63,7 @@
     >
       <template v-slot:top-right="props">
         <div class='row q-col-gutter-x-sm q-col-gutter-y-xs q-pa-xs full-width'>
-          <co-select
-            v-model="query.enabled"
-            label="状态"
-            standout
-            content-style="width:100px"
-            no-filter
-            :options="dict.job_status"
-            @input="crud.toQuery()"
-            clearable
-            emit-value
-            map-options
-          />
-          <div>
-            <co-btn color="primary" icon="search" @click="crud.toQuery()" />
-          </div>
+          <co-toggle label="状态" v-model="query.enabled" toggle-indeterminate @input="crud.toQuery()"/>
           <q-space/>
 
           <crud-operation :permission="permission" />
@@ -96,7 +82,7 @@
 
       <template v-slot:body-cell-enabled="props">
         <q-td key="enabled" :props="props">
-          {{dict.label.job_status[props.row.enabled]}}
+          {{props.row.enabled?'启用':'禁用'}}
         </q-td>
       </template>
 

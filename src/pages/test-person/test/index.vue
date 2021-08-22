@@ -20,8 +20,8 @@
         class="q-pa-md row q-col-gutter-x-md q-col-gutter-y-md">
         <co-field class="col-12" form-label="ID" :value="form.id" readonly borderless v-show="form.id"/>
         <co-input class="col-12" form-label="姓名" v-model="form.name" :disable="!!crud.status.view"
-                  :rules="[ val => (!!val) || '必填' ]"/>
-        <co-field class="col-12" form-label="性别" :disable="!!crud.status.view" :value="form.gender" :rules="[ val => (!!val) || '必填' ]">
+                  :rules="[ val => required(val) || '必填' ]"/>
+        <co-field class="col-12" form-label="性别" :disable="!!crud.status.view" :value="form.gender" :rules="[ val => required(val) || '必填' ]">
           <template v-slot:control>
             <co-option-group
                 v-model="form.gender"
@@ -40,13 +40,24 @@
             date-mask="YYYY-MM-DD"
             @input="val => form.birthday=val"
             :disable="!!crud.status.view"
-           :rules="[ val => (!!val) || '必填' ]" />
+           :rules="[ val => required(val) || '必填' ]" />
         <co-field class="col-12" form-label="创建时间" :value="parseTime(form.createTime, '{y}-{m}-{d} {h}:{i}:{s}')" readonly borderless v-show="form.createTime"/>
         <co-field class="col-12" form-label="创建人" :value="form.createBy" readonly borderless v-show="form.createBy"/>
         <co-field class="col-12" form-label="修改时间" :value="parseTime(form.updateTime, '{y}-{m}-{d} {h}:{i}:{s}')" readonly borderless v-show="form.updateTime"/>
         <co-field class="col-12" form-label="修改人" :value="form.updateBy" readonly borderless v-show="form.updateBy"/>
         <co-input class="col-12" form-label="备注" v-model="form.remarks" :disable="!!crud.status.view" autogrow
                   />
+        <co-select
+            v-model="form.mysqlEngine"
+            class="col-12"
+            form-label="测试enum"
+            :options='dict.mysql_engine'
+            :disable="!!crud.status.view"
+            value-to-string
+            no-filter
+            emit-value
+            map-options
+            />
       </co-form>
       <q-card-actions class="q-pa-md" align="right">
         <co-btn label="取消" flat v-close-popup/>
@@ -76,6 +87,12 @@
           <co-input
               v-model="query.id"
               label="ID"
+              content-style="width:160px"
+              @change="crud.toQuery()"
+          />
+          <co-input
+              v-model="query.name"
+              label="姓名"
               content-style="width:160px"
               @change="crud.toQuery()"
           />
@@ -112,6 +129,20 @@
               clearable
               @input="crud.toQuery()"
           />
+          <co-select
+              v-model="query.mysqlEngine"
+              label="测试enum"
+              content-style="width:160px"
+              no-filter
+              use-input
+              fill-input
+              hide-selected
+              :options='dict.mysql_engine'
+              @input="crud.toQuery()"
+              emit-value
+              map-options
+              clearable
+          />
           <!-- 点击“更多..”才显示的搜索项 -->
           <template v-if="crud.props.queryMore">
           </template>
@@ -146,6 +177,7 @@
               type="button"
               :data="props.row"
               :permission="permission"
+              flat
               no-add
               no-icon
           />
@@ -162,6 +194,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import { required, integer, between } from '@/utils/vuelidate'
 import { getDictLabel } from '@/utils/store'
 import { formatTime } from '@/utils/index'
 import CRUD, { presenter, header, form, crud } from '@crud/crud'
@@ -171,9 +204,9 @@ import CrudRow from '@crud/crud-row'
 import CrudMore from '@crud/crud-more'
 import CrudTestPerson from '@/api/test/test-person'
 
-const defaultForm = { id: null, name: null, gender: null, birthday: null, createTime: null, createBy: null, updateTime: null, updateBy: null, remarks: null }
+const defaultForm = { id: null, name: null, gender: null, birthday: null, createTime: null, createBy: null, updateTime: null, updateBy: null, remarks: null, mysqlEngine: null }
 
-const visibleColumns = ['name', 'gender', 'birthday', 'createTime', 'updateBy', 'remarks', 'action']
+const visibleColumns = ['name', 'gender', 'birthday', 'createTime', 'updateBy', 'remarks', 'mysqlEngine', 'action']
 // 参考：https://quasar.dev/vue-components/table#Defining-the-columns
 const columns = [
   { name: 'id', field: 'id', label: 'ID', align: 'left' },
@@ -185,6 +218,7 @@ const columns = [
   { name: 'updateTime', field: 'updateTime', label: '修改时间', align: 'left', format: val => formatTime(val) },
   { name: 'updateBy', field: 'updateBy', label: '修改人', align: 'left' },
   { name: 'remarks', field: 'remarks', label: '备注', align: 'left' },
+  { name: 'mysqlEngine', field: 'mysqlEngine', label: '测试enum', align: 'left', format: val => getDictLabel('mysql_engine', val) },
   { name: 'action', label: '操作', align: 'center', required: false, sortable: false }
 ]
 
@@ -217,6 +251,9 @@ export default {
   mounted () {
   },
   methods: {
+    required,
+    integer,
+    between,
     [CRUD.HOOK.beforeRefresh] () {
       console.log('testPerson CRUD.HOOK.beforeRefresh')
     }
