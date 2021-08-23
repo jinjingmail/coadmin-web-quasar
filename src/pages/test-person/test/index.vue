@@ -100,6 +100,7 @@
               v-model="query.gender"
               label="性别"
               content-style="width:160px"
+              value-to-string
               no-filter
               use-input
               fill-input
@@ -124,6 +125,7 @@
               content-style="width:230px"
               range
               edit-time
+              with-seconds
               :default-time="['00:00:00', '23:59:59']"
               date-mask="YYYY-MM-DD"
               clearable
@@ -133,6 +135,7 @@
               v-model="query.mysqlEngine"
               label="测试enum"
               content-style="width:160px"
+              value-to-string
               no-filter
               use-input
               fill-input

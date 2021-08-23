@@ -191,8 +191,10 @@
               <crud-row flat no-icon
                 :type="$q.screen.gt.xs?'button':'menu'"
                 :data="props.row"
-                :data-add="{pid: props.row.pid, sort: props.row.sort+10}"
+                :data-add="{pid: props.row.id, sort: 10}"
+                label-add="新增下级"
                 :permission="permission"
+                :action-end="[{permission:['admin', 'menu:add'], label:'新增同级', color:'green', click: () => crud.toAdd({pid:props.row.pid, sort: props.sort+10}) }]"
               />
             </q-td>
           </template>
