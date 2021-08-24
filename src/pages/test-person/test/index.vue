@@ -95,6 +95,7 @@
               label="姓名"
               content-style="width:160px"
               @change="crud.toQuery()"
+              autogrow
           />
           <co-select
               v-model="query.gender"

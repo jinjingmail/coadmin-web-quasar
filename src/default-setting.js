@@ -58,7 +58,7 @@ module.exports = {
    * 颜色参考： https://quasar.dev/style/color-palette
    */
   /**
-   * Page样式:
+   * CoPage样式:
    * 颜色：
    *  bg-teal  // 提示：颜色仅为用法示例，请在 default-color.js 中设置颜色，可以设置正常模式和dark模式（下同）
    * 边距：
@@ -70,7 +70,7 @@ module.exports = {
   pageClassMobile: '', // 手机等小屏幕使用（下同）
   pageStyleMobile: '',
   /**
-   * Table样式
+   * CoTable样式
    * 背景颜色：
    *  bg-teal
    * 边距：
@@ -88,25 +88,25 @@ module.exports = {
   tableClassMobile: 'q-table--flat q-table--square',
   tableStyleMobile: '',
   /**
-   * Tree样式:
+   * CoCard样式:
    * 设置边框：
    *  q-pa-sm q-ma-sm
    * 设置背景色：
    *  bg-teal
    * 无阴影：
-   *  q-table--flat no-shadow
+   *  q-card--flat no-shadow
    * 无圆角：
-   *  q-table--square
+   *  q-card--square
 
    * style: 设置背景色（含半透明）:
    *  background:#3d1d1d52
    */
-  treeClass: 'q-card--flat no-shadow q-table--square',
-  treeStyle: '',
-  treeClassMobile: 'q-card--flat no-shadow q-table--square',
-  treeStyleMobile: '',
+  cardClass: 'q-card--flat no-shadow q-card--square',
+  cardStyle: '',
+  cardClassMobile: 'q-card--flat no-shadow q-card--square',
+  cardStyleMobile: '',
   /**
-   * Dialog样式:
+   * CoDialog样式:
    * 使用 dialogClass 设置边框：
    *  q-pa-sm
    * 使用 dialogClass 设置背景色：

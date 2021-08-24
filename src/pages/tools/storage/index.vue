@@ -1,8 +1,7 @@
 <template>
-  <div>
-    <q-tabs
+  <co-card>
+    <co-tabs
       v-model="tab"
-      dense
       class="text-grey"
       active-color="primary"
       indicator-color="primary"
@@ -11,7 +10,7 @@
     >
       <q-tab name="local" label="本地存储" />
       <q-tab name="qiniu" label="七牛云存储" />
-    </q-tabs>
+    </co-tabs>
 
     <q-separator />
 
@@ -24,7 +23,7 @@
         <qi-niu ref="qiniu"/>
       </q-tab-panel>
     </q-tab-panels>
-  </div>
+  </co-card>
 </template>
 
 <script>
