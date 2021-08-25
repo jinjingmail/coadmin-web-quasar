@@ -38,7 +38,7 @@
           <co-input class="col-12" form-label="子任务ID" v-model="form.subTask" placeholder="多个用逗号隔开，按顺序执行" :disable="!!crud.status.view"/>
           <co-input class="col-12" form-label="任务负责人" v-model="form.personInCharge" :disable="!!crud.status.view"/>
           <co-input class="col-12" form-label="告警邮箱" v-model="form.email" :disable="!!crud.status.view"/>
-          <co-field class="col-12" form-label="失败后暂停">
+          <co-field class="col-12" form-label="失败后暂停" :disable="!!crud.status.view">
             <template v-slot:control>
               <co-option-group
                 v-model="form.pauseAfterFailure"
@@ -49,7 +49,7 @@
               />
             </template>
           </co-field>
-          <co-field class="col-12" form-label="任务状态">
+          <co-field class="col-12" form-label="任务状态" :disable="!!crud.status.view">
             <template v-slot:control>
               <co-option-group
                 v-model="form.isPause"

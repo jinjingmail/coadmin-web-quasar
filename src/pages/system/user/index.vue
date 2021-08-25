@@ -42,17 +42,10 @@
           </co-field>
 
           <co-field class="col-12 col-sm-6" form-label="状态" :disable="!!crud.status.view" :value="form.enabled" :rules="[
-              val => (!!val) || '必填'
+              val => required(val) || '必填'
               ]">
             <template v-slot:control>
-              <co-option-group
-                v-model="form.enabled"
-                value-to-string
-                :options="dict.user_status"
-                :disable="!!crud.status.view"
-                inline
-                type="radio"
-              />
+              <co-toggle v-model="form.enabled" :disable="!!crud.status.view"/>
             </template>
           </co-field>
 
@@ -234,6 +227,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import { required } from '@/utils/vuelidate'
 import CRUD, { presenter, header, form, crud } from '@crud/crud'
 import CrudOperation from '@crud/crud-operation'
 import CrudPagination from '@crud/crud-pagination'
@@ -289,6 +283,7 @@ export default {
     ])
   },
   methods: {
+    required,
     init () {
       // TODO 这些数据只有修改或新增用户才用到，所以考虑延迟加载或异步加载
       this.getDeptDatas()

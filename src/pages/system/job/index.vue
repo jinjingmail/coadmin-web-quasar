@@ -28,16 +28,9 @@
           <co-input class="col-12" form-label="排序" v-model.number="form.sort" type="number" :disable="!!crud.status.view" :rules="[
               val => (!!val) || '必填'
               ]"/>
-          <co-field class="col-12" form-label="状态">
+          <co-field class="col-12" form-label="状态" :disable="!!crud.status.view">
             <template v-slot:control>
-              <co-option-group
-                v-model="form.enabled"
-                value-to-string
-                :disable="!!crud.status.view"
-                inline
-                :options="dict.dept_status"
-                type="radio"
-              />
+              <co-toggle v-model="form.enabled" :disable="!!crud.status.view"/>
             </template>
           </co-field>
       </co-form>

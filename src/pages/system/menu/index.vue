@@ -166,7 +166,7 @@
         >
           <template v-slot:top-right="props">
             <div class='row q-col-gutter-x-sm q-col-gutter-y-xs q-pa-xs full-width'>
-              <crud-operation :permission="permission" />
+              <crud-operation no-del no-icon :permission="permission" />
               <div class="col-auto">
                 <co-btn-dropdown color="primary" class="btn-dropdown-hide-droparrow" icon="apps" auto-close>
                   <crud-more :tableSlotTopProps="props">
@@ -230,7 +230,7 @@ const columns = [
   { name: 'permission', field: 'permission', label: '权限', align: 'left' },
   { name: 'component', field: 'component', label: '组件路径', align: 'left' },
   { name: 'componentName', field: 'componentName', label: '组件名称', align: 'left' },
-  { name: 'path', field: 'path', label: 'path', align: 'left' },
+  { name: 'path', field: 'path', label: '路由地址', align: 'left' },
   { name: 'createTime', field: 'createTime', label: '创建时间' },
   { name: 'action', label: '操作', align: 'center' }
 ]
