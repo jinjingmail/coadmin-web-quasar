@@ -433,6 +433,7 @@ import SideMenu from 'pages/components/side-menu.vue'
 import PageTagViews from 'pages/components/page-tag-views.vue'
 import BrandColor from 'pages/components/brand-color.vue'
 import Breadcrumb from 'pages/components/breadcrumb.vue'
+import Avatar from '@/assets/boy-avatar.jpg'
 
 // 演示引入其他图标
 import { mdiCallMade } from '@quasar/extras/mdi-v5'
@@ -452,6 +453,7 @@ export default {
       leftDrawerMini: false,
       leftDrawerOpen: false,
       mdiCallMade: mdiCallMade,
+      Avatar,
 
       fabPos: [48, 58],
       draggingFab: false,
