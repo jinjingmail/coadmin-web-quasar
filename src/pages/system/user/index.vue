@@ -19,9 +19,7 @@
         label-width="small"
         label-align="right"
         class="q-pa-md row q-col-gutter-x-md q-col-gutter-y-md">
-          <co-field class="col-12" form-label="ID" borderless v-if="form.id">
-            <template v-slot:control>{{form.id}}</template>
-          </co-field>
+          <co-field class="col-12" form-label="ID" :value="form.id" borderless v-if="form.id" />
           <co-input class="col-12" form-label="用户名" v-model="form.username" :disable="!!crud.status.view" :rules="[
               val => (!!val) || '必填'
               ]"/>

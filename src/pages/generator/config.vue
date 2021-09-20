@@ -139,10 +139,10 @@
           ]"/>
         <co-form-item class="col-12 col-sm-6" ><div class="q-pt-xs">比如 api/{子模块名称}/xxx</div></co-form-item>
 
-        <co-input class="col-12 col-sm-6" form-label="JAVA模块名称" v-model="formTable.moduleName" :rules="[
+        <co-input class="col-12 col-sm-6" form-label="JAVA Module名称" v-model="formTable.moduleName" :rules="[
           val => (!!val) || '必填'
           ]"/>
-        <co-form-item class="col-12 col-sm-6" ><div class="q-pt-xs">Java模块的名称，请选择项目中已存在的模块</div></co-form-item>
+        <co-form-item class="col-12 col-sm-6" ><div class="q-pt-xs">Java项目模块的名称，请选择项目中已存在的模块(module)</div></co-form-item>
 
         <co-input class="col-12 col-sm-6" form-label="JAVA包名" v-model="formTable.pack" :rules="[
           val => (!!val) || '必填'

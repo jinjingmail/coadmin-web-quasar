@@ -21,16 +21,15 @@
         label-width="small"
         label-align="right"
         class="q-pa-md row q-col-gutter-x-xl q-col-gutter-y-md">
-          <co-form-item dense class="col-12" form-label="ID" v-if="form.id">
-            <div class="q-pt-sm">{{form.id}}</div>
-          </co-form-item>
+          <co-field class="col-12" form-label="ID" :value="form.id" borderless v-if="form.id" />
           <co-input class="col-12" form-label="角色名称" v-model="form.name" :disable="!!crud.status.view" :rules="[
-              val => (!!val) || '必填'
+              val => required(val) || '必填'
               ]"/>
           <co-input class="col-12" form-label="级别" v-model.number="form.level" type="number" :disable="!!crud.status.view" :rules="[
               val => required(val) || '必填',
               val => between(val, 1, 9) || '1-9'
               ]"/>
+          <!--
           <co-field class="col-12" form-label="数据范围">
             <template v-slot:control>
               <co-option-group
@@ -42,7 +41,8 @@
               />
             </template>
           </co-field>
-          <co-input dense autogrow class="col-12" form-label="描述" v-model="form.description" :disable="!!crud.status.view"/>
+          -->
+          <co-input autogrow class="col-12" form-label="描述" v-model="form.description" :disable="!!crud.status.view"/>
 
       </co-form>
       <q-card-actions class="q-pa-md" align="right">
@@ -143,7 +143,7 @@
             <q-btn dense class="q-my-sm" flat icon="refresh" @click="init()" >
               <q-tooltip :delay="800">刷新列表</q-tooltip>
             </q-btn>
-            <q-btn class="q-my-sm q-ml-sm " color="primary" padding="xs md" dense @click="_saveRoleMenu()" v-if="checkPermission(['admin', 'roles:edit','roles:add'])" label="保存"/>
+            <co-btn class="q-my-sm q-ml-sm " color="primary" padding="xs md" dense @click="_saveRoleMenu()" v-if="checkPermission(['admin', 'roles:edit','roles:add'])" label="保存"/>
           </template>
         </co-tree>
       </template>
