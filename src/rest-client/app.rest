@@ -1,0 +1,21 @@
+//
+// 使用 Vscode 的 rest client 插件，测试app接口
+//
+@host = localhost:8006
+
+### 不需要登录的请求
+GET /api/test/test_widthout_auth HTTP/1.1
+Host: {{host}}
+
+### 登录（用户名、密码）
+# @name loginPwd
+GET /api/auth/login_pwd?username=test&password=123456 HTTP/1.1
+Host: {{host}}
+Content-Type: application/x-www-form-urlencoded
+
+@token = {{loginPwd.response.body.data.token}}
+
+### 需要登录的请求
+GET /api/test/test_need_auth HTTP/1.1
+Host: {{host}}
+Authorization: Bearer {{token}}

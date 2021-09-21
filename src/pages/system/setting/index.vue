@@ -127,7 +127,7 @@ import CrudSetting from '@/api/system/setting'
 
 const defaultForm = { id: null, key: null, value: null, createTime: null, createBy: null, updateTime: null, updateBy: null }
 
-const visibleColumns = ['key', 'value', 'createTime', 'createBy', 'updateTime', 'updateBy', 'action']
+const visibleColumns = ['key', 'value', 'roleLevel', 'sort', 'action']
 // 参考：https://quasar.dev/vue-components/table#Defining-the-columns
 const columns = [
   { name: 'id', field: 'id', label: 'ID', align: 'left' },
