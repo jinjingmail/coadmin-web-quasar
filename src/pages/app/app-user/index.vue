@@ -19,7 +19,7 @@
         label-align="right"
         class="q-px-lg q-my-none row q-col-gutter-x-md q-col-gutter-y-md">
         <co-field class="col-12" form-label="ID" :value="form.id" readonly borderless v-show="form.id"/>
-        <co-field class="col-12" form-label="状态" :value="form.isEnabled" borderless :disable="!!crud.status.view"
+        <co-field class="col-12" form-label="状态" :value="form.isEnabled" readonly borderless
             :rules="[ val => required(val) || '必填' ]">
           <template v-slot:control>
             <co-toggle v-model="form.isEnabled" :disable="!!crud.status.view"/>
