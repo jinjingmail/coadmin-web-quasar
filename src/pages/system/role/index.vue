@@ -233,7 +233,7 @@ export default {
       const tickedArray = [...this.treeMenuTicked]
       const role = { id: selectedId, menus: [] }
       for (const ticked of tickedArray) {
-        role.menus.push({ id: ticked })
+        role.menus.push(ticked)
       }
       crudRoles.editMenu(role).then(() => {
         this.loadingSaveRoleMenu = false
@@ -256,7 +256,7 @@ export default {
       } else {
         this.treeMenuTicked = []
         newSelected[0].menus.forEach(menu => {
-          this.treeMenuTicked.push(menu.id)
+          this.treeMenuTicked.push(menu)
         })
       }
     },
@@ -265,7 +265,7 @@ export default {
         this.crud.selections = [row]
         this.treeMenuTicked = []
         row.menus.forEach(menu => {
-          this.treeMenuTicked.push(menu.id)
+          this.treeMenuTicked.push(menu)
         })
       } else {
         this.crud.selections = []
