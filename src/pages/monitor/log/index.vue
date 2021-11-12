@@ -10,16 +10,17 @@
     <co-dialog
       ref="detailDialog"
       card-style="width: 90vw; max-width: 95vw;"
-      card-class="q-px-sm"
     >
-      <div>
-        <b>请求方法：</b>
-        <pre>{{requestMethod}}</pre>
-      </div>
-      <div>
-        <b>请求参数：</b>
-        <pre>{{requestParams}}</pre>
-      </div>
+      <co-card class="q-px-md">
+        <div>
+          <b>请求方法：</b>
+          <pre>{{requestMethod}}</pre>
+        </div>
+        <div>
+          <b>请求参数：</b>
+          <pre>{{requestParams}}</pre>
+        </div>
+      </co-card>
     </co-dialog>
 
     <co-table
@@ -34,6 +35,7 @@
       :loading-delay="0"
       :selected.sync="crud.selections"
       @row-click="(evt, row, index) => crud.selections = [row]"
+        @row-dblclick="(evt, row, index) => crud.toView(row)"
       :filter="filterTable"
     >
       <template v-slot:top-right="props">

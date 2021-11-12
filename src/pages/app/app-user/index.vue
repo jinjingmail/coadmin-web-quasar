@@ -69,7 +69,7 @@
         <co-field class="col-12 col-sm-6" form-label="修改时间" :value="parseTime(form.updateTime, '{y}-{m}-{d} {h}:{i}:{s}')" readonly borderless v-show="form.updateTime"/>
         <co-field class="col-12 col-sm-6" form-label="修改人" :value="form.updateBy" readonly borderless v-show="form.updateBy"/>
       </co-form>
-      <q-card-actions class="q-pa-md" align="right">
+      <q-card-actions class="q-px-lg q-pt-lg q-pb-md" align="right">
         <co-btn label="取消" flat v-close-popup/>
         <co-btn label="保存" color="primary"
                 v-if="!crud.status.view"
@@ -91,6 +91,7 @@
         :selected.sync="crud.selections"
         selection="single"
         @row-click="(evt, row, index) => crud.selections = [row]"
+        @row-dblclick="(evt, row, index) => crud.toView(row)"
     >
       <template v-slot:top-left>
         <div class='row q-col-gutter-x-sm q-col-gutter-y-xs q-pa-xs full-width'>

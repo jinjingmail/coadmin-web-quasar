@@ -23,7 +23,7 @@
         label-align="right"
         class="q-px-lg q-my-none row q-col-gutter-x-xl q-col-gutter-y-md">
       </co-form>
-      <q-card-actions class="q-pa-md" align="right">
+      <q-card-actions class="q-px-lg q-pt-lg q-pb-md" align="right">
         <co-btn label="取消" flat v-close-popup/>
         <co-btn label="保存" color="primary" v-if="!crud.status.view" @click="crud.submitCU"
           :loading="crud.status.cu === crud.STATUS_PROCESSING" :disable="crud.status.cu === crud.STATUS_PROCESSING"/>
@@ -41,13 +41,16 @@
       :loading="crud.loading"
       :filter="filterTable"
       :selected.sync="crud.selections"
-      selection="multiple"
+      selection="single"
+      @row-click="(evt, row, index) => crud.selections = [row]"
+      @row-dblclick="(evt, row, index) => $refs.config.show(row.tableName)"
     >
       <template v-slot:top-right="props">
         <div class='row q-col-gutter-x-sm q-col-gutter-y-xs q-px-xs q-py-xs full-width'>
           <co-input class='col-auto'
             placeholder="表名"
-            v-model="query.name" content-style="width:180px"
+            v-model="query.name"
+            content-style="width:180px"
             clearable
             @change="crud.toQuery()"
             @clear="crud.toQuery()"

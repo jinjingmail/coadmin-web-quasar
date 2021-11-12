@@ -50,7 +50,7 @@
           </template>
         </co-field>
       </co-form>
-      <q-card-actions class="q-pa-md" align="right">
+      <q-card-actions class="q-px-lg q-pt-lg q-pb-md" align="right">
         <co-btn label="取消" flat v-close-popup/>
         <co-btn label="保存" color="primary" @click="doSaveConfig"/>
       </q-card-actions>
@@ -80,7 +80,7 @@
         />
         <pre class="text-negative">{{rejectedReason}}</pre>
       </div>
-      <q-card-actions class="q-pa-md" align="right">
+      <q-card-actions class="q-px-lg q-pt-lg q-pb-md" align="right">
         <co-btn label="取消" flat v-close-popup/>
       </q-card-actions>
     </co-dialog>
@@ -98,15 +98,13 @@
         label-width="small"
         label-align="right"
         class="q-px-lg q-my-none row q-col-gutter-x-xl q-col-gutter-y-md">
-          <co-form-item class="col-12" form-label="ID" v-if="form.id">
-            <div class="q-pt-xs">{{form.id}}</div>
-          </co-form-item>
+          <co-field class="col-12" form-label="ID" :value="form.id" readonly borderless v-show="form.id"/>
           <co-input
             class="col-12" form-label="文件名称" v-model="form.name" :disable="!!crud.status.view" :rules="[
               val => (!!val) || '必填'
               ]"/>
       </co-form>
-      <q-card-actions class="q-pa-md" align="right">
+      <q-card-actions class="q-px-lg q-pt-lg q-pb-md" align="right">
         <co-btn label="取消" flat v-close-popup/>
         <co-btn label="保存" color="primary" v-if="!crud.status.view" @click="crud.submitCU"
           :loading="crud.status.cu === crud.STATUS_PROCESSING" :disable="crud.status.cu === crud.STATUS_PROCESSING"/>
@@ -125,6 +123,7 @@
       :selected.sync="crud.selections"
       :filter="filterTable"
       @row-click="(evt, row, index) => crud.selections = [row]"
+        @row-dblclick="(evt, row, index) => crud.toView(row)"
     >
       <template v-slot:top-right="props">
         <div class='row q-col-gutter-x-sm q-col-gutter-y-xs q-pa-xs full-width'>

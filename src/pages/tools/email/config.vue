@@ -19,9 +19,12 @@ c<template>
     <co-input class="col-12" form-label="SMTP端口" v-model="form.port" :rules="[
       val => (!!val) || '必填'
       ]"/>
-    <co-form-item class="col-12" form-label=" ">
-      <co-btn :loading="loading" label="保存配置" icon="check" color="primary" @click="doSubmit"/>
-    </co-form-item>
+    <co-field class="col-12" form-label=" " readonly borderless>
+      <template v-slot:control>
+        <co-btn :loading="loading" label="保存配置" icon="check" color="primary" @click="doSubmit"/>
+      </template>
+    </co-field>
+
   </co-form>
 </template>
 

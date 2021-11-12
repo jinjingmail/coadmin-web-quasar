@@ -21,7 +21,7 @@
               val => (!!val && val.length >= 6) || '长度不少于6个字符'
               ]"/>
     </co-form>
-    <q-card-actions class="q-pa-md" align="right">
+    <q-card-actions class="q-px-lg q-pt-lg q-pb-md" align="right">
       <co-btn label="取消" flat v-close-popup/>
       <co-btn label="确认" icon="check" color="primary" @click="doSubmit"/>
     </q-card-actions>

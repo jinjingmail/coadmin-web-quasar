@@ -10,18 +10,20 @@
       ref="detailDialog"
       card-style="width: 90vw; max-width: 95vw;"
     >
-      <div>
-        <b>请求方法：</b>
-        <pre>{{requestMethod}}</pre>
-      </div>
-      <div>
-        <b>请求参数：</b>
-        <pre>{{requestParams}}</pre>
-      </div>
-      <div>
-        <b>异常详情：</b>
-        <pre><co-btn v-if="!logExceptionDetail" flat label="点击加载" color="primary" :loading="loadExceptionDetailLoading" @click="loadExceptionDetail(logId)"/><template v-else>{{logExceptionDetail}}</template></pre>
-      </div>
+      <co-card class="q-px-md">
+        <div>
+          <b>请求方法：</b>
+          <pre>{{requestMethod}}</pre>
+        </div>
+        <div>
+          <b>请求参数：</b>
+          <pre>{{requestParams}}</pre>
+        </div>
+        <div>
+          <b>异常详情：</b>
+          <pre><co-btn v-if="!logExceptionDetail" flat label="点击加载" color="primary" :loading="loadExceptionDetailLoading" @click="loadExceptionDetail(logId)"/><template v-else>{{logExceptionDetail}}</template></pre>
+        </div>
+      </co-card>
     </co-dialog>
 
     <co-table
@@ -35,6 +37,7 @@
       :loading="crud.loading"
       :selected.sync="crud.selections"
       @row-click="(evt, row, index) => crud.selections = [row]"
+        @row-dblclick="(evt, row, index) => crud.toView(row)"
       :filter="filterTable"
     >
       <template v-slot:top-right="props">
@@ -151,7 +154,7 @@ export default {
       this.loadExceptionDetailLoading = true
       getErrDetail(logId).then(res => {
         this.loadExceptionDetailLoading = false
-        this.logExceptionDetail = res.exception
+        this.logExceptionDetail = res.data.exception
       }).catch(err => {
         this.loadExceptionDetailLoading = false
         console.log('err', err)

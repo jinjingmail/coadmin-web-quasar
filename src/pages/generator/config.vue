@@ -132,40 +132,40 @@
         <co-input class="col-12 col-sm-6" form-label="作者" v-model="formTable.author" :rules="[
           val => (!!val) || '必填'
           ]"/>
-        <co-form-item class="col-12 col-sm-6" ><div class="q-pt-xs">类上面的作者名称</div></co-form-item>
+        <co-field class="col-12 col-sm-6" readonly borderless value="类上面的作者名称"/>
 
         <co-input class="col-12 col-sm-6" form-label="子模块名称" v-model="formTable.subModuleName" :rules="[
           val => (!!val) || '必填'
           ]"/>
-        <co-form-item class="col-12 col-sm-6" ><div class="q-pt-xs">比如 api/{子模块名称}/xxx</div></co-form-item>
+        <co-field class="col-12 col-sm-6" readonly borderless value="比如 api/{子模块名称}/xxx"/>
 
         <co-input class="col-12 col-sm-6" form-label="JAVA Module名称" v-model="formTable.moduleName" :rules="[
           val => (!!val) || '必填'
           ]"/>
-        <co-form-item class="col-12 col-sm-6" ><div class="q-pt-xs">Java项目模块的名称，请选择项目中已存在的模块(module)</div></co-form-item>
+        <co-field class="col-12 col-sm-6" readonly borderless value="Java项目模块的名称，请选择项目中已存在的模块(module)"/>
 
         <co-input class="col-12 col-sm-6" form-label="JAVA包名" v-model="formTable.pack" :rules="[
           val => (!!val) || '必填'
           ]"/>
-        <co-form-item class="col-12 col-sm-6" ><div class="q-pt-xs">Java项目包的名称，生成的代码放到哪个包里面</div></co-form-item>
+        <co-field class="col-12 col-sm-6" readonly borderless value="Java项目包的名称，生成的代码放到哪个包里面"/>
 
         <co-input class="col-12 col-sm-6" form-label="接口名称" v-model="formTable.apiAlias" :rules="[
           val => (!!val) || '必填'
           ]"/>
-        <co-form-item class="col-12 col-sm-6" ><div class="q-pt-xs">接口的名称，用于控制器与接口文档中</div></co-form-item>
+        <co-field class="col-12 col-sm-6" readonly borderless value="接口的名称，用于控制器与接口文档中"/>
 
         <co-input class="col-12 col-sm-6" form-label="前端Vue存放路径" v-model="formTable.path" :rules="[
           val => (!!val) || '必填'
           ]"/>
-        <co-form-item class="col-12 col-sm-6" ><div class="q-pt-xs">示例[d:\src\pages]，不存在会自动创建</div></co-form-item>
+        <co-field class="col-12 col-sm-6" readonly borderless value="示例[d:\src\pages]，不存在会自动创建"/>
 
         <co-input class="col-12 col-sm-6" form-label="前端Api接口目录" v-model="formTable.apiPath" :rules="[
           val => (!!val) || '必填'
           ]"/>
-        <co-form-item class="col-12 col-sm-6" ><div class="q-pt-xs">示例[d:\src\api]，不存在会自动创建</div></co-form-item>
+        <co-field class="col-12 col-sm-6" readonly borderless value="示例[d:\src\api]，不存在会自动创建"/>
 
         <co-input class="col-12 col-sm-6" form-label="去表前缀" v-model="formTable.prefix" />
-        <co-form-item class="col-12 col-sm-6" ><div class="q-pt-xs">留空不去除表前缀</div></co-form-item>
+        <co-field class="col-12 col-sm-6" readonly borderless value="留空不去除表前缀"/>
 
         <co-tree-select
           ref="menu"
@@ -183,7 +183,7 @@
           filter-placeholder="名称、拼音首字母"
           clearable
         />
-        <co-form-item class="col-12 col-sm-6" ><div class="q-pt-xs">用于得到创建菜单的sql，请在XxxController.java中查看sql</div></co-form-item>
+        <co-field class="col-12 col-sm-6" readonly borderless value="用于得到创建菜单的sql，请在XxxController.java中查看SQL"/>
 
         <co-field class="col-12 col-sm-6" form-label="是否覆盖">
           <template v-slot:control>
@@ -195,7 +195,7 @@
             />
           </template>
         </co-field>
-        <co-form-item class="col-12 col-sm-6" ><div class="q-pt-xs">谨防误操作，请慎重选择</div></co-form-item>
+        <co-field class="col-12 col-sm-6" readonly borderless value="谨防误操作，请慎重选择"/>
 
       </co-form>
     </co-card>
@@ -206,6 +206,7 @@
 import { update, get } from '@/api/generator/genConfig'
 import { save, sync, generator } from '@/api/generator/generator'
 import { initData } from '@/api/data'
+import coField from 'src/components/form/co-field.vue'
 
 const visibleColumns = ['columnName', 'columnType', 'remark', 'notNull', 'listShow', 'formShow',
   'formType', 'queryType', 'dateAnnotation', 'dictName']
@@ -225,6 +226,7 @@ const columns = [
 const defaultFormTable = { id: null, tableName: '', author: '', pack: '', path: '', moduleName: '', cover: 'false', apiPath: '', prefix: '', apiAlias: null, menuPid: null }
 
 export default {
+  components: { coField },
   name: 'GeneratorConfig',
   props: {
     menuDatas: Array,

@@ -27,7 +27,7 @@
               ]">
           </co-input>
       </co-form>
-      <q-card-actions class="q-pa-md" align="right">
+      <q-card-actions class="q-px-lg q-pt-lg q-pb-md" align="right">
         <co-btn label="取消" flat v-close-popup/>
         <co-btn label="保存" color="primary" v-if="!crud.status.view" @click="crud.submitCU"
           :loading="crud.status.cu === crud.STATUS_PROCESSING" :disable="crud.status.cu === crud.STATUS_PROCESSING"/>

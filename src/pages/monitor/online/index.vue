@@ -21,6 +21,7 @@
       selection="multiple"
       :selected.sync="crud.selections"
       @row-click="(evt, row, index) => crud.selections = [row]"
+        @row-dblclick="(evt, row, index) => crud.toView(row)"
       :filter="filterTable"
     >
       <template v-slot:top-right="props">

@@ -59,7 +59,7 @@
             map-options
             />
       </co-form>
-      <q-card-actions class="q-pa-md" align="right">
+      <q-card-actions class="q-px-lg q-pt-lg q-pb-md" align="right">
         <co-btn label="取消" flat v-close-popup/>
         <co-btn label="保存" color="primary"
                 v-if="!crud.status.view"
@@ -77,19 +77,14 @@
         :visible-columns="crud.visibleColumns"
         :title="crud.title"
         :loading="crud.loading"
-        selection="single"
+        selection="none"
         :selected.sync="crud.selections"
         :filter="filterTable"
         @row-click="(evt, row, index) => crud.selections = [row]"
+        @row-dblclick="(evt, row, index) => crud.toView(row)"
     >
       <template v-slot:top-left>
         <div class='row q-col-gutter-x-sm q-col-gutter-y-xs q-pa-xs full-width'>
-          <co-input
-              v-model="query.id"
-              label="ID"
-              content-style="width:160px"
-              @change="crud.toQuery()"
-          />
           <co-input
               v-model="query.name"
               label="姓名"
@@ -149,11 +144,17 @@
           />
           <!-- 点击“更多..”才显示的搜索项 -->
           <template v-if="crud.props.queryMore">
+          <co-input
+              v-model="query.id"
+              label="ID"
+              content-style="width:160px"
+              @change="crud.toQuery()"
+          />
           </template>
           <div>
-            <co-btn icon="search" color="primary" @click="crud.toQuery()" />
-            <co-btn label="重置" flat @click="crud.resetQuery()" />
             <co-btn :label="crud.props.queryMore?'«更少':'更多»'" flat @click="crud.props.queryMore = !crud.props.queryMore"/>
+            <co-btn label="重置" flat @click="crud.resetQuery()" />
+            <co-btn icon="search" color="primary" @click="crud.toQuery()" />
           </div>
           <q-space/>
         </div>

@@ -19,7 +19,7 @@
         </co-input>
         <co-input class="col-12" form-label="当前密码" type="password" v-mosl="form.pass" key="pass"/>
     </co-form>
-    <q-card-actions class="q-pa-md" align="right">
+    <q-card-actions class="q-px-lg q-pt-lg q-pb-md" align="right">
       <co-btn label="取消" flat v-close-popup/>
       <co-btn label="确认" icon="check" color="primary" @click="doSubmit"/>
     </q-card-actions>
