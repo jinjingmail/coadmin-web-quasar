@@ -18,7 +18,7 @@
         ref="form"
         label-width="small"
         label-align="right"
-        class="q-pa-md row q-col-gutter-x-xl q-col-gutter-y-md">
+        class="q-px-lg q-my-none row q-col-gutter-x-xl q-col-gutter-y-md">
           <co-form-item dense class="col-12" form-label="ID" v-if="form.id">
             <div class="q-pt-sm">{{form.id}}</div>
           </co-form-item>

@@ -16,7 +16,7 @@
         ref="form"
         label-width="small"
         label-align="right"
-        class="q-pa-md row q-col-gutter-x-xl q-col-gutter-y-md">
+        class="q-px-lg q-my-none row q-col-gutter-x-xl q-col-gutter-y-md">
           <co-field class="col-12" form-label="ID" :value="form.id" borderless v-if="form.id">
           </co-field>
           <co-field class="col-12" form-label="DictId" :value="form.dictId" borderless>

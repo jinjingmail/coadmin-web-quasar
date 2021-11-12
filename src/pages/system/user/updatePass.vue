@@ -10,7 +10,7 @@
       ref="form"
       label-width="small"
       label-align="right"
-      class="q-pa-md row q-col-gutter-x-xl q-col-gutter-y-md">
+      class="q-px-lg q-my-none row q-col-gutter-x-xl q-col-gutter-y-md">
         <co-input class="col-12" form-label="旧密码" type="password" v-model="form.oldPass" :rules="[
               val => (!!val) || '必填'
               ]"/>

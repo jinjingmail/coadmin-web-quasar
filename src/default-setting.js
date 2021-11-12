@@ -65,7 +65,7 @@ module.exports = {
    *  q-pa-md
    *  q-ma-md
    */
-  pageClass: '', // PC等大屏幕使用（下同）
+  pageClass: 'q-pa-sm', // PC等大屏幕使用（下同）
   pageStyle: '',
   pageClassMobile: '', // 手机等小屏幕使用（下同）
   pageStyleMobile: '',
@@ -83,7 +83,7 @@ module.exports = {
    * 无圆角：
    *  q-table--square
    */
-  tableClass: 'q-table--flat q-table--square q-pa-xs',
+  tableClass: 'q-table--flat q-table--square',
   tableStyle: '',
   tableClassMobile: 'q-table--flat q-table--square',
   tableStyleMobile: '',
@@ -140,10 +140,6 @@ module.exports = {
   /***************               鉴权配置 end             ***************/
 
   /**
-   * 是否显示设置的底部信息
-   */
-  showFooter: true,
-  /**
    * 是否进入dark模式
    */
   darkMode: false,
@@ -151,7 +147,7 @@ module.exports = {
    * 设置输入框、表格、按钮等默认dense：
    *    支持 → undefined / true / false
    */
-  denseMode: false,
+  denseMode: true,
   /**
    * 设置输入框的外观样式：
    * co-select/co-input/co-field/co-date-select/co-tree-select design mode：
@@ -178,6 +174,10 @@ module.exports = {
    * 表格每页默认显示的行数
    */
   pageSize: 10,
+  /**
+   * 是否显示设置的底部信息
+   */
+  showFooter: true,
   /**
    * 底部文字，支持html语法
    */

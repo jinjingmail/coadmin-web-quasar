@@ -15,9 +15,9 @@
     >
       <co-form
         ref="form"
-        label-width="small"
+        :label-width="$q.screen.lt.sm?'small':'small'"
         label-align="right"
-        class="q-pa-md row q-col-gutter-x-md q-col-gutter-y-md">
+        class="q-px-lg q-my-none row q-col-gutter-x-md q-col-gutter-y-md">
         <co-field class="col-12" form-label="ID" :value="form.id" readonly borderless v-show="form.id"/>
         <co-field class="col-12" form-label="状态" :value="form.isEnabled" borderless :disable="!!crud.status.view"
             :rules="[ val => required(val) || '必填' ]">
@@ -40,11 +40,11 @@
         <co-field class="col-12" form-label="微信unionid" :value="form.unionid" readonly borderless v-show="form.unionid"/>
         <co-input class="col-12" form-label="手机号" v-model="form.mobile" :disable="!!crud.status.view"
                   />
-        <co-input class="col-12" form-label="昵称" v-model="form.nickname" :disable="!!crud.status.view"
+        <co-input class="col-12 col-sm-6" form-label="昵称" v-model="form.nickname" :disable="!!crud.status.view"
                   :rules="[ val => required(val) || '必填' ]"/>
         <co-select
             v-model="form.gender"
-            class="col-12"
+            class="col-12 col-sm-6"
             form-label="性别"
             :options='dict.app_user_gender'
             :disable="!!crud.status.view"
@@ -53,7 +53,13 @@
             emit-value
             map-options
             :rules="[ val => required(val) || '必填' ]"/>
-        <co-field class="col-12 col-sm-6" form-label="头像URL" :value="form.headimgurl" readonly borderless v-show="form.headimgurl"/>
+        <co-field class="col-12 col-sm-6" form-label="头像" readonly borderless>
+          <template v-slot:control>
+            <q-avatar square>
+              <img :src="form.headimgurl">
+            </q-avatar>
+          </template>
+        </co-field>
         <co-field class="col-12 col-sm-6" form-label="国家" :value="form.country" readonly borderless v-show="form.country"/>
         <co-field class="col-12 col-sm-6" form-label="省份" :value="form.province" readonly borderless v-show="form.province"/>
         <co-field class="col-12 col-sm-6" form-label="城市" :value="form.city" readonly borderless v-show="form.city"/>
@@ -196,6 +202,14 @@
             </co-btn-dropdown>
           </div>
         </div>
+      </template>
+
+      <template v-slot:body-cell-headimgurl="props">
+        <q-td key="headimgurl" :props="props">
+          <q-avatar square>
+            <img :src="props.row.headimgurl"/>
+          </q-avatar>
+        </q-td>
       </template>
 
       <template v-slot:body-cell-action="props">

@@ -3,7 +3,7 @@ c<template>
     ref="form"
     label-width="medium"
     label-align="right"
-    class="q-pa-md row q-col-gutter-x-xl q-col-gutter-y-md">
+    class="q-px-lg q-my-none row q-col-gutter-x-xl q-col-gutter-y-md">
     <co-input class="col-12" form-label="发件人邮箱" v-model="form.fromUser" :rules="[
       val => (!!val) || '必填'
       ]"/>

@@ -19,7 +19,7 @@
         ref="configForm"
         label-width="medium"
         label-align="right"
-        class="q-pa-md row q-col-gutter-x-xl q-col-gutter-y-md">
+        class="q-px-lg q-my-none row q-col-gutter-x-xl q-col-gutter-y-md">
         <co-input class="col-12" form-label="Access Key" v-model="configForm.accessKey" :rules="[
           val => (!!val) || '必填'
           ]"/>
@@ -97,7 +97,7 @@
         ref="form"
         label-width="small"
         label-align="right"
-        class="q-pa-md row q-col-gutter-x-xl q-col-gutter-y-md">
+        class="q-px-lg q-my-none row q-col-gutter-x-xl q-col-gutter-y-md">
           <co-form-item class="col-12" form-label="ID" v-if="form.id">
             <div class="q-pt-xs">{{form.id}}</div>
           </co-form-item>

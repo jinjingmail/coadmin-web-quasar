@@ -21,7 +21,7 @@
         ref="form"
         label-width="small"
         label-align="right"
-        class="q-pa-md row q-col-gutter-x-xl q-col-gutter-y-md">
+        class="q-px-lg q-my-none row q-col-gutter-x-xl q-col-gutter-y-md">
       </co-form>
       <q-card-actions class="q-pa-md" align="right">
         <co-btn label="取消" flat v-close-popup/>

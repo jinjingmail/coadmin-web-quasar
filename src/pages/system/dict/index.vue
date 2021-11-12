@@ -15,7 +15,7 @@
         ref="form"
         label-width="small"
         label-align="right"
-        class="q-pa-md row q-col-gutter-x-xl q-col-gutter-y-md">
+        class="q-px-lg q-my-none row q-col-gutter-x-xl q-col-gutter-y-md">
           <co-field class="col-12" form-label="ID" :value="form.id" borderless v-if="form.id">
           </co-field>
           <co-input class="col-12" form-label="名称" v-model="form.name" :disable="!!crud.status.view" :rules="[

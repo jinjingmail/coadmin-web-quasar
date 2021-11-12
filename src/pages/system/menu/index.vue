@@ -18,7 +18,7 @@
         ref="form"
         label-width="small"
         label-align="right"
-        class="q-pa-md row q-col-gutter-x-xl q-col-gutter-y-md">
+        class="q-px-lg q-my-none row q-col-gutter-x-xl q-col-gutter-y-md">
           <co-input class="col-12 col-sm-6" form-label="菜单名称" v-model="form.title" key="title"
             :disable="!!crud.status.view"
             :rules="[
