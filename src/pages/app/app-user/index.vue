@@ -19,7 +19,7 @@
         label-align="right"
         class="q-pa-md row q-col-gutter-x-md q-col-gutter-y-md">
         <co-field class="col-12" form-label="ID" :value="form.id" readonly borderless v-show="form.id"/>
-        <co-field label="状态" :value="form.isEnabled" borderless
+        <co-field class="col-12" form-label="状态" :value="form.isEnabled" borderless :disable="!!crud.status.view"
             :rules="[ val => required(val) || '必填' ]">
           <template v-slot:control>
             <co-toggle v-model="form.isEnabled" :disable="!!crud.status.view"/>
@@ -88,13 +88,6 @@
     >
       <template v-slot:top-left>
         <div class='row q-col-gutter-x-sm q-col-gutter-y-xs q-pa-xs full-width'>
-          <co-input
-              v-model="query.id"
-              label="ID"
-              content-style="width:160px"
-              @change="crud.toQuery()"
-              clearable
-          />
           <co-toggle
              label="状态"
              v-model="query.isEnabled"
@@ -170,6 +163,13 @@
                 :default-time="['00:00:00', '23:59:59']"
                 date-mask="YYYY-MM-DD"
                 @input="crud.toQuery()"
+                clearable
+            />
+            <co-input
+                v-model="query.id"
+                label="ID"
+                content-style="width:160px"
+                @change="crud.toQuery()"
                 clearable
             />
           </template>
