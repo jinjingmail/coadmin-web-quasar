@@ -175,11 +175,11 @@
                 @clear="crud.toQuery()"
               >
                 <template v-slot:label>
-                  <span style="color: var(--q-color-primary)">ID、用户名、电话、邮箱</span>
+                  <span style="color: var(--q-color-primary)">ID/用户名/电话/邮箱</span>
                 </template>
               </co-input>
               <role-selector class="col-auto"
-              v-model="query.inRoleId"
+                v-model="query.inRoleId"
                 content-style="width:200px"
                 label="所属角色"
                 @input="crud.toQuery()"
@@ -188,7 +188,7 @@
                 <co-btn color="primary" icon="search" @click="crud.toQuery()" />
               </div>
               <q-space/>
-              <crud-operation :permission="permission" no-label no-view no-edit/>
+              <crud-operation :permission="permission" no-label no-view no-edit has-download/>
               <div class="col-auto">
                 <co-btn-dropdown color="primary" class="btn-dropdown-hide-droparrow" icon="apps" auto-close>
                   <crud-more :tableSlotTopProps="props">

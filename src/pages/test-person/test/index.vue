@@ -84,7 +84,7 @@
         @row-dblclick="(evt, row, index) => crud.toView(row)"
     >
       <template v-slot:top-left>
-        <div class='row q-col-gutter-x-sm q-col-gutter-y-xs q-pa-xs full-width'>
+        <div class='row q-col-gutter-x-sm q-col-gutter-y-xs q-pa-xs'>
           <co-input
               v-model="query.name"
               label="姓名"
@@ -156,11 +156,10 @@
             <co-btn label="重置" flat @click="crud.resetQuery()" />
             <co-btn icon="search" color="primary" @click="crud.toQuery()" />
           </div>
-          <q-space/>
         </div>
       </template>
       <template v-slot:top-right="props">
-        <div class='row q-col-gutter-x-sm q-col-gutter-y-xs q-pa-xs full-width'>
+        <div class='row q-col-gutter-x-sm q-col-gutter-y-xs q-pa-xs'>
           <!--如果想在工具栏加入更多按钮，可以使用插槽方式， 'start' or 'end'-->
           <crud-operation :permission="permission" no-icon no-view no-edit/>
           <div>
