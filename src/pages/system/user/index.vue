@@ -178,6 +178,12 @@
                   <span style="color: var(--q-color-primary)">ID、用户名、电话、邮箱</span>
                 </template>
               </co-input>
+              <role-selector class="col-auto"
+              v-model="query.inRoleId"
+                content-style="width:200px"
+                label="所属角色"
+                @input="crud.toQuery()"
+              />
               <div class='col-auto'>
                 <co-btn color="primary" icon="search" @click="crud.toQuery()" />
               </div>
@@ -196,9 +202,14 @@
             </div>
           </template>
 
-          <template v-slot:body-cell-createTime="props">
-            <q-td key="createTime" :props="props">
-              {{formatTime(props.row.createTime)}}
+          <template v-slot:body-cell-enabled="props">
+            <q-td key="enabled" :props="props">
+              <co-chip color="green" text-color="white" v-if="props.row.enabled">
+                {{props.value}}
+              </co-chip>
+              <co-chip color="red" text-color="white" v-else>
+                {{props.value}}
+              </co-chip>
             </q-td>
           </template>
 
@@ -236,9 +247,11 @@ import crudUser from '@/api/system/user'
 import { getDepts } from '@/api/system/dept'
 import { getAll, getLevel } from '@/api/system/role'
 import { getAllJob } from '@/api/system/job'
+import { formatTime } from '@/utils/index'
+import RoleSelector from '@/pages/components/RoleSelector'
 
 const defaultForm = { id: null, username: null, nickName: null, gender: null, email: null, phone: null, enabled: 'false', roles: [], jobs: [], depts: [] }
-const visibleColumns = ['username', 'gender', 'enabled', 'createTime', 'action']
+const visibleColumns = ['username', 'gender', 'enabled', 'phone', 'email', 'updateTime', 'action']
 const columns = [
   { name: 'id', field: 'id', label: 'ID' },
   { name: 'username', field: 'username', label: '用户名', required: true, align: 'left' },
@@ -246,13 +259,16 @@ const columns = [
   { name: 'enabled', field: 'enabled', label: '状态', align: 'center', format: val => val ? '启用' : '禁用' },
   { name: 'phone', field: 'phone', label: '电话', align: 'left' },
   { name: 'email', field: 'email', label: '邮箱', align: 'left' },
-  { name: 'createTime', field: 'createTime', label: '创建时间', align: 'left' },
+  { name: 'createTime', field: 'createTime', label: '创建时间', align: 'left', format: val => formatTime(val) },
+  { name: 'createBy', field: 'createBy', label: '创建人', align: 'left' },
+  { name: 'updateTime', field: 'updateTime', label: '更新时间', align: 'left', format: val => formatTime(val) },
+  { name: 'updateBy', field: 'updateBy', label: '更新人', align: 'left' },
   { name: 'action', label: '操作', align: 'center' }
 ]
 
 export default {
   name: 'User',
-  components: { CrudOperation, CrudMore, CrudRow, CrudPagination },
+  components: { CrudOperation, CrudMore, CrudRow, CrudPagination, RoleSelector },
   cruds() {
     return CRUD({ columns, visibleColumns, idField: 'id', title: '用户', query: { deptId: null }, url: 'api/users', crudMethod: { ...crudUser } })
   },
