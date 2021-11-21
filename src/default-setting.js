@@ -16,7 +16,7 @@ module.exports = {
   /**
    * @description 固定头部
    */
-  fixedHeader: false,
+  fixedHeader: true,
   /**
    * @description 顶部标题栏是否显示阴影
    */
@@ -164,7 +164,7 @@ module.exports = {
    * co-btn / co-btn-toggle / co-btn-dropdown design mode：
    *    支持 → default / flat / outline / push / unelevated
    */
-  btnDesignMode: 'push',
+  btnDesignMode: 'default',
   /**
    * 设置输入框的外观为方形直角 或 圆形大圆弧：
    *    支持 → default / square / rounded
@@ -173,7 +173,7 @@ module.exports = {
   /**
    * 表格每页默认显示的行数
    */
-  pageSize: 10,
+  pageSize: 15,
   /**
    * 是否显示设置的底部信息
    */
