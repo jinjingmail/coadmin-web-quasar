@@ -50,7 +50,8 @@
       :selected.sync="crud.selections"
       :filter="crud.props.filterTable"
       @row-click="(evt, row, index) => crud.selections = [row]"
-        @row-dblclick="(evt, row, index) => crud.toView(row)"
+      @row-dblclick="(evt, row, index) => crud.toView(row)"
+      @row-contextmenu="(evt, row, index) => crud.selections = [row]"
     >
       <template v-slot:top-right="props">
         <div class='row q-col-gutter-x-sm q-col-gutter-y-xs q-pa-xs full-width'>

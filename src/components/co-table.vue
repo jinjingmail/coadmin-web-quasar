@@ -75,7 +75,10 @@
     </template>
 
     <template v-if="treeTable" v-slot:body="props">
-      <q-tr :props="props" @click="evt => _treeTableRowClick(evt, props)" :class="$listeners['row-click']?'cursor-pointer':''">
+      <q-tr :props="props"
+          @click="evt => _treeTableRowClick(evt, props)"
+          @dblclick="evt => _treeTableRowDblClick(evt, props)"
+          :class="$listeners['row-click']?'cursor-pointer':''">
         <q-td v-if="$attrs.selection">
           <q-checkbox :dense="props.dense" v-model="props.selected"/>
         </q-td>
@@ -152,7 +155,7 @@ export default {
     },
     color: {
       type: String,
-      default: 'primary'
+      default: 'secondary'
     },
     dense: {
       type: Boolean,
@@ -494,6 +497,11 @@ export default {
     _treeTableRowClick (evt, props) {
       if (this.$listeners['row-click']) {
         this.$emit('row-click', evt, props.row, props.rowIndex)
+      }
+    },
+    _treeTableRowDblClick (evt, props) {
+      if (this.$listeners['row-dblclick']) {
+        this.$emit('row-dblclick', evt, props.row, props.rowIndex)
       }
     },
 

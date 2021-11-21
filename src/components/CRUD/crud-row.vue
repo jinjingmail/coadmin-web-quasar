@@ -206,7 +206,9 @@
       </template>
     </template>
     <slot name="end" />
+
   </div>
+
 </template>
 
 <script>
@@ -307,7 +309,7 @@ export default {
     },
     colorMenu: {
       type: String,
-      default: 'primary'
+      default: 'secondary'
     },
     colorView: {
       type: String,
