@@ -54,6 +54,7 @@
           :loading="crud.loading"
           :selected.sync="crud.selections"
           @row-click="dictRowClick"
+          @row-dblclick="(evt, row, index) => crud.toView(row)"
         >
           <template v-slot:top-right="props">
             <div class='row q-col-gutter-x-sm q-col-gutter-y-xs q-pa-xs full-width'>
