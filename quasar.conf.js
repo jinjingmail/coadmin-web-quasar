@@ -120,7 +120,7 @@ module.exports = function (ctx) {
       iconSet: 'material-icons', // Quasar icon set
       lang: 'en-us', // Quasar language pack
       config: {
-        loadingBar: { /* look at QUASARCONFOPTIONS from the API card (bottom of page) */ }
+        //loadingBar: { /* look at QUASARCONFOPTIONS from the API card (bottom of page) */ }
       },
 
       // Possible values for "importStrategy":
@@ -136,7 +136,7 @@ module.exports = function (ctx) {
       // directives: [],
 
       // Quasar plugins
-      plugins: ['Notify', 'Dialog', 'LocalStorage', 'AppFullscreen', 'LoadingBar', 'Loading']
+      plugins: ['Notify', 'Dialog', 'LocalStorage', 'AppFullscreen', 'Loading']
     },
 
     // animations: 'all', // --- includes all animations
