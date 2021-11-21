@@ -211,7 +211,7 @@ import CrudTestPerson from '@/api/test/test-person'
 const defaultForm = { id: null, name: null, gender: null, birthday: null, createTime: null, createBy: null, updateTime: null, updateBy: null, remarks: null, mysqlEngine: null }
 
 const visibleColumns = ['name', 'gender', 'birthday', 'createTime', 'updateBy', 'remarks', 'mysqlEngine', 'action']
-// 参考：https://quasar.dev/vue-components/table#Defining-the-columns
+// 参考：https://v1.quasar.dev/vue-components/table#Defining-the-columns
 const columns = [
   { name: 'id', field: 'id', label: 'ID', align: 'left' },
   { name: 'name', field: 'name', label: '姓名', align: 'left' },

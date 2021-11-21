@@ -89,4 +89,4 @@ quasar build
 ```
 
 ### Customize the configuration（修改配置）
-See [Configuring quasar.conf.js](https://quasar.dev/quasar-cli/quasar-conf-js).
+See [Configuring quasar.conf.js](https://v1.quasar.dev/quasar-cli/quasar-conf-js).

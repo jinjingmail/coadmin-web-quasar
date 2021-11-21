@@ -53,9 +53,9 @@ module.exports = {
 
   /***************               特殊配置 begin           ***************/
   /*******
-   * 间距参考： https://quasar.dev/style/spacing
-   * 间距参考： https://quasar.dev/style/breakpoints
-   * 颜色参考： https://quasar.dev/style/color-palette
+   * 间距参考： https://v1.quasar.dev/style/spacing
+   * 间距参考： https://v1.quasar.dev/style/breakpoints
+   * 颜色参考： https://v1.quasar.dev/style/color-palette
    */
   /**
    * CoPage样式:

@@ -249,7 +249,7 @@ import CrudAppUser from '@/api/app/app-user'
 const defaultForm = { id: null, isEnabled: null, channel: null, openid: null, unionid: null, mobile: null, nickname: null, nicknameLetter: null, gender: null, headimgurl: null, country: null, province: null, city: null, lang: null, createTime: null, createBy: null, updateTime: null, updateBy: null }
 
 const visibleColumns = ['isEnabled', 'channel', 'mobile', 'nickname', 'gender', 'headimgurl', 'city', 'createTime', 'action']
-// 参考：https://quasar.dev/vue-components/table#Defining-the-columns
+// 参考：https://v1.quasar.dev/vue-components/table#Defining-the-columns
 const columns = [
   { name: 'id', field: 'id', label: 'ID', align: 'left' },
   { name: 'isEnabled', field: 'isEnabled', label: '状态', align: 'left', format: val => val ? '启用' : '禁用' },
