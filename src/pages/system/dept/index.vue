@@ -110,7 +110,6 @@
           :visible-columns="crud.visibleColumns"
           :title="treeSelectedLabel"
           :loading="crud.loading"
-          selection="multiple"
           :selected.sync="crud.selections"
           :filter="filterTable"
           @row-click="(evt, row, index) => crud.selections = [row]"

@@ -158,7 +158,6 @@
           :visible-columns="crud.visibleColumns"
           :title="deptSelectedLabel"
           :loading="crud.loading"
-          selection="multiple"
           :selected.sync="crud.selections"
           :filter="filterTable"
           @row-click="(evt, row, index) => crud.selections = [row]"

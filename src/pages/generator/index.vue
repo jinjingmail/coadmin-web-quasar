@@ -41,7 +41,6 @@
       :loading="crud.loading"
       :filter="filterTable"
       :selected.sync="crud.selections"
-      selection="single"
       @row-click="(evt, row, index) => crud.selections = [row]"
       @row-dblclick="(evt, row, index) => $refs.config.show(row.tableName)"
     >

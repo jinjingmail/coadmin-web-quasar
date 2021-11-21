@@ -79,7 +79,6 @@
       :visible-columns="crud.visibleColumns"
       :title="crud.title"
       :loading="crud.loading"
-      selection="single"
       :selected.sync="crud.selections"
       :filter="filterTable"
       @row-click="(evt, row, index) => crud.selections = [row]"

@@ -89,8 +89,7 @@
         :loading="crud.loading"
         :filter="filterTable"
         :selected.sync="crud.selections"
-        selection="single"
-        @row-click="(evt, row, index) => crud.selections = [row]"
+          @row-click="(evt, row, index) => crud.selections = [row]"
         @row-dblclick="(evt, row, index) => crud.toView(row)"
     >
       <template v-slot:top-left>
