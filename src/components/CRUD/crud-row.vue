@@ -311,7 +311,7 @@ export default {
     },
     colorView: {
       type: String,
-      default: 'blue-grey-5'
+      default: 'info'
     },
     colorEdit: {
       type: String,
@@ -323,7 +323,7 @@ export default {
     },
     colorAdd: {
       type: String,
-      default: 'secondary'
+      default: 'positive'
     },
     labelMenu: {
       type: String,

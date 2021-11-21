@@ -132,11 +132,11 @@ export default {
 
     colorView: {
       type: String,
-      default: 'blue-grey-5'
+      default: 'info'
     },
     colorAdd: {
       type: String,
-      default: 'secondary'
+      default: 'positive'
     },
     colorEdit: {
       type: String,
@@ -148,7 +148,7 @@ export default {
     },
     colorDownload: {
       type: String,
-      default: 'light-blue'
+      default: 'warning'
     },
     iconView: {
       type: String,
