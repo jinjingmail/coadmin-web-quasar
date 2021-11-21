@@ -29,8 +29,8 @@
     title-class
 
     sticky-header
-    sticky-first-column
-    sticky-last-column
+    sticky-first
+    sticky-last
 
     loading
     loading-delay       多少ms后开始显示 loading 状态
@@ -177,8 +177,8 @@ export default {
       default: (numberOfRows) => numberOfRows + ' 已选'
     },
     stickyHeader: Boolean,
-    stickyFirstColumn: Boolean,
-    stickyLastColumn: Boolean,
+    stickyFirst: Boolean,
+    stickyLast: Boolean,
 
     loading: Boolean,
     loadingSpinner: {
@@ -294,19 +294,19 @@ export default {
     },
     computedClass () {
       let cls = this.settingTableClass
-      if (this.stickyHeader && this.stickyFirstColumn && this.stickyLastColumn) {
+      if (this.stickyHeader && this.stickyFirst && this.stickyLast) {
         cls += ' co-table-sticky-header-and-first-last-column'
-      } else if (this.stickyHeader && this.stickyFirstColumn) {
+      } else if (this.stickyHeader && this.stickyFirst) {
         cls += ' co-table-sticky-header-and-first-column'
-      } else if (this.stickyHeader && this.stickyLastColumn) {
+      } else if (this.stickyHeader && this.stickyLast) {
         cls += ' co-table-sticky-header-and-last-column'
-      } else if (this.stickyFirstColumn && this.stickyLastColumn) {
+      } else if (this.stickyFirst && this.stickyLast) {
         cls += ' co-table-sticky-first-and-last-column'
       } else if (this.stickyHeader) {
         cls += ' co-table-sticky-header'
-      } else if (this.stickyFirstColumn) {
+      } else if (this.stickyFirst) {
         cls += ' co-table-sticky-first-column'
-      } else if (this.stickyLastColumn) {
+      } else if (this.stickyLast) {
         cls += ' co-table-sticky-last-column'
       }
       return cls

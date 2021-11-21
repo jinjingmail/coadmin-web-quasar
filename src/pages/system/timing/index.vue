@@ -74,6 +74,7 @@
       ref="table"
       row-key="id"
       sticky-header
+      sticky-last
       :data="crud.data"
       :columns="crud.columns"
       :visible-columns="crud.visibleColumns"
@@ -141,6 +142,7 @@
             :type="$q.screen.gt.xs?'button':'menu'"
             :data="props.row"
             :permission="permission"
+            :action-start="[{permission:['admin', 'timing:edit'], label:'执行', color:'warning', click: () => doRun(props.row.id) }]"
           />
         </q-td>
       </template>
@@ -160,7 +162,7 @@ import CrudOperation from '@crud/crud-operation'
 import CrudPagination from '@crud/crud-pagination'
 import CrudRow from '@crud/crud-row'
 import CrudMore from '@crud/crud-more'
-import crudTiming from '@/api/system/timing'
+import crudTiming, { execution } from '@/api/system/timing'
 import JobsLog from './jobsLog.vue'
 
 const defaultForm = { id: null, jobName: null, description: null, subTask: null, beanName: null, methodName: null, params: null, cronExpression: null, pauseAfterFailure: true, isPause: false, personInCharge: null, email: null }
@@ -187,6 +189,7 @@ export default {
   mixins: [presenter(), header(), form(defaultForm), crud()],
   data () {
     return {
+      loadingRun: false,
       permission: {
         add: ['admin', 'timing:add'],
         edit: ['admin', 'timing:edit'],
@@ -199,6 +202,18 @@ export default {
     ...mapGetters('permission', [
       'dict'
     ])
+  },
+  methods: {
+    doRun(timingId) {
+      this.loadingRun = true
+      execution(timingId).then(() => {
+        this.loadingRun = false
+        this.crud.notifySuccess('执行成功')
+      }).catch(err => {
+        this.loadingRun = false
+        console.log('err', err)
+      })
+    }
   }
 }
 </script>
