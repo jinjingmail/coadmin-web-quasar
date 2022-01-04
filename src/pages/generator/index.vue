@@ -85,10 +85,10 @@
 
       <template v-slot:body-cell-action="props">
         <q-td :props="props">
-          <co-btn label="修改" flat color="primary" @click="$refs.config.show(props.row.tableName)"/>
-          <co-btn label="预览" flat color="primary" @click="$refs.preview.show(props.row.tableName)"/>
-          <co-btn label="下载" flat color="primary" @click="toDownload(props.row.tableName)"/>
-          <co-btn label="生成" flat color="primary" @click="toGen(props.row.tableName)"/>
+          <co-btn label="修改" flat color="" @click="$refs.config.show(props.row.tableName)"/>
+          <co-btn label="预览" flat color="" @click="$refs.preview.show(props.row.tableName)"/>
+          <co-btn label="下载" flat color="" @click="toDownload(props.row.tableName)"/>
+          <co-btn label="生成" flat color="" @click="toGen(props.row.tableName)"/>
         </q-td>
       </template>
 
