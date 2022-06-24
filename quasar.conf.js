@@ -50,12 +50,12 @@ module.exports = function (ctx) {
 
     // Full list of options: https://v1.quasar.dev/quasar-cli/quasar-conf-js#Property%3A-build
     build: {
-      vueRouterMode: 'history', // available values: 'hash', 'history'
-      publicPath: '/coadmin-web-quasar/',
+      vueRouterMode: 'hash', // available values: 'hash', 'history'
+      publicPath: '/', // /coadmin-web-quasar/
       env: {
         VUE_APP_BASE_API: ctx.dev
           ? 'http://localhost:8000'
-          : 'http://prod.api.xxx.com'
+          : 'http://39.108.107.205:8000'
       },
 
       // transpile: false,
@@ -153,7 +153,7 @@ module.exports = function (ctx) {
       workboxPluginMode: 'GenerateSW', // 'GenerateSW' or 'InjectManifest'
       workboxOptions: {}, // only for GenerateSW
       manifest: {
-        name: 'coadminWebQuasar',
+        name: 'coadmin',
         short_name: 'coadmin web',
         description: 'Coadmin Admin',
         display: 'standalone',

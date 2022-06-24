@@ -9,7 +9,6 @@
       ref="formDialog"
       :value="crud.status.cu > 0"
       :title="crud.status.title"
-      no-backdrop-dismiss
       @before-hide="crud.cancelCU"
       card-style="width:600px; max-width:95vw;"
     >
@@ -18,50 +17,47 @@
         :label-width="$q.screen.lt.sm?'xsmall':'medium'"
         label-align="right"
         class="q-px-lg q-my-none row q-col-gutter-x-md q-col-gutter-y-md">
-        <co-field class="col-12" form-label="ID" :value="form.id" readonly borderless/>
-        <co-field class="col-12" form-label="核收日期" :value="parseTime(form.receiptDate, '{y}-{m}-{d}')" readonly borderless/>
-        <co-field class="col-12" form-label="报告状态" :value="form.reportStatus" readonly borderless/>
-        <co-field class="col-12" form-label="报告日期" :value="parseTime(form.reportDate, '{y}-{m}-{d}')" readonly borderless/>
-        <co-field class="col-12" form-label="流水号" :value="form.reportNo" readonly borderless/>
-        <co-field class="col-12" form-label="姓名" :value="form.patientName" readonly borderless/>
-        <co-field class="col-12" form-label="性别" :value="form.patientGender" readonly borderless/>
-        <co-field class="col-12" form-label="年龄" :value="form.patientAge" readonly borderless/>
-        <co-field class="col-12" form-label="登记号" :value="form.patientNo" readonly borderless/>
-        <co-field class="col-12" form-label="标本号" :value="form.specimanNo" readonly borderless/>
-        <co-field class="col-12" form-label="标本类型" :value="form.specimanType" readonly borderless/>
-        <co-field class="col-12" form-label="联系电话" :value="form.contactTel" readonly borderless/>
-        <co-field class="col-12" form-label="科室" :value="form.departmentName" readonly borderless/>
-        <co-field class="col-12" form-label="诊断" :value="form.diagnosis" readonly borderless/>
-        <co-field class="col-12" form-label="医嘱" :value="form.doctorAdvice" readonly borderless/>
-        <co-field class="col-12" form-label="芯片ID" :value="form.chipId" readonly borderless/>
-        <co-field class="col-12" form-label="报告提示" :value="form.reportTip" readonly borderless/>
-        <co-field class="col-12" form-label="结果" :value="form.result" readonly borderless/>
-        <co-field class="col-12" form-label="分析意见" :value="form.reportAnalysisOpinion" readonly borderless/>
-        <co-field class="col-12" form-label="结论" :value="form.conclusion" readonly borderless/>
-        <co-field class="col-12" form-label="提示" :value="form.conclusionDetails" readonly borderless/>
-        <co-field class="col-12" form-label="建议" :value="form.suggest" readonly borderless/>
-        <co-field class="col-12" form-label="染色体区域" :value="form.chromosomeRegion" readonly borderless/>
-        <co-field class="col-12" form-label="DNA CHip" :value="form.dnaChip" readonly borderless/>
-        <co-field class="col-12" form-label="结果2" :value="form.result2" readonly borderless/>
-        <co-field class="col-12" form-label="染色体区域2" :value="form.chromosomeRegion2" readonly borderless/>
-        <co-field class="col-12" form-label="结论2" :value="form.conclusion2" readonly borderless/>
-        <co-field class="col-12" form-label="结果3" :value="form.result3" readonly borderless/>
-        <co-field class="col-12" form-label="染色体区域3" :value="form.chromosomeRegion3" readonly borderless/>
-        <co-field class="col-12" form-label="结论3" :value="form.conclusion3" readonly borderless/>
-        <co-field class="col-12" form-label="结果4" :value="form.result4" readonly borderless/>
-        <co-field class="col-12" form-label="染色体区域4" :value="form.chromosomeRegion4" readonly borderless/>
-        <co-field class="col-12" form-label="结论4" :value="form.conclusion4" readonly borderless/>
-        <co-field class="col-12" form-label="检验时间" :value="parseTime(form.inspectionTime, '{y}-{m}-{d} {h}:{i}')" readonly borderless/>
-        <co-field class="col-12" form-label="孕次" :value="form.timesOfPregnancy" readonly borderless/>
-        <co-field class="col-12" form-label="产次" :value="form.timesOfBirth" readonly borderless/>
-        <co-field class="col-12" form-label="签署同意书" :value="form.signConsent" readonly borderless/>
-        <co-field class="col-12" form-label="申请医生" :value="form.applyDoctor" readonly borderless/>
-        <co-field class="col-12" form-label="申请日期" :value="parseTime(form.applyDate, '{y}-{m}-{d}')" readonly borderless/>
-        <co-field class="col-12" form-label="备注" :value="form.remarks" readonly borderless/>
-        <co-field class="col-12" form-label="创建时间" :value="parseTime(form.createTime, '{y}-{m}-{d} {h}:{i}:{s}')" readonly borderless/>
-        <co-field class="col-12" form-label="创建人" :value="form.createUser" readonly borderless/>
-        <co-field class="col-12" form-label="修改时间" :value="parseTime(form.updateTime, '{y}-{m}-{d} {h}:{i}:{s}')" readonly borderless/>
-        <co-field class="col-12" form-label="修改人" :value="form.updateUser" readonly borderless/>
+        <co-field class="col-12" form-label="ID" :value="form.id" readonly/>
+        <co-field class="col-12" form-label="核收日期" :value="parseTime(form.receiptDate, '{y}-{m}-{d}')" readonly/>
+        <co-field class="col-12" form-label="报告状态" :value="form.reportStatus" readonly/>
+        <co-field class="col-12" form-label="报告日期" :value="parseTime(form.reportDate, '{y}-{m}-{d}')" readonly/>
+        <co-field class="col-12" form-label="流水号" :value="form.reportNo" readonly/>
+        <co-field class="col-12" form-label="就诊人" :value="`${form.patientNo} - ${form.patientName} - ${form.patientGender} - ${form.patientAge}`" readonly/>
+        <co-field class="col-12" form-label="联系电话" :value="form.contactTel" readonly/>
+        <co-field class="col-12" form-label="标本号" :value="form.specimanNo" readonly/>
+        <co-field class="col-12" form-label="标本类型" :value="form.specimanType" readonly/>
+        <co-field class="col-12" form-label="科室" :value="form.departmentName" readonly/>
+        <co-field class="col-12" form-label="诊断" :value="form.diagnosis" readonly/>
+        <co-field class="col-12" form-label="医嘱" :value="form.doctorAdvice" readonly/>
+        <co-field class="col-12" form-label="芯片ID" :value="form.chipId" readonly/>
+        <co-field class="col-12" form-label="报告提示" :value="form.reportTip" readonly/>
+        <co-field class="col-12" form-label="结果" :value="form.result" readonly/>
+        <co-field class="col-12" form-label="分析意见" :value="form.reportAnalysisOpinion" readonly/>
+        <co-field class="col-12" form-label="结论" :value="form.conclusion" readonly/>
+        <co-field class="col-12" form-label="提示" :value="form.conclusionDetails" readonly/>
+        <co-field class="col-12" form-label="建议" :value="form.suggest" readonly/>
+        <co-field class="col-12" form-label="染色体区域" :value="form.chromosomeRegion" readonly/>
+        <co-field class="col-12" form-label="DNA CHip" :value="form.dnaChip" readonly/>
+        <co-field class="col-12" form-label="结果2" :value="form.result2" readonly/>
+        <co-field class="col-12" form-label="染色体区域2" :value="form.chromosomeRegion2" readonly/>
+        <co-field class="col-12" form-label="结论2" :value="form.conclusion2" readonly/>
+        <co-field class="col-12" form-label="结果3" :value="form.result3" readonly/>
+        <co-field class="col-12" form-label="染色体区域3" :value="form.chromosomeRegion3" readonly/>
+        <co-field class="col-12" form-label="结论3" :value="form.conclusion3" readonly/>
+        <co-field class="col-12" form-label="结果4" :value="form.result4" readonly/>
+        <co-field class="col-12" form-label="染色体区域4" :value="form.chromosomeRegion4" readonly/>
+        <co-field class="col-12" form-label="结论4" :value="form.conclusion4" readonly/>
+        <co-field class="col-12" form-label="检验时间" :value="parseTime(form.inspectionTime, '{y}-{m}-{d} {h}:{i}')" readonly/>
+        <co-field class="col-12" form-label="孕次" :value="form.timesOfPregnancy" readonly/>
+        <co-field class="col-12" form-label="产次" :value="form.timesOfBirth" readonly/>
+        <co-field class="col-12" form-label="签署同意书" :value="form.signConsent" readonly/>
+        <co-field class="col-12" form-label="申请医生" :value="form.applyDoctor" readonly/>
+        <co-field class="col-12" form-label="申请日期" :value="parseTime(form.applyDate, '{y}-{m}-{d}')" readonly/>
+        <co-field class="col-12" form-label="备注" :value="form.remarks" readonly/>
+        <co-field class="col-12" form-label="创建时间" :value="parseTime(form.createTime, '{y}-{m}-{d} {h}:{i}:{s}')" readonly/>
+        <co-field class="col-12" form-label="创建人" :value="form.createUser" readonly/>
+        <co-field class="col-12" form-label="修改时间" :value="parseTime(form.updateTime, '{y}-{m}-{d} {h}:{i}:{s}')" readonly/>
+        <co-field class="col-12" form-label="修改人" :value="form.updateUser" readonly/>
       </co-form>
       <q-card-actions class="q-px-lg q-pt-lg q-pb-md" align="right">
         <co-btn label="取消" flat v-close-popup/>
@@ -75,6 +71,7 @@
 
     <co-dialog
       ref="uploadDialog"
+      :title="'导入 ' + crud.status.title"
       no-backdrop-dismiss
       card-style="max-width:95vw;"
     >
@@ -83,8 +80,9 @@
         :factory="factoryFn"
         field-name="files"
         label="请选择文件"
-        multiple
-        accept=".xlsx"
+        @uploaded="uploaderUploaded"
+        @failed="uploaderFailed"
+        accept=".xlsx,.xls"
       />
     </co-dialog>
 
@@ -102,8 +100,13 @@
         @row-click="(evt, row, index) => crud.selections = [row]"
         @row-dblclick="(evt, row, index) => crud.toView(row)"
     >
-      <template v-slot:top-left>
+      <template v-slot:top-left v-if="!simplify">
         <div class='row q-col-gutter-x-sm q-col-gutter-y-xs q-pa-xs full-width'>
+          <co-toggle
+             label="已看"
+             v-model="query.viewed"
+             toggle-indeterminate
+             @input="crud.toQuery()"/>
           <co-input
               v-model="query.patientName"
               label="姓名/首字母"
@@ -299,8 +302,8 @@
       <template v-slot:top-right="props">
         <div class='row q-col-gutter-x-sm q-col-gutter-y-xs q-pa-xs full-width'>
           <!--如果想在工具栏加入更多按钮，可以使用插槽方式， 'start' or 'end'-->
-          <crud-operation :permission="permission" no-label no-view no-edit has-download>
-            <co-btn slot="start" icon="vertical_align_top" color="secondary" @click="$refs.uploadDialog.show()"/>
+          <crud-operation :permission="permission" no-label no-view no-add no-del no-edit has-download>
+            <co-btn slot="start" icon="vertical_align_top" color="secondary" @click="$refs.uploadDialog.show()" v-if="!simplify"/>
           </crud-operation>
           <div>
             <co-btn-dropdown color="primary" class="btn-dropdown-hide-droparrow" icon="apps" auto-close>
@@ -315,6 +318,12 @@
         </div>
       </template>
 
+      <template v-slot:body-cell-patientName="props" v-if="!simplify">
+        <q-td key="patientName" :props="props">
+          <router-link :to="{name:'Trace', query: {patientNo: props.row.patientNo}}">{{props.row.patientName}}</router-link>
+        </q-td>
+      </template>
+
       <template v-slot:body-cell-action="props">
         <q-td key="action" :props="props">
           <crud-row
@@ -323,13 +332,15 @@
               :permission="permission"
               flat
               no-add
+              no-edit
+              no-del
               no-icon
           />
         </q-td>
       </template>
 
       <template v-slot:pagination>
-        <crud-pagination />
+        <crud-pagination no-page-if-only-one-page input />
       </template>
 
     </co-table>
@@ -350,10 +361,11 @@ import CrudTraceCma from '@/api/trace/trace-cma'
 
 const defaultForm = { id: null, receiptDate: null, reportStatus: null, reportDate: null, reportNo: null, patientName: null, patientGender: null, patientAge: null, patientNo: null, specimanNo: null, specimanType: null, contactTel: null, departmentName: null, diagnosis: null, doctorAdvice: null, chipId: null, reportTip: null, result: null, reportAnalysisOpinion: null, conclusion: null, conclusionDetails: null, suggest: null, chromosomeRegion: null, dnaChip: null, result2: null, chromosomeRegion2: null, conclusion2: null, result3: null, chromosomeRegion3: null, conclusion3: null, result4: null, chromosomeRegion4: null, conclusion4: null, inspectionTime: null, timesOfPregnancy: null, timesOfBirth: null, signConsent: null, applyDoctor: null, applyDate: null, remarks: null, createTime: null, createUser: null, updateTime: null, updateUser: null, patientNameLetter: null }
 
-const visibleColumns = ['receiptDate', 'patientName', 'specimanType', 'contactTel', 'diagnosis', 'chipId', 'conclusion', 'conclusionDetails', 'chromosomeRegion', 'chromosomeRegion2', 'chromosomeRegion3', 'chromosomeRegion4', 'inspectionTime', 'applyDoctor', 'remarks', 'action']
+const visibleColumns = ['viewed', 'receiptDate', 'patientName', 'specimanType', 'contactTel', 'diagnosis', 'chipId', 'conclusion', 'conclusionDetails', 'chromosomeRegion', 'chromosomeRegion2', 'chromosomeRegion3', 'chromosomeRegion4', 'inspectionTime', 'applyDoctor', 'remarks', 'action']
 // 参考：https://quasar.dev/vue-components/table#Defining-the-columns
 const columns = [
   { name: 'id', field: 'id', label: 'ID', align: 'left' },
+  { name: 'viewed', field: 'viewed', label: '已看', align: 'center', format: val => val ? 'T' : 'F' },
   { name: 'receiptDate', field: 'receiptDate', label: '核收日期', align: 'left', format: val => formatTime(val, '{y}-{m}-{d}') },
   { name: 'reportStatus', field: 'reportStatus', label: '报告状态', align: 'left' },
   { name: 'reportDate', field: 'reportDate', label: '报告日期', align: 'left', format: val => formatTime(val, '{y}-{m}-{d}') },
@@ -408,6 +420,10 @@ export default {
     return CRUD({ columns, visibleColumns, title: '染色体微整列分析', idField: 'id', sort: ['id,desc'], url: 'api/trace/trace-cma', crudMethod: { ...CrudTraceCma } })
   },
   mixins: [presenter(), header(), form(defaultForm), crud()],
+  props: {
+    simplify: Boolean,
+    patientNo: String
+  },
   data () {
     return {
       permission: {
@@ -421,6 +437,7 @@ export default {
   },
   created () {
     this.crud.updateProp('queryMore', false)
+    this.query.patientNo = this.patientNo
   },
   mounted () {
   },
@@ -447,6 +464,13 @@ export default {
           ]
         })
       })
+    },
+    uploaderUploaded (info) {
+      this.crud.notifyInfo(`导入【${info.files[0].name}】结束：` + info.xhr.responseText)
+    },
+    uploaderFailed (info) {
+      console.log('uploaderFailed', info)
+      this.crud.notifyError(`导入【${info.files[0].name}】失败：` + info.xhr.responseText)
     }
   }
 }

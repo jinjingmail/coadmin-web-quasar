@@ -4,7 +4,7 @@ module.exports = {
   /**
    * @description 网站标题
    */
-  title: 'CoAdmin管理系统',
+  title: '诊断分析系统',
   /**
    * @description 是否显示 tagsView
    */
@@ -181,9 +181,9 @@ module.exports = {
   /**
    * 底部文字，支持html语法
    */
-  footerTxt: '© 2020 XXYY 版权所有',
+  footerTxt: '©2021-2022 huihui 版权所有',
   /**
    * 备案号
    */
-  caseNumber: '粤ICP备xxxxxx号-1'
+  caseNumber: ''
 }

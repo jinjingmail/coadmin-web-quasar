@@ -9,7 +9,6 @@
       ref="formDialog"
       :value="crud.status.cu > 0"
       :title="crud.status.title"
-      no-backdrop-dismiss
       @before-hide="crud.cancelCU"
       card-style="width:600px; max-width:95vw;"
     >
@@ -18,65 +17,62 @@
         :label-width="$q.screen.lt.sm?'xsmall':'large'"
         label-align="right"
         class="q-px-lg q-my-none row q-col-gutter-x-md q-col-gutter-y-md">
-        <co-field class="col-12" form-label="ID" :value="form.id" readonly borderless/>
-        <co-field class="col-12" form-label="接收日期" :value="parseTime(form.receiptDate, '{y}-{m}-{d}')" readonly borderless/>
-        <co-field class="col-12" form-label="报告状态" :value="form.reportStatus" readonly borderless/>
-        <co-field class="col-12" form-label="报告日期" :value="parseTime(form.reportDate, '{y}-{m}-{d}')" readonly borderless/>
-        <co-field class="col-12" form-label="流水号" :value="form.reportNo" readonly borderless/>
-        <co-field class="col-12" form-label="姓名" :value="form.patientName" readonly borderless/>
-        <co-field class="col-12" form-label="性别" :value="form.patientGender" readonly borderless/>
-        <co-field class="col-12" form-label="年龄" :value="form.patientAge" readonly borderless/>
-        <co-field class="col-12" form-label="登记号" :value="form.patientNo" readonly borderless/>
-        <co-field class="col-12" form-label="身份证" :value="form.patientIdNo" readonly borderless/>
-        <co-field class="col-12" form-label="保健号" :value="form.patientHealthNo" readonly borderless/>
-        <co-field class="col-12" form-label="病案号" :value="form.caseNo" readonly borderless/>
-        <co-field class="col-12" form-label="标本号" :value="form.specimanNo" readonly borderless/>
-        <co-field class="col-12" form-label="标本类型" :value="form.specimanType" readonly borderless/>
-        <co-field class="col-12" form-label="联系电话" :value="form.contactTel" readonly borderless/>
-        <co-field class="col-12" form-label="科室" :value="form.departmentName" readonly borderless/>
-        <co-field class="col-12" form-label="诊断" :value="form.diagnosis" readonly borderless/>
-        <co-field class="col-12" form-label="医嘱" :value="form.doctorAdvice" readonly borderless/>
-        <co-field class="col-12" form-label="13-三体" :value="form.t13" readonly borderless/>
-        <co-field class="col-12" form-label="18-三体" :value="form.t18" readonly borderless/>
-        <co-field class="col-12" form-label="21-三体" :value="form.t21" readonly borderless/>
-        <co-field class="col-12" form-label="结果描述" :value="form.reportDetails" readonly borderless/>
-        <co-field class="col-12" form-label="补充内容1" :value="form.addition1" readonly borderless/>
-        <co-field class="col-12" form-label="补充内容1说明" :value="form.addition1Remark" readonly borderless/>
-        <co-field class="col-12" form-label="补充内容2" :value="form.addition2" readonly borderless/>
-        <co-field class="col-12" form-label="补充内容2说明" :value="form.addition2Remark" readonly borderless/>
-        <co-field class="col-12" form-label="T13风险" :value="form.t13Risk" readonly borderless/>
-        <co-field class="col-12" form-label="T18风险" :value="form.t18Risk" readonly borderless/>
-        <co-field class="col-12" form-label="T21风险" :value="form.t21Risk" readonly borderless/>
-        <co-field class="col-12" form-label="报告评价" :value="form.reportEvaluation" readonly borderless/>
-        <co-field class="col-12" form-label="孕次" :value="form.timesOfPregnancy" readonly borderless/>
-        <co-field class="col-12" form-label="产次" :value="form.timesOfBirth" readonly borderless/>
-        <co-field class="col-12" form-label="体重(Kg)" :value="form.patientWeight" readonly borderless/>
-        <co-field class="col-12" form-label="身高(cm)" :value="form.patientHeight" readonly borderless/>
-        <co-field class="col-12" form-label="体重指数" :value="form.weightIndex" readonly borderless/>
-        <co-field class="col-12" form-label="末次月经" :value="parseTime(form.lastMenstruation, '{y}-{m}-{d} {h}:{i}:{s}')" readonly borderless/>
-        <co-field class="col-12" form-label="月经计算孕周" :value="form.mcgw" readonly borderless/>
-        <co-field class="col-12" form-label="抽血当天孕周" :value="form.bdgw" readonly borderless/>
-        <co-field class="col-12" form-label="自然受孕" :value="form.natureConceived" readonly borderless/>
-        <co-field class="col-12" form-label="促排卵" :value="form.ovulationInduction" readonly borderless/>
-        <co-field class="col-12" form-label="IUI" :value="form.iui" readonly borderless/>
-        <co-field class="col-12" form-label="IVF" :value="form.ivf" readonly borderless/>
-        <co-field class="col-12" form-label="异体输血" :value="form.allogeneticTransfusion" readonly borderless/>
-        <co-field class="col-12" form-label="家族史" :value="form.familyDiseases" readonly borderless/>
-        <co-field class="col-12" form-label="筛查模式" :value="form.screeningModel" readonly borderless/>
-        <co-field class="col-12" form-label="超声NT测定孕周" :value="form.ntGw" readonly borderless/>
-        <co-field class="col-12" form-label="NT测定值(mm)" :value="form.ntMm" readonly borderless/>
-        <co-field class="col-12" form-label="母体血清筛查风险" :value="form.mssr" readonly borderless/>
-        <co-field class="col-12" form-label="21三体综合征" :value="form.t21Syndrome" readonly borderless/>
-        <co-field class="col-12" form-label="18三体综合征" :value="form.t18Syndrome" readonly borderless/>
-        <co-field class="col-12" form-label="13三体综合征" :value="form.t13Syndrome" readonly borderless/>
-        <co-field class="col-12" form-label="签署同意书" :value="form.signConsent" readonly borderless/>
-        <co-field class="col-12" form-label="申请医生" :value="form.applyDoctor" readonly borderless/>
-        <co-field class="col-12" form-label="申请日期" :value="parseTime(form.applyDate, '{y}-{m}-{d}')" readonly borderless/>
-        <co-field class="col-12" form-label="备注" :value="form.remarks" readonly borderless/>
-        <co-field class="col-12" form-label="创建时间" :value="parseTime(form.createTime, '{y}-{m}-{d} {h}:{i}:{s}')" readonly borderless/>
-        <co-field class="col-12" form-label="创建人" :value="form.createUser" readonly borderless/>
-        <co-field class="col-12" form-label="修改时间" :value="parseTime(form.updateTime, '{y}-{m}-{d} {h}:{i}:{s}')" readonly borderless/>
-        <co-field class="col-12" form-label="修改人" :value="form.updateUser" readonly borderless/>
+        <co-field class="col-12" form-label="ID" :value="form.id" readonly/>
+        <co-field class="col-12" form-label="接收日期" :value="parseTime(form.receiptDate, '{y}-{m}-{d}')" readonly/>
+        <co-field class="col-12" form-label="报告状态" :value="form.reportStatus" readonly/>
+        <co-field class="col-12" form-label="报告日期" :value="parseTime(form.reportDate, '{y}-{m}-{d}')" readonly/>
+        <co-field class="col-12" form-label="流水号" :value="form.reportNo" readonly/>
+        <co-field class="col-12" form-label="就诊人" :value="`${form.patientNo} - ${form.patientName} - ${form.patientGender} - ${form.patientAge}`" readonly/>
+        <co-field class="col-12" form-label="联系电话" :value="form.contactTel" readonly/>
+        <co-field class="col-12" form-label="身份证" :value="form.patientIdNo" readonly/>
+        <co-field class="col-12" form-label="保健号" :value="form.patientHealthNo" readonly/>
+        <co-field class="col-12" form-label="病案号" :value="form.caseNo" readonly/>
+        <co-field class="col-12" form-label="标本号" :value="form.specimanNo" readonly/>
+        <co-field class="col-12" form-label="标本类型" :value="form.specimanType" readonly/>
+        <co-field class="col-12" form-label="科室" :value="form.departmentName" readonly/>
+        <co-field class="col-12" form-label="诊断" :value="form.diagnosis" readonly/>
+        <co-field class="col-12" form-label="医嘱" :value="form.doctorAdvice" readonly/>
+        <co-field class="col-12" form-label="13-三体" :value="form.t13" readonly/>
+        <co-field class="col-12" form-label="18-三体" :value="form.t18" readonly/>
+        <co-field class="col-12" form-label="21-三体" :value="form.t21" readonly/>
+        <co-field class="col-12" form-label="结果描述" :value="form.reportDetails" readonly/>
+        <co-field class="col-12" form-label="补充内容1" :value="form.addition1" readonly/>
+        <co-field class="col-12" form-label="补充内容1说明" :value="form.addition1Remark" readonly/>
+        <co-field class="col-12" form-label="补充内容2" :value="form.addition2" readonly/>
+        <co-field class="col-12" form-label="补充内容2说明" :value="form.addition2Remark" readonly/>
+        <co-field class="col-12" form-label="T13风险" :value="form.t13Risk" readonly/>
+        <co-field class="col-12" form-label="T18风险" :value="form.t18Risk" readonly/>
+        <co-field class="col-12" form-label="T21风险" :value="form.t21Risk" readonly/>
+        <co-field class="col-12" form-label="报告评价" :value="form.reportEvaluation" readonly/>
+        <co-field class="col-12" form-label="孕次" :value="form.timesOfPregnancy" readonly/>
+        <co-field class="col-12" form-label="产次" :value="form.timesOfBirth" readonly/>
+        <co-field class="col-12" form-label="体重(Kg)" :value="form.patientWeight" readonly/>
+        <co-field class="col-12" form-label="身高(cm)" :value="form.patientHeight" readonly/>
+        <co-field class="col-12" form-label="体重指数" :value="form.weightIndex" readonly/>
+        <co-field class="col-12" form-label="末次月经" :value="parseTime(form.lastMenstruation, '{y}-{m}-{d} {h}:{i}:{s}')" readonly/>
+        <co-field class="col-12" form-label="月经计算孕周" :value="form.mcgw" readonly/>
+        <co-field class="col-12" form-label="抽血当天孕周" :value="form.bdgw" readonly/>
+        <co-field class="col-12" form-label="自然受孕" :value="form.natureConceived" readonly/>
+        <co-field class="col-12" form-label="促排卵" :value="form.ovulationInduction" readonly/>
+        <co-field class="col-12" form-label="IUI" :value="form.iui" readonly/>
+        <co-field class="col-12" form-label="IVF" :value="form.ivf" readonly/>
+        <co-field class="col-12" form-label="异体输血" :value="form.allogeneticTransfusion" readonly/>
+        <co-field class="col-12" form-label="家族史" :value="form.familyDiseases" readonly/>
+        <co-field class="col-12" form-label="筛查模式" :value="form.screeningModel" readonly/>
+        <co-field class="col-12" form-label="超声NT测定孕周" :value="form.ntGw" readonly/>
+        <co-field class="col-12" form-label="NT测定值(mm)" :value="form.ntMm" readonly/>
+        <co-field class="col-12" form-label="母体血清筛查风险" :value="form.mssr" readonly/>
+        <co-field class="col-12" form-label="21三体综合征" :value="form.t21Syndrome" readonly/>
+        <co-field class="col-12" form-label="18三体综合征" :value="form.t18Syndrome" readonly/>
+        <co-field class="col-12" form-label="13三体综合征" :value="form.t13Syndrome" readonly/>
+        <co-field class="col-12" form-label="签署同意书" :value="form.signConsent" readonly/>
+        <co-field class="col-12" form-label="申请医生" :value="form.applyDoctor" readonly/>
+        <co-field class="col-12" form-label="申请日期" :value="parseTime(form.applyDate, '{y}-{m}-{d}')" readonly/>
+        <co-field class="col-12" form-label="备注" :value="form.remarks" readonly/>
+        <co-field class="col-12" form-label="创建时间" :value="parseTime(form.createTime, '{y}-{m}-{d} {h}:{i}:{s}')" readonly/>
+        <co-field class="col-12" form-label="创建人" :value="form.createUser" readonly/>
+        <co-field class="col-12" form-label="修改时间" :value="parseTime(form.updateTime, '{y}-{m}-{d} {h}:{i}:{s}')" readonly/>
+        <co-field class="col-12" form-label="修改人" :value="form.updateUser" readonly/>
       </co-form>
       <q-card-actions class="q-px-lg q-pt-lg q-pb-md" align="right">
         <co-btn label="取消" flat v-close-popup/>
@@ -90,6 +86,7 @@
 
     <co-dialog
       ref="uploadDialog"
+      :title="'导入 ' + crud.status.title"
       no-backdrop-dismiss
       card-style="max-width:95vw;"
     >
@@ -98,8 +95,9 @@
         :factory="factoryFn"
         field-name="files"
         label="请选择文件"
-        multiple
-        accept=".xlsx"
+        @uploaded="uploaderUploaded"
+        @failed="uploaderFailed"
+        accept=".xlsx,.xls"
       />
     </co-dialog>
 
@@ -117,8 +115,13 @@
         @row-click="(evt, row, index) => crud.selections = [row]"
         @row-dblclick="(evt, row, index) => crud.toView(row)"
     >
-      <template v-slot:top-left>
+      <template v-slot:top-left v-if="!simplify">
         <div class='row q-col-gutter-x-sm q-col-gutter-y-xs q-pa-xs full-width'>
+          <co-toggle
+             label="已看"
+             v-model="query.viewed"
+             toggle-indeterminate
+             @input="crud.toQuery()"/>
           <co-input
               v-model="query.patientName"
               label="姓名/首字母"
@@ -335,8 +338,8 @@
       <template v-slot:top-right="props">
         <div class='row q-col-gutter-x-sm q-col-gutter-y-xs q-pa-xs full-width'>
           <!--如果想在工具栏加入更多按钮，可以使用插槽方式， 'start' or 'end'-->
-          <crud-operation :permission="permission" no-label no-view no-edit has-download>
-            <co-btn slot="start" icon="vertical_align_top" color="secondary" @click="$refs.uploadDialog.show()"/>
+          <crud-operation :permission="permission" no-label no-view no-add no-del no-edit has-download>
+            <co-btn slot="start" icon="vertical_align_top" color="secondary" @click="$refs.uploadDialog.show()" v-if="!simplify"/>
           </crud-operation>
           <div>
             <co-btn-dropdown color="primary" class="btn-dropdown-hide-droparrow" icon="apps" auto-close>
@@ -351,6 +354,12 @@
         </div>
       </template>
 
+      <template v-slot:body-cell-patientName="props" v-if="!simplify">
+        <q-td key="patientName" :props="props">
+          <router-link :to="{name:'Trace', query: {patientNo: props.row.patientNo}}">{{props.row.patientName}}</router-link>
+        </q-td>
+      </template>
+
       <template v-slot:body-cell-action="props">
         <q-td key="action" :props="props">
           <crud-row
@@ -359,13 +368,15 @@
               :permission="permission"
               flat
               no-add
+              no-edit
+              no-del
               no-icon
           />
         </q-td>
       </template>
 
       <template v-slot:pagination>
-        <crud-pagination />
+        <crud-pagination no-page-if-only-one-page input />
       </template>
 
     </co-table>
@@ -381,14 +392,16 @@ import CRUD, { presenter, header, form, crud } from '@crud/crud'
 import CrudOperation from '@crud/crud-operation'
 import CrudPagination from '@crud/crud-pagination'
 import CrudMore from '@crud/crud-more'
+import CrudRow from '@crud/crud-row'
 import CrudTraceNipt from '@/api/trace/trace-nipt'
 
 const defaultForm = { id: null, receiptDate: null, reportStatus: null, reportDate: null, reportNo: null, patientName: null, patientGender: null, patientAge: null, patientNo: null, patientIdNo: null, patientHealthNo: null, caseNo: null, specimanNo: null, specimanType: null, contactTel: null, departmentName: null, diagnosis: null, doctorAdvice: null, t13: null, t18: null, t21: null, reportDetails: null, addition1: null, addition1Remark: null, addition2: null, addition2Remark: null, t13Risk: null, t18Risk: null, t21Risk: null, reportEvaluation: null, timesOfPregnancy: null, timesOfBirth: null, patientWeight: null, patientHeight: null, weightIndex: null, lastMenstruation: null, mcgw: null, bdgw: null, natureConceived: null, ovulationInduction: null, iui: null, ivf: null, allogeneticTransfusion: null, familyDiseases: null, screeningModel: null, ntGw: null, ntMm: null, mssr: null, t21Syndrome: null, t18Syndrome: null, t13Syndrome: null, signConsent: null, applyDoctor: null, applyDate: null, remarks: null, createTime: null, createUser: null, updateTime: null, updateUser: null, patientNameLetter: null }
 
-const visibleColumns = ['receiptDate', 'patientName', 'diagnosis', 't13', 't18', 't21', 'reportDetails', 'addition1', 'addition1Remark', 'addition2', 'addition2Remark', 't13Risk', 't18Risk', 't21Risk', 'timesOfPregnancy', 'timesOfBirth', 'patientWeight', 'patientHeight', 'natureConceived', 'action']
+const visibleColumns = ['viewed', 'receiptDate', 'patientName', 'diagnosis', 't13', 't18', 't21', 'reportDetails', 'addition1', 'addition1Remark', 'addition2', 'addition2Remark', 't13Risk', 't18Risk', 't21Risk', 'timesOfPregnancy', 'timesOfBirth', 'patientWeight', 'patientHeight', 'natureConceived', 'remarks', 'action']
 // 参考：https://quasar.dev/vue-components/table#Defining-the-columns
 const columns = [
   { name: 'id', field: 'id', label: 'ID', align: 'left' },
+  { name: 'viewed', field: 'viewed', label: '已看', align: 'center', format: val => val ? 'T' : 'F' },
   { name: 'receiptDate', field: 'receiptDate', label: '核收日期', align: 'left', format: val => formatTime(val, '{y}-{m}-{d}') },
   { name: 'reportStatus', field: 'reportStatus', label: '报告状态', align: 'left' },
   { name: 'reportDate', field: 'reportDate', label: '报告日期', align: 'left', format: val => formatTime(val, '{y}-{m}-{d}') },
@@ -406,9 +419,9 @@ const columns = [
   { name: 'departmentName', field: 'departmentName', label: '科室', align: 'left' },
   { name: 'diagnosis', field: 'diagnosis', label: '诊断', align: 'left' },
   { name: 'doctorAdvice', field: 'doctorAdvice', label: '医嘱', align: 'left' },
-  { name: 't13', field: 't13', label: '13-三体', align: 'left' },
-  { name: 't18', field: 't18', label: '18-三体', align: 'left' },
-  { name: 't21', field: 't21', label: '21-三体', align: 'left' },
+  { name: 't13', field: 't13', label: '13-三体', align: 'right' },
+  { name: 't18', field: 't18', label: '18-三体', align: 'right' },
+  { name: 't21', field: 't21', label: '21-三体', align: 'right' },
   { name: 'reportDetails', field: 'reportDetails', label: '结果描述', align: 'left' },
   { name: 'addition1', field: 'addition1', label: '补充内容1', align: 'left' },
   { name: 'addition1Remark', field: 'addition1Remark', label: '补充内容1说明', align: 'left' },
@@ -418,16 +431,16 @@ const columns = [
   { name: 't18Risk', field: 't18Risk', label: 'T18风险', align: 'left' },
   { name: 't21Risk', field: 't21Risk', label: 'T21风险', align: 'left' },
   { name: 'reportEvaluation', field: 'reportEvaluation', label: '报告评价', align: 'left' },
-  { name: 'timesOfPregnancy', field: 'timesOfPregnancy', label: '孕次', align: 'left' },
-  { name: 'timesOfBirth', field: 'timesOfBirth', label: '产次', align: 'left' },
-  { name: 'patientWeight', field: 'patientWeight', label: '体重(Kg)', align: 'left' },
-  { name: 'patientHeight', field: 'patientHeight', label: '身高(cm)', align: 'left' },
-  { name: 'weightIndex', field: 'weightIndex', label: '体重指数', align: 'left' },
+  { name: 'timesOfPregnancy', field: 'timesOfPregnancy', label: '孕次', align: 'center' },
+  { name: 'timesOfBirth', field: 'timesOfBirth', label: '产次', align: 'center' },
+  { name: 'patientWeight', field: 'patientWeight', label: '体重(Kg)', align: 'right' },
+  { name: 'patientHeight', field: 'patientHeight', label: '身高(cm)', align: 'right' },
+  { name: 'weightIndex', field: 'weightIndex', label: '体重指数', align: 'right' },
   { name: 'lastMenstruation', field: 'lastMenstruation', label: '末次月经', align: 'left', format: val => formatTime(val, '{y}-{m}-{d}') },
   { name: 'mcgw', field: 'mcgw', label: '月经计算孕周', align: 'left' },
   { name: 'bdgw', field: 'bdgw', label: '抽血当天孕周', align: 'left' },
-  { name: 'natureConceived', field: 'natureConceived', label: '自然受孕', align: 'left' },
-  { name: 'ovulationInduction', field: 'ovulationInduction', label: '促排卵', align: 'left' },
+  { name: 'natureConceived', field: 'natureConceived', label: '自然受孕', align: 'center' },
+  { name: 'ovulationInduction', field: 'ovulationInduction', label: '促排卵', align: 'center' },
   { name: 'iui', field: 'iui', label: 'IUI', align: 'left' },
   { name: 'ivf', field: 'ivf', label: 'IVF', align: 'left' },
   { name: 'allogeneticTransfusion', field: 'allogeneticTransfusion', label: '异体输血', align: 'left' },
@@ -453,11 +466,15 @@ const columns = [
 
 export default {
   name: 'TraceNipt',
-  components: { CrudOperation, CrudMore, CrudPagination },
+  components: { CrudOperation, CrudMore, CrudPagination, CrudRow },
   cruds() {
     return CRUD({ columns, visibleColumns, title: '无创产前筛查', idField: 'id', sort: ['id,desc'], url: 'api/trace/trace-nipt', crudMethod: { ...CrudTraceNipt } })
   },
   mixins: [presenter(), header(), form(defaultForm), crud()],
+  props: {
+    simplify: Boolean,
+    patientNo: String
+  },
   data () {
     return {
       permission: {
@@ -472,6 +489,7 @@ export default {
   },
   created () {
     this.crud.updateProp('queryMore', false)
+    this.query.patientNo = this.patientNo
   },
   mounted () {
   },
@@ -498,6 +516,13 @@ export default {
           ]
         })
       })
+    },
+    uploaderUploaded (info) {
+      this.crud.notifyInfo(`导入【${info.files[0].name}】结束：` + info.xhr.responseText)
+    },
+    uploaderFailed (info) {
+      console.log('uploaderFailed', info)
+      this.crud.notifyError(`导入【${info.files[0].name}】失败：` + info.xhr.responseText)
     }
   }
 }

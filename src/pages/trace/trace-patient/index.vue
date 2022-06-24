@@ -9,28 +9,27 @@
       ref="formDialog"
       :value="crud.status.cu > 0"
       :title="crud.status.title"
-      no-backdrop-dismiss
       @before-hide="crud.cancelCU"
-      card-style="width:600px; max-width:95vw;"
+      card-style="width:800px; max-width:95vw;"
     >
       <co-form
         ref="form"
         :label-width="$q.screen.lt.sm?'xsmall':'medium'"
         label-align="right"
         class="q-px-lg q-my-none row q-col-gutter-x-md q-col-gutter-y-md">
-        <co-field class="col-12" form-label="ID" :value="form.id" readonly borderless/>
-        <co-field class="col-12" form-label="登记号" :value="form.no" readonly borderless/>
-        <co-field class="col-12" form-label="姓名" :value="form.name" readonly borderless/>
-        <co-field class="col-12" form-label="性别" :value="form.gender" readonly borderless/>
-        <co-field class="col-12" form-label="出生日期" :value="parseTime(form.birthday, '{y}-{m}-{d}')" readonly borderless/>
-        <co-field class="col-12" form-label="身份证号" :value="form.idNo" readonly borderless/>
-        <co-field class="col-12" form-label="保健号" :value="form.healthNo" readonly borderless/>
-        <co-field class="col-12" form-label="联系方式" :value="form.contactNo" readonly borderless/>
-        <co-field class="col-12" form-label="备注" :value="form.remarks" readonly borderless/>
-        <co-field class="col-12" form-label="创建时间" :value="parseTime(form.createTime, '{y}-{m}-{d} {h}:{i}:{s}')" readonly borderless/>
-        <co-field class="col-12" form-label="创建人" :value="form.createUser" readonly borderless/>
-        <co-field class="col-12" form-label="更新时间" :value="parseTime(form.updateTime, '{y}-{m}-{d} {h}:{i}:{s}')" readonly borderless/>
-        <co-field class="col-12" form-label="更新人" :value="form.updateUser" readonly borderless/>
+        <co-field class="col-12 col-sm-6" form-label="ID" :value="form.id" readonly/>
+        <co-field class="col-12 col-sm-6" form-label="登记号" :value="form.no" readonly/>
+        <co-field class="col-12 col-sm-6" form-label="姓名" :value="form.name" readonly/>
+        <co-field class="col-12 col-sm-6" form-label="性别" :value="form.gender" readonly/>
+        <co-field class="col-12 col-sm-6" form-label="出生日期" :value="parseTime(form.birthday, '{y}-{m}-{d}')" readonly/>
+        <co-field class="col-12 col-sm-6" form-label="身份证号" :value="form.idNo" readonly/>
+        <co-field class="col-12 col-sm-6" form-label="保健号" :value="form.healthNo" readonly/>
+        <co-field class="col-12 col-sm-6" form-label="联系方式" :value="form.contactNo" readonly/>
+        <co-field class="col-12 col-sm-6" form-label="创建时间" :value="parseTime(form.createTime, '{y}-{m}-{d} {h}:{i}:{s}')" readonly/>
+        <co-field class="col-12 col-sm-6" form-label="创建人" :value="form.createUser" readonly/>
+        <co-field class="col-12 col-sm-6" form-label="更新时间" :value="parseTime(form.updateTime, '{y}-{m}-{d} {h}:{i}:{s}')" readonly/>
+        <co-field class="col-12 col-sm-6" form-label="更新人" :value="form.updateUser" readonly/>
+        <co-input autogrow class="col-12" form-label="备注" maxlength="400" counter v-model="form.remarks" :disable="!!crud.status.view"/>
       </co-form>
       <q-card-actions class="q-px-lg q-pt-lg q-pb-md" align="right">
         <co-btn label="取消" flat v-close-popup/>
@@ -56,7 +55,7 @@
         @row-click="(evt, row, index) => crud.selections = [row]"
         @row-dblclick="(evt, row, index) => crud.toView(row)"
     >
-      <template v-slot:top-left>
+      <template v-slot:top-left v-if="!simplify">
         <div class='row q-col-gutter-x-sm q-col-gutter-y-xs q-pa-xs full-width'>
           <co-input
               v-model="query.no"
@@ -133,7 +132,7 @@
       <template v-slot:top-right="props">
         <div class='row q-col-gutter-x-sm q-col-gutter-y-xs q-pa-xs full-width'>
           <!--如果想在工具栏加入更多按钮，可以使用插槽方式， 'start' or 'end'-->
-          <crud-operation :permission="permission" no-label no-view no-edit/>
+          <crud-operation :permission="permission" no-label no-view no-add no-del no-edit has-download/>
           <div>
             <co-btn-dropdown color="primary" class="btn-dropdown-hide-droparrow" icon="apps" auto-close>
               <crud-more :tableSlotTopProps="props">
@@ -147,6 +146,12 @@
         </div>
       </template>
 
+      <template v-slot:body-cell-name="props" v-if="!simplify">
+        <q-td key="name" :props="props">
+          <router-link :to="{name:'Trace', query: {patientNo: props.row.no}}">{{props.row.name}}</router-link>
+        </q-td>
+      </template>
+
       <template v-slot:body-cell-action="props">
         <q-td key="action" :props="props">
           <crud-row
@@ -155,13 +160,15 @@
               :permission="permission"
               flat
               no-add
+              no-del
               no-icon
+              label-edit="备注"
           />
         </q-td>
       </template>
 
       <template v-slot:pagination>
-        <crud-pagination />
+        <crud-pagination no-page-if-only-one-page input />
       </template>
 
     </co-table>
@@ -180,7 +187,7 @@ import CrudTracePatient from '@/api/trace/trace-patient'
 
 const defaultForm = { id: null, no: null, name: null, nameLetter: null, gender: null, birthday: null, idNo: null, healthNo: null, contactNo: null, remarks: null, createTime: null, createUser: null, updateTime: null, updateUser: null }
 
-const visibleColumns = ['no', 'name', 'gender', 'birthday', 'idNo', 'healthNo', 'contactNo', 'remarks', 'createTime', 'updateTime', 'action']
+const visibleColumns = ['no', 'name', 'gender', 'birthday', 'contactNo', 'remarks', 'createTime', 'updateTime', 'action']
 // 参考：https://quasar.dev/vue-components/table#Defining-the-columns
 const columns = [
   { name: 'id', field: 'id', label: 'ID', align: 'left' },
@@ -207,6 +214,10 @@ export default {
     return CRUD({ columns, visibleColumns, title: '就诊人', idField: 'id', sort: ['id,desc'], url: 'api/trace/trace-patient', crudMethod: { ...CrudTracePatient } })
   },
   mixins: [presenter(), header(), form(defaultForm), crud()],
+  props: {
+    simplify: Boolean,
+    patientNo: String
+  },
   data () {
     return {
       permission: {
@@ -220,6 +231,7 @@ export default {
   },
   created () {
     this.crud.updateProp('queryMore', false)
+    this.query.no = this.patientNo
   },
   mounted () {
   },

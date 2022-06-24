@@ -28,4 +28,11 @@ export function edit(data) {
   })
 }
 
+export function updateTraceViewed(patientNo) {
+  return request({
+    url: `api/trace/trace-patient/update-trace-viewed/${patientNo}`,
+    method: 'post'
+  })
+}
+
 export default { add, edit, del }

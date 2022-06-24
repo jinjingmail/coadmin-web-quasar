@@ -9,7 +9,6 @@
       ref="formDialog"
       :value="crud.status.cu > 0"
       :title="crud.status.title"
-      no-backdrop-dismiss
       @before-hide="crud.cancelCU"
       card-style="width:600px; max-width:95vw;"
     >
@@ -18,38 +17,36 @@
         :label-width="$q.screen.lt.sm?'xsmall':'large'"
         label-align="right"
         class="q-px-lg q-my-none row q-col-gutter-x-md q-col-gutter-y-md">
-        <co-field class="col-12" form-label="ID" :value="form.id" readonly borderless/>
-        <co-field class="col-12" form-label="报告时间" :value="parseTime(form.reportTime, '{y}-{m}-{d} {h}:{i}')" readonly borderless/>
-        <co-field class="col-12" form-label="流水号" :value="form.reportNo" readonly borderless/>
-        <co-field class="col-12" form-label="登记号" :value="form.patientNo" readonly borderless/>
-        <co-field class="col-12" form-label="姓名" :value="form.patientName" readonly borderless/>
-        <co-field class="col-12" form-label="性别" :value="form.patientGender" readonly borderless/>
-        <co-field class="col-12" form-label="年龄" :value="form.patientAge" readonly borderless/>
-        <co-field class="col-12" form-label="科室" :value="form.departmentName" readonly borderless/>
-        <co-field class="col-12" form-label="医嘱" :value="form.doctorAdvice" readonly borderless/>
-        <co-field class="col-12" form-label="标本类型" :value="form.specimanType" readonly borderless/>
-        <co-field class="col-12" form-label="诊断" :value="form.diagnosis" readonly borderless/>
-        <co-field class="col-12" form-label="染色体核型结果" :value="form.karyotypeResult" readonly borderless/>
-        <co-field class="col-12" form-label="早筛报告时间" :value="parseTime(form.firstPregencyReportTime, '{y}-{m}-{d} {h}:{i}')" readonly borderless/>
-        <co-field class="col-12" form-label="PAPPMOM(早筛)" :value="form.firstPappmom" readonly borderless/>
-        <co-field class="col-12" form-label="FHCGMOM(早筛)" :value="form.firstFhcgmom" readonly borderless/>
-        <co-field class="col-12" form-label="T21风险值(早筛)" :value="form.firstT21Risk" readonly borderless/>
-        <co-field class="col-12" form-label="T18风险值(早筛)" :value="form.firstT18Risk" readonly borderless/>
-        <co-field class="col-12" form-label="中筛报告时间" :value="parseTime(form.secondPregencyReportTime, '{y}-{m}-{d} {h}:{i}')" readonly borderless/>
-        <co-field class="col-12" form-label="AFPMOM(中筛)" :value="form.secondAfpmom" readonly borderless/>
-        <co-field class="col-12" form-label="FHCGMOM(中筛)" :value="form.secondFhcgmom" readonly borderless/>
-        <co-field class="col-12" form-label="E3MOM(中筛)" :value="form.secondE3mom" readonly borderless/>
-        <co-field class="col-12" form-label="T21风险值(中筛)" :value="form.secondT21Risk" readonly borderless/>
-        <co-field class="col-12" form-label="T18风险值(中筛)" :value="form.secondT18Risk" readonly borderless/>
-        <co-field class="col-12" form-label="无创报告时间" :value="parseTime(form.niptReportTime, '{y}-{m}-{d} {h}:{i}')" readonly borderless/>
-        <co-field class="col-12" form-label="无创筛查" :value="form.niptScreening" readonly borderless/>
-        <co-field class="col-12" form-label="无创补充报告时间" :value="parseTime(form.niptReplenishReportTime, '{y}-{m}-{d} {h}:{i}')" readonly borderless/>
-        <co-field class="col-12" form-label="无创筛查补充" :value="form.niptScreeningReplenish" readonly borderless/>
-        <co-field class="col-12" form-label="备注" :value="form.remarks" readonly borderless/>
-        <co-field class="col-12" form-label="创建时间" :value="parseTime(form.createTime, '{y}-{m}-{d} {h}:{i}:{s}')" readonly borderless/>
-        <co-field class="col-12" form-label="创建人" :value="form.createUser" readonly borderless/>
-        <co-field class="col-12" form-label="修改时间" :value="parseTime(form.updateTime, '{y}-{m}-{d} {h}:{i}:{s}')" readonly borderless/>
-        <co-field class="col-12" form-label="修改人" :value="form.updateUser" readonly borderless/>
+        <co-field class="col-12" form-label="ID" :value="form.id" readonly/>
+        <co-field class="col-12" form-label="报告时间" :value="parseTime(form.reportTime, '{y}-{m}-{d} {h}:{i}')" readonly/>
+        <co-field class="col-12" form-label="流水号" :value="form.reportNo" readonly/>
+        <co-field class="col-12" form-label="就诊人" :value="`${form.patientNo} - ${form.patientName} - ${form.patientGender} - ${form.patientAge}`" readonly/>
+        <co-field class="col-12" form-label="姓名" :value="form.patientName" readonly/>
+        <co-field class="col-12" form-label="科室" :value="form.departmentName" readonly/>
+        <co-field class="col-12" form-label="医嘱" :value="form.doctorAdvice" readonly/>
+        <co-field class="col-12" form-label="标本类型" :value="form.specimanType" readonly/>
+        <co-field class="col-12" form-label="诊断" :value="form.diagnosis" readonly/>
+        <co-field class="col-12" form-label="染色体核型结果" :value="form.karyotypeResult" readonly/>
+        <co-field class="col-12" form-label="早筛报告时间" :value="parseTime(form.firstPregencyReportTime, '{y}-{m}-{d} {h}:{i}')" readonly/>
+        <co-field class="col-12" form-label="PAPPMOM(早筛)" :value="form.firstPappmom" readonly/>
+        <co-field class="col-12" form-label="FHCGMOM(早筛)" :value="form.firstFhcgmom" readonly/>
+        <co-field class="col-12" form-label="T21风险值(早筛)" :value="form.firstT21Risk" readonly/>
+        <co-field class="col-12" form-label="T18风险值(早筛)" :value="form.firstT18Risk" readonly/>
+        <co-field class="col-12" form-label="中筛报告时间" :value="parseTime(form.secondPregencyReportTime, '{y}-{m}-{d} {h}:{i}')" readonly/>
+        <co-field class="col-12" form-label="AFPMOM(中筛)" :value="form.secondAfpmom" readonly/>
+        <co-field class="col-12" form-label="FHCGMOM(中筛)" :value="form.secondFhcgmom" readonly/>
+        <co-field class="col-12" form-label="E3MOM(中筛)" :value="form.secondE3mom" readonly/>
+        <co-field class="col-12" form-label="T21风险值(中筛)" :value="form.secondT21Risk" readonly/>
+        <co-field class="col-12" form-label="T18风险值(中筛)" :value="form.secondT18Risk" readonly/>
+        <co-field class="col-12" form-label="无创报告时间" :value="parseTime(form.niptReportTime, '{y}-{m}-{d} {h}:{i}')" readonly/>
+        <co-field class="col-12" form-label="无创筛查" :value="form.niptScreening" readonly/>
+        <co-field class="col-12" form-label="无创补充报告时间" :value="parseTime(form.niptReplenishReportTime, '{y}-{m}-{d} {h}:{i}')" readonly/>
+        <co-field class="col-12" form-label="无创筛查补充" :value="form.niptScreeningReplenish" readonly/>
+        <co-field class="col-12" form-label="备注" :value="form.remarks" readonly/>
+        <co-field class="col-12" form-label="创建时间" :value="parseTime(form.createTime, '{y}-{m}-{d} {h}:{i}:{s}')" readonly/>
+        <co-field class="col-12" form-label="创建人" :value="form.createUser" readonly/>
+        <co-field class="col-12" form-label="修改时间" :value="parseTime(form.updateTime, '{y}-{m}-{d} {h}:{i}:{s}')" readonly/>
+        <co-field class="col-12" form-label="修改人" :value="form.updateUser" readonly/>
       </co-form>
       <q-card-actions class="q-px-lg q-pt-lg q-pb-md" align="right">
         <co-btn label="取消" flat v-close-popup/>
@@ -63,6 +60,7 @@
 
     <co-dialog
       ref="uploadDialog"
+      :title="'导入 ' + crud.status.title"
       no-backdrop-dismiss
       card-style="max-width:95vw;"
     >
@@ -71,8 +69,9 @@
         :factory="factoryFn"
         field-name="files"
         label="请选择文件"
-        multiple
-        accept=".xlsx"
+        @uploaded="uploaderUploaded"
+        @failed="uploaderFailed"
+        accept=".xlsx,.xls"
       />
     </co-dialog>
 
@@ -90,8 +89,13 @@
         @row-click="(evt, row, index) => crud.selections = [row]"
         @row-dblclick="(evt, row, index) => crud.toView(row)"
     >
-      <template v-slot:top-left>
+      <template v-slot:top-left v-if="!simplify">
         <div class='row q-col-gutter-x-sm q-col-gutter-y-xs q-pa-xs full-width'>
+          <co-toggle
+             label="已看"
+             v-model="query.viewed"
+             toggle-indeterminate
+             @input="crud.toQuery()"/>
           <co-input
               v-model="query.patientName"
               label="姓名/首字母"
@@ -207,8 +211,8 @@
       <template v-slot:top-right="props">
         <div class='row q-col-gutter-x-sm q-col-gutter-y-xs q-pa-xs full-width'>
           <!--如果想在工具栏加入更多按钮，可以使用插槽方式， 'start' or 'end'-->
-          <crud-operation :permission="permission" no-label no-view no-edit has-download>
-            <co-btn slot="start" icon="vertical_align_top" color="secondary" @click="$refs.uploadDialog.show()"/>
+          <crud-operation :permission="permission" no-label no-view no-add no-del no-edit has-download>
+            <co-btn slot="start" icon="vertical_align_top" color="secondary" @click="$refs.uploadDialog.show()" v-if="!simplify"/>
           </crud-operation>
           <div>
             <co-btn-dropdown color="primary" class="btn-dropdown-hide-droparrow" icon="apps" auto-close>
@@ -223,6 +227,12 @@
         </div>
       </template>
 
+      <template v-slot:body-cell-patientName="props" v-if="!simplify">
+        <q-td key="patientName" :props="props">
+          <router-link :to="{name:'Trace', query: {patientNo: props.row.patientNo}}">{{props.row.patientName}}</router-link>
+        </q-td>
+      </template>
+
       <template v-slot:body-cell-action="props">
         <q-td key="action" :props="props">
           <crud-row
@@ -231,13 +241,15 @@
               :permission="permission"
               flat
               no-add
+              no-edit
+              no-del
               no-icon
           />
         </q-td>
       </template>
 
       <template v-slot:pagination>
-        <crud-pagination />
+        <crud-pagination no-page-if-only-one-page input />
       </template>
 
     </co-table>
@@ -258,10 +270,11 @@ import CrudTraceCs from '@/api/trace/trace-cs'
 
 const defaultForm = { id: null, reportTime: null, reportNo: null, patientNo: null, patientName: null, patientGender: null, patientAge: null, departmentName: null, doctorAdvice: null, specimanType: null, diagnosis: null, karyotypeResult: null, firstPregencyReportTime: null, firstPappmom: null, firstFhcgmom: null, firstT21Risk: null, firstT18Risk: null, secondPregencyReportTime: null, secondAfpmom: null, secondFhcgmom: null, secondE3mom: null, secondT21Risk: null, secondT18Risk: null, niptReportTime: null, niptScreening: null, niptReplenishReportTime: null, niptScreeningReplenish: null, remarks: null, createTime: null, createUser: null, updateTime: null, updateUser: null, patientNameLetter: null }
 
-const visibleColumns = ['reportTime', 'reportNo', 'patientName', 'specimanType', 'diagnosis', 'karyotypeResult', 'firstPregencyReportTime', 'firstPappmom', 'firstFhcgmom', 'firstT21Risk', 'firstT18Risk', 'secondPregencyReportTime', 'secondAfpmom', 'secondFhcgmom', 'secondE3mom', 'secondT21Risk', 'secondT18Risk', 'action']
+const visibleColumns = ['viewed', 'reportTime', 'reportNo', 'patientName', 'specimanType', 'diagnosis', 'karyotypeResult', 'firstPregencyReportTime', 'firstPappmom', 'firstFhcgmom', 'firstT21Risk', 'firstT18Risk', 'secondPregencyReportTime', 'secondAfpmom', 'secondFhcgmom', 'secondE3mom', 'secondT21Risk', 'secondT18Risk', 'remarks', 'action']
 // 参考：https://quasar.dev/vue-components/table#Defining-the-columns
 const columns = [
   { name: 'id', field: 'id', label: 'ID', align: 'left' },
+  { name: 'viewed', field: 'viewed', label: '已看', align: 'center', format: val => val ? 'T' : 'F' },
   { name: 'reportTime', field: 'reportTime', label: '报告时间', align: 'left', format: val => formatTime(val, '{y}-{m}-{d} {h}:{i}') },
   { name: 'reportNo', field: 'reportNo', label: '流水号', align: 'left' },
   { name: 'patientNo', field: 'patientNo', label: '登记号', align: 'left' },
@@ -304,6 +317,10 @@ export default {
     return CRUD({ columns, visibleColumns, title: '染色体核型结果', idField: 'id', sort: ['id,desc'], url: 'api/trace/trace-cs', crudMethod: { ...CrudTraceCs } })
   },
   mixins: [presenter(), header(), form(defaultForm), crud()],
+  props: {
+    simplify: Boolean,
+    patientNo: String
+  },
   data () {
     return {
       permission: {
@@ -317,6 +334,7 @@ export default {
   },
   created () {
     this.crud.updateProp('queryMore', false)
+    this.query.patientNo = this.patientNo
   },
   mounted () {
   },
@@ -343,6 +361,13 @@ export default {
           ]
         })
       })
+    },
+    uploaderUploaded (info) {
+      this.crud.notifyInfo(`导入【${info.files[0].name}】结束：` + info.xhr.responseText)
+    },
+    uploaderFailed (info) {
+      console.log('uploaderFailed', info)
+      this.crud.notifyError(`导入【${info.files[0].name}】失败：` + info.xhr.responseText)
     }
   }
 }
